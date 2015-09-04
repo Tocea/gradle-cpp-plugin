@@ -5,5 +5,6 @@ package com.tocea.gradle.plugins.cpp
  */
 class CppPluginUtils {
 
-    private static  final EXT_LIB_DI
+    public static final String ZIP_EXTENSION = "zip"
+    public static final String CLIB_EXTENSION = "clib"
 }

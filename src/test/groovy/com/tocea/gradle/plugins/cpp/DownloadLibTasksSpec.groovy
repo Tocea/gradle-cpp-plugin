@@ -13,7 +13,7 @@ import spock.lang.Specification
 class DownloadLibTasksSpec extends Specification {
 
 
-    def projecDir = new File("build/tmp")
+    def projecDir = new File("build/tmp/dlLibProjectTest")
 
     Project project = ProjectBuilder.builder().withProjectDir(projecDir).build()
     RepositoryHandler repositories = project.repositories
@@ -29,29 +29,66 @@ class DownloadLibTasksSpec extends Specification {
 
         configurations.create("compile")
         configurations.compile.transitive = false
-//        configurations {
-
-//            compile {
-//                description = 'compile classpath'
-//                transitive = false
-//            }
-//        }
         dependencies.add("compile", "junit:junit:4.11")
-//        dependencies {
-         //   compile "junit:junit:4.11"
-//        }
+
 
         when:
         downloadTask.execute()
         def extLib = new File(projecDir, "build/extLib")
         def junitDir = new File(extLib, "junit-4.11")
+
+
         then:
-
-
         junitDir.exists()
         junitDir.isDirectory()
         extLib.list().length == 1
 
 
     }
+
+    def "download junit in extlib folder2"() {
+
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+
+            repositories {
+                repositories.mavenCentral()
+            }
+
+            configurations {
+                compile {
+                    description = 'compile classpath'
+                    transitive = false
+                }
+            }
+
+            dependencies {
+                compile "junit:junit:4.11"
+            }
+
+
+        }
+
+
+        when:
+        downloadTask.execute()
+        def extLib = new File(projecDir, "build/extLib")
+        def junitDir = new File(extLib, "junit-4.11")
+
+
+        then:
+        junitDir.exists()
+        junitDir.isDirectory()
+        extLib.list().length == 1
+
+
+    }
+
+    def cleanup() {
+        println('Cleaning up after a test!')
+        project.tasks["clean"].execute()
+    }
+
+
 }

@@ -13,3 +13,8 @@ class CustomTasks extends DefaultTask  {
         println '------------showMessage-------------------'
     }
 }
+
+
+class GreetingPluginExtension {
+    def String message = 'Hello from GreetingPlugin'
+}
