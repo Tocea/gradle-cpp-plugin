@@ -1,9 +1,10 @@
-package com.tocea.gradle.plugins.cpp
+package com.tocea.gradle.plugins.cpp.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.internal.file.archive.ZipFileTree
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 /**
@@ -12,7 +13,7 @@ import org.gradle.api.tasks.TaskAction
 class DownloadLibTasks extends DefaultTask {
 
 
-    @Input
+    @OutputDirectory
     File extLibLocation = new File(project.buildDir,'extLib')
 
 

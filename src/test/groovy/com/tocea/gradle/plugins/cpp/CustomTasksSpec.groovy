@@ -1,5 +1,6 @@
 package com.tocea.gradle.plugins.cpp
 
+import com.tocea.gradle.plugins.cpp.tasks.CustomTasks
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification

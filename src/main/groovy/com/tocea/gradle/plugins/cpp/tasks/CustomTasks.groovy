@@ -1,4 +1,4 @@
-package com.tocea.gradle.plugins.cpp
+package com.tocea.gradle.plugins.cpp.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction

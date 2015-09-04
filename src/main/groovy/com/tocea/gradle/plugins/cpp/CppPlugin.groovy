@@ -1,5 +1,9 @@
 package com.tocea.gradle.plugins.cpp
 
+import com.tocea.gradle.plugins.cpp.model.CMake
+import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
+import com.tocea.gradle.plugins.cpp.tasks.CustomTasks
+import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTasks
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.distribution.DistributionContainer
@@ -24,12 +28,17 @@ class CppPlugin implements Plugin<Project> {
 
 
 
-        _project.task('downloadLibs', type: DownloadLibTasks, group: 'build')
+       DownloadLibTasks dlTask = _project.task('downloadLibs', type: DownloadLibTasks, group: 'build')
+       CMakeTasks cmake =  _project.task('cmake', type: CMakeTasks, group: 'build')
         _project.task('customTask', type: CustomTasks)
+
+        cmake.dependsOn dlTask
 
 
         DistributionContainer distrib = _project.extensions["distributions"]
-        distrib.getByName("main").contents { from "${_project.buildDir}/tmp" }
+        distrib["main"].contents {
+            from "${_project.buildDir}/tmp"
+        }
 
         Zip distZip = _project.tasks["distZip"]
 
@@ -46,7 +55,7 @@ class CppPlugin implements Plugin<Project> {
 
     private void configureArchive(Project _project, Zip _distZip) {
         CppPluginExtension cpp = _project.extensions["cpp"]
-        _distZip.classifier = cpp.archictecture
+        _distZip.classifier = cpp.classifier
 
         switch (cpp.applicationType) {
             case ApplicationType.clibrary:
@@ -73,7 +82,8 @@ class CppPlugin implements Plugin<Project> {
 
 class CppPluginExtension {
     def ApplicationType applicationType = ApplicationType.clibrary
-    def String archictecture = "UNKNOWN_ARCHITECTURE"
+    def String classifier = ""
+    def CMake cmake = new CMake()
 }
 
 enum ApplicationType {

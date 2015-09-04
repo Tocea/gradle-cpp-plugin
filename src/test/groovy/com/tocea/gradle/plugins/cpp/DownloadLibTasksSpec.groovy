@@ -1,5 +1,6 @@
 package com.tocea.gradle.plugins.cpp
 
+import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTasks
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.dsl.DependencyHandler
@@ -21,32 +22,9 @@ class DownloadLibTasksSpec extends Specification {
     DependencyHandler dependencies = project.dependencies
     DownloadLibTasks downloadTask = project.task('downloadLib', type: DownloadLibTasks)
 
+
+
     def "download junit in extlib folder"() {
-
-        given:
-
-        repositories.add(repositories.mavenCentral())
-
-        configurations.create("compile")
-        configurations.compile.transitive = false
-        dependencies.add("compile", "junit:junit:4.11")
-
-
-        when:
-        downloadTask.execute()
-        def extLib = new File(projecDir, "build/extLib")
-        def junitDir = new File(extLib, "junit-4.11")
-
-
-        then:
-        junitDir.exists()
-        junitDir.isDirectory()
-        extLib.list().length == 1
-
-
-    }
-
-    def "download junit in extlib folder2"() {
 
         given:
         project.with {

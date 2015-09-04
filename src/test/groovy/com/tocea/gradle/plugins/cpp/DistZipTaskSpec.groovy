@@ -2,9 +2,6 @@ package com.tocea.gradle.plugins.cpp
 
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ConfigurationContainer
-import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
@@ -18,31 +15,36 @@ import java.util.zip.ZipFile
 class DistZipTaskSpec extends Specification {
 
 
-    def projecDir = new File(".", "build/tmp/distZipTest")
+    def projectDir = new File(".", "build/tmp/distZipTest")
 
-    Project project = ProjectBuilder.builder().withProjectDir(projecDir).build()
+    Project project = ProjectBuilder.builder().withProjectDir(projectDir).build()
 
 
     def "check zip created"() {
         given:
-        project.pluginManager.apply "com.tocea.gradle.cpp"
-        Zip distZip = project.getTasks().getByName("distZip")
 
-        CppPluginExtension cpp = project.extensions["cpp"]
-        cpp.with {
-            applicationType "clibrary"
-            archictecture "lin_x86_64"
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+
+            cpp.with {
+                applicationType "clibrary"
+                classifier "lin_x86_64"
+            }
         }
-
 
         copy()
 
+
         when:
+        project.evaluate()
+        Zip distZip = project.tasks["distZip"]
         distZip.execute()
-        ZipFile file = new ZipFile(new File(projecDir, "build/distributions/test-lin_x86_64.clib"))
+        ZipFile file = new ZipFile(new File(projectDir, "build/distributions/test-lin_x86_64.clib"))
         file.entries().each { println it.name }
+
         then:
-        file.entries().toList().isEmpty() == false
+       !file.entries().toList().isEmpty()
         file.getEntry("test-lin_x86_64") != null
         file.getEntry("test-lin_x86_64/lib") != null
         file.getEntry("test-lin_x86_64/lib/hello") != null
@@ -55,52 +57,58 @@ class DistZipTaskSpec extends Specification {
 
     def "check zip has valid extension and classifier"() {
         given:
-        project.pluginManager.apply "com.tocea.gradle.cpp"
-        Zip distZip = project.getTasks().getByName("distZip")
+
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+
+            cpp.with {
+                applicationType "clibrary"
+                classifier "lin_x86_64"
+            }
+        }
 
         copy()
 
-        CppPluginExtension cpp = project.extensions["cpp"]
-        cpp.with {
-            applicationType "clibrary"
-            archictecture "lin_x86_64"
-        }
-
-
         when:
+        project.evaluate()
+        Zip distZip = project.tasks["distZip"]
         distZip.execute()
 
         then:
-        new File(projecDir, "build/distributions/test-lin_x86_64.clib").exists()
+        new File(projectDir, "build/distributions/test-lin_x86_64.clib").exists()
 
     }
 
     def copy() {
-        FileUtils.copyDirectory(new File("src/test/resources/distZipTest"), new File(projecDir, "build/tmp"))
+        FileUtils.copyDirectory(new File("src/test/resources/distZipTest"), new File(projectDir, "build/tmp"))
     }
 
     def "check change packaging type to clib"() {
         given:
-       // project.pluginManager.apply "com.tocea.gradle.cpp"
+        // project.pluginManager.apply "com.tocea.gradle.cpp"
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+
+            cpp.with {
+                applicationType "clibrary"
+                classifier "lin_x86_64"
+            }
 
         }
-        Zip distZip = project.tasks["distZip"]
         copy()
 
         CppPluginExtension cpp = project.extensions["cpp"]
-        cpp.with {
-            applicationType "clibrary"
-            archictecture "lin_x86_64"
-        }
+
 
         when:
         project.evaluate()
+        Zip distZip = project.tasks["distZip"]
         distZip.execute()
 
         then:
-        new File(projecDir, "build/distributions/test-lin_x86_64.clib").exists()
+        new File(projectDir, "build/distributions/test-lin_x86_64.clib").exists()
 
     }
 
@@ -110,24 +118,23 @@ class DistZipTaskSpec extends Specification {
         // project.pluginManager.apply "com.tocea.gradle.cpp"
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
 
+            cpp.with {
+                applicationType "capplication"
+                classifier "lin_x86_64"
+            }
         }
-        Zip distZip = project.tasks["distZip"]
         copy()
 
-        CppPluginExtension cpp = project.extensions["cpp"]
-        cpp.with {
-            applicationType "capplication"
-            archictecture "lin_x86_64"
-
-        }
 
         when:
         project.evaluate()
+        Zip distZip = project.tasks["distZip"]
         distZip.execute()
 
         then:
-        new File(projecDir, "build/distributions/test-lin_x86_64.zip").exists()
+        new File(projectDir, "build/distributions/test-lin_x86_64.zip").exists()
 
     }
 
@@ -137,23 +144,23 @@ class DistZipTaskSpec extends Specification {
         // project.pluginManager.apply "com.tocea.gradle.cpp"
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
 
+            cpp.with {
+                applicationType "capplication"
+
+            }
         }
-        Zip distZip = project.tasks["distZip"]
         copy()
 
-        CppPluginExtension cpp = project.extensions["cpp"]
-        cpp.with {
-            applicationType "capplication"
-
-        }
 
         when:
         project.evaluate()
+        Zip distZip = project.tasks["distZip"]
         distZip.execute()
 
         then:
-        new File(projecDir, "build/distributions/test-UNKNOWN_ARCHITECTURE.zip").exists()
+        new File(projectDir, "build/distributions/test.zip").exists()
 
     }
 
