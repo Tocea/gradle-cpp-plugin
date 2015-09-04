@@ -28,11 +28,10 @@ class CppPlugin implements Plugin<Project> {
         _project.task('customTask', type: CustomTasks)
 
 
-        DistributionContainer distrib = _project.extensions.getByType(DistributionContainer)
-        distrib.getByName("main").contents { from "build/tmp" }
+        DistributionContainer distrib = _project.extensions["distributions"]
+        distrib.getByName("main").contents { from "${_project.buildDir}/tmp" }
 
         Zip distZip = _project.tasks["distZip"]
-        distZip.classifier = "lin_x86_64"
 
         _project.extensions.create("cpp", CppPluginExtension)
 

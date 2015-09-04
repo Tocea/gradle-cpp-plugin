@@ -132,8 +132,33 @@ class DistZipTaskSpec extends Specification {
     }
 
 
+    def "check packaging without architecture information"() {
+        given:
+        // project.pluginManager.apply "com.tocea.gradle.cpp"
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+
+        }
+        Zip distZip = project.tasks["distZip"]
+        copy()
+
+        CppPluginExtension cpp = project.extensions["cpp"]
+        cpp.with {
+            applicationType "capplication"
+
+        }
+
+        when:
+        project.evaluate()
+        distZip.execute()
+
+        then:
+        new File(projecDir, "build/distributions/test-UNKNOWN_ARCHITECTURE.zip").exists()
+
+    }
+
     def cleanup() {
         println('Cleaning up after a test!')
-//        project.tasks["clean"].execute()
+        project.tasks["clean"].execute()
     }
 }
