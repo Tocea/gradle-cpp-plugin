@@ -29,7 +29,7 @@ class CppPlugin implements Plugin<Project> {
 
 
        DownloadLibTasks dlTask = _project.task('downloadLibs', type: DownloadLibTasks, group: 'build')
-       CMakeTasks cmake =  _project.task('cmake', type: CMakeTasks, group: 'build')
+       CMakeTasks cmake =  _project.task('customCmake', type: CMakeTasks, group: 'build')
         _project.task('customTask', type: CustomTasks)
 
         cmake.dependsOn dlTask

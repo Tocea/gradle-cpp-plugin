@@ -15,24 +15,28 @@ class CmakeTasksSpec extends Specification {
     Project project = ProjectBuilder.builder().withProjectDir(projecDir).build()
 
 
-    def "chake cmake arguments"() {
+    def "check cmake arguments"() {
         given:
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
-            cpp.cmake.cmakeArgs = "toto"
+            cpp.cmake.with {
+                cmakeArgs = "-Dargs v1 --default"
+                standardOutput = new ByteArrayOutputStream()
+            }
         }
 
 
         when:
-        CMakeTasks cmake = project.tasks["cmake"]
+        CMakeTasks cmake = project.tasks["customCmake"]
         cmake.execute()
+        def output = cmake.cmakeOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
+        println "output = $output"
 
         then:
-        cpp.cmake.cmakeArgs == "toto"
-
+        cmake.cmakeOutput.toString().contains("-Dargs v1 --default")
 
     }
 }

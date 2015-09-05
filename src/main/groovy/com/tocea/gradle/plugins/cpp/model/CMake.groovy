@@ -6,4 +6,5 @@ package com.tocea.gradle.plugins.cpp.model
 class CMake {
 
     def cmakeArgs = ""
+    def standardOutput
 }
