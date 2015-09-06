@@ -53,4 +53,9 @@ class CmakeTasksSpec extends Specification {
         cmake.cmakeOutput.toString().contains("-Dargs v1 --default")
 
     }
+
+    def cleanup() {
+        println('Cleaning up after a test!')
+        project.tasks["clean"].execute()
+    }
 }

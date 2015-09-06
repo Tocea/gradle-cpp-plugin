@@ -187,6 +187,6 @@ class DistZipTaskSpec extends Specification {
 
     def cleanup() {
         println('Cleaning up after a test!')
-//        project.tasks["clean"].execute()
+        project.tasks["clean"].execute()
     }
 }

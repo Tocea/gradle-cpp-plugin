@@ -39,4 +39,5 @@ class CustomTasksSpec extends Specification {
         1 == list.get(0)
     }
 
+
 }

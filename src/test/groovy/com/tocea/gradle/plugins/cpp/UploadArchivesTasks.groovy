@@ -68,4 +68,9 @@ class UploadArchivesTasks extends Specification {
     def copy() {
         FileUtils.copyDirectory(new File("src/test/resources/distZipTest"), new File(projectDir, "build/tmp"))
     }
+
+    def cleanup() {
+        println('Cleaning up after a test!')
+        project.tasks["clean"].execute()
+    }
 }
