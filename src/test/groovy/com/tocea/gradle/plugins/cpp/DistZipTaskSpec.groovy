@@ -26,7 +26,7 @@ class DistZipTaskSpec extends Specification {
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
-
+            version = "1.0"
             cpp.with {
                 applicationType "clibrary"
                 classifier "lin_x86_64"
@@ -40,18 +40,18 @@ class DistZipTaskSpec extends Specification {
         project.evaluate()
         Zip distZip = project.tasks["distZip"]
         distZip.execute()
-        ZipFile file = new ZipFile(new File(projectDir, "build/distributions/test-lin_x86_64.clib"))
+        ZipFile file = new ZipFile(new File(projectDir, "build/distributions/test-1.0-lin_x86_64.clib"))
         file.entries().each { println it.name }
 
         then:
        !file.entries().toList().isEmpty()
-        file.getEntry("test-lin_x86_64") != null
-        file.getEntry("test-lin_x86_64/lib") != null
-        file.getEntry("test-lin_x86_64/lib/hello") != null
-        file.getEntry("test-lin_x86_64/lib/hello/Hello.so") != null
-        file.getEntry("test-lin_x86_64/headers") != null
-        file.getEntry("test-lin_x86_64/headers/hello") != null
-        file.getEntry("test-lin_x86_64/headers/hello/hello.h") != null
+        file.getEntry("test-1.0-lin_x86_64") != null
+        file.getEntry("test-1.0-lin_x86_64/lib") != null
+        file.getEntry("test-1.0-lin_x86_64/lib/hello") != null
+        file.getEntry("test-1.0-lin_x86_64/lib/hello/Hello.so") != null
+        file.getEntry("test-1.0-lin_x86_64/headers") != null
+        file.getEntry("test-1.0-lin_x86_64/headers/hello") != null
+        file.getEntry("test-1.0-lin_x86_64/headers/hello/hello.h") != null
 
     }
 
@@ -60,6 +60,8 @@ class DistZipTaskSpec extends Specification {
 
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
+            version = "1.0"
+
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.with {
@@ -76,7 +78,7 @@ class DistZipTaskSpec extends Specification {
         distZip.execute()
 
         then:
-        new File(projectDir, "build/distributions/test-lin_x86_64.clib").exists()
+        new File(projectDir, "build/distributions/test-1.0-lin_x86_64.clib").exists()
 
     }
 
@@ -90,6 +92,7 @@ class DistZipTaskSpec extends Specification {
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
+            version = "1.0"
 
             cpp.with {
                 applicationType "clibrary"
@@ -108,7 +111,7 @@ class DistZipTaskSpec extends Specification {
         distZip.execute()
 
         then:
-        new File(projectDir, "build/distributions/test-lin_x86_64.clib").exists()
+        new File(projectDir, "build/distributions/test-1.0-lin_x86_64.clib").exists()
 
     }
 
@@ -118,6 +121,8 @@ class DistZipTaskSpec extends Specification {
         // project.pluginManager.apply "com.tocea.gradle.cpp"
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
+            version = "1.0"
+
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.with {
@@ -134,7 +139,7 @@ class DistZipTaskSpec extends Specification {
         distZip.execute()
 
         then:
-        new File(projectDir, "build/distributions/test-lin_x86_64.zip").exists()
+        new File(projectDir, "build/distributions/test-1.0-lin_x86_64.zip").exists()
 
     }
 
@@ -144,6 +149,8 @@ class DistZipTaskSpec extends Specification {
         // project.pluginManager.apply "com.tocea.gradle.cpp"
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
+            version = "1.0"
+
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.with {
@@ -160,12 +167,12 @@ class DistZipTaskSpec extends Specification {
         distZip.execute()
 
         then:
-        new File(projectDir, "build/distributions/test.zip").exists()
+        new File(projectDir, "build/distributions/test-1.0.zip").exists()
 
     }
 
     def cleanup() {
         println('Cleaning up after a test!')
-        project.tasks["clean"].execute()
+//        project.tasks["clean"].execute()
     }
 }

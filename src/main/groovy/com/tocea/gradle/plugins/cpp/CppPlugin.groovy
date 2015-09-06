@@ -22,7 +22,7 @@ class CppPlugin implements Plugin<Project> {
 
     @Override
     void apply(final Project _project) {
-        _project.apply(plugin: 'base')
+//        _project.apply(plugin: 'base')
         _project.apply(plugin: 'distribution')
         _project.apply(plugin: 'maven')
 
@@ -33,6 +33,8 @@ class CppPlugin implements Plugin<Project> {
         _project.task('customTask', type: CustomTasks)
 
         cmake.dependsOn dlTask
+        _project.tasks["uploadArchives"].dependsOn  _project.tasks["distZip"]
+        _project.tasks["uploadArchives"].dependsOn  _project.tasks["distTar"]
 
 
         DistributionContainer distrib = _project.extensions["distributions"]
@@ -48,9 +50,17 @@ class CppPlugin implements Plugin<Project> {
         _project.afterEvaluate {
             // Access extension variables here, now that they are set
             configureArchive(_project, distZip)
+            configureArtifact(_project, distZip)
 
         }
 
+    }
+
+    def configureArtifact(final Project _project, Zip _distZip) {
+        _project.artifacts {
+
+            _project.artifacts.add("archives",  _distZip)
+        }
     }
 
     private void configureArchive(Project _project, Zip _distZip) {
