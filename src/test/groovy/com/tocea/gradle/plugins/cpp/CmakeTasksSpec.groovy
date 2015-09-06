@@ -3,6 +3,9 @@ package com.tocea.gradle.plugins.cpp
 import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Rule
+import org.junit.rules.TemporaryFolder
+import spock.lang.Shared
 import spock.lang.Specification
 
 /**
@@ -10,9 +13,20 @@ import spock.lang.Specification
  */
 class CmakeTasksSpec extends Specification {
 
-    def projecDir = new File(".", "build/tmp/cmakProjectTest")
 
-    Project project = ProjectBuilder.builder().withProjectDir(projecDir).build()
+    @Rule
+    TemporaryFolder tempFolder
+
+    @Shared
+    def projectDir
+
+    @Shared
+    Project project
+
+    def setup() {
+        projectDir = tempFolder.newFolder("dlLibProjectTest")
+        project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+    }
 
 
     def "check cmake arguments"() {

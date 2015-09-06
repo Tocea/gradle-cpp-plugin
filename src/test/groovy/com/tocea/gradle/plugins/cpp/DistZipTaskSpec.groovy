@@ -4,6 +4,9 @@ import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Rule
+import org.junit.rules.TemporaryFolder
+import spock.lang.Shared
 import spock.lang.Specification
 
 import java.util.zip.ZipFile
@@ -15,9 +18,20 @@ import java.util.zip.ZipFile
 class DistZipTaskSpec extends Specification {
 
 
-    def projectDir = new File(".", "build/tmp/distZipTest")
 
-    Project project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+    @Rule
+    TemporaryFolder tempFolder
+
+    @Shared
+    def projectDir
+
+    @Shared
+    Project project
+
+    def setup() {
+        projectDir = tempFolder.newFolder("dlLibProjectTest")
+        project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+    }
 
 
     def "check zip created"() {

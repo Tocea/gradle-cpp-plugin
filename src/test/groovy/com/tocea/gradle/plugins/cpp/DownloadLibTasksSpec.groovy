@@ -6,6 +6,9 @@ import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Rule
+import org.junit.rules.TemporaryFolder
+import spock.lang.Shared
 import spock.lang.Specification
 
 /**
@@ -14,14 +17,19 @@ import spock.lang.Specification
 class DownloadLibTasksSpec extends Specification {
 
 
-    def projecDir = new File("build/tmp/dlLibProjectTest")
+    @Rule
+    TemporaryFolder tempFolder
 
-    Project project = ProjectBuilder.builder().withProjectDir(projecDir).build()
-    RepositoryHandler repositories = project.repositories
-    ConfigurationContainer configurations = project.configurations
-    DependencyHandler dependencies = project.dependencies
-    DownloadLibTasks downloadTask = project.task('downloadLib', type: DownloadLibTasks)
+    @Shared
+    def projectDir
 
+    @Shared
+    Project project
+
+    def setup() {
+        projectDir = tempFolder.newFolder("dlLibProjectTest")
+        project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+    }
 
 
     def "download junit in extlib folder"() {
@@ -50,8 +58,8 @@ class DownloadLibTasksSpec extends Specification {
 
 
         when:
-        downloadTask.execute()
-        def extLib = new File(projecDir, "build/extLib")
+        project.tasks["downloadLibs"].execute()
+        def extLib = new File(projectDir, "build/extLib")
         def junitDir = new File(extLib, "junit-4.11")
 
 
