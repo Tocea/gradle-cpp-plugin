@@ -1,25 +1,27 @@
 package com.tocea.gradle.plugins.cpp.tasks
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.TaskAction
 
 /**
  * Created by jguidoux on 04/09/15.
  */
-class CMakeTasks extends  DefaultTask {
+class CMakeTasks extends DefaultTask {
 
-   def cmakeOutput
+    def cmakeOutput
+    def appArgs
+    def userOutput
 
     @TaskAction
-    void customCmake() {
-        def appArgs = project.cpp.cmake.cmakeArgs
-        def userOutput = project.cpp.cmake.standardOutput
+    void cmake() {
+
+        appArgs = project.cpp.cmake."${name}Args"
+        userOutput = project.cpp.cmake."${name}StandardOutput"
 
         project.exec {
-           commandLine  "echo"
+            commandLine "echo"
 
-            if(appArgs){
+            if (appArgs) {
                 args appArgs.split('\\s')
             }
             if (userOutput) {

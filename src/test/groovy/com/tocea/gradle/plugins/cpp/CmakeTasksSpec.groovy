@@ -36,8 +36,8 @@ class CmakeTasksSpec extends Specification {
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.cmake.with {
-                cmakeArgs = "-Dargs v1 --default"
-                standardOutput = new ByteArrayOutputStream()
+                customCmakeArgs = "-Dargs v1 --default"
+                customCmakeStandardOutput = new ByteArrayOutputStream()
             }
         }
 
@@ -51,6 +51,68 @@ class CmakeTasksSpec extends Specification {
 
         then:
         cmake.cmakeOutput.toString().contains("-Dargs v1 --default")
+
+    }
+
+    def "check compile cpp arguments"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+
+            cpp.cmake.with {
+                compileCppArgs= "-Dargs v1 --default"
+                compileCppStandardOutput = new ByteArrayOutputStream()
+            }
+        }
+
+
+        when:
+        CMakeTasks cmake = project.tasks["compileCpp"]
+        cmake.execute()
+        def output = cmake.cmakeOutput.toString()
+        CppPluginExtension cpp = project.extensions["cpp"]
+        println "output = $output"
+
+        then:
+        cmake.cmakeOutput.toString().contains("-Dargs v1 --default")
+
+    }
+
+
+    def "check cmake dynamicals properties"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+
+        }
+        CppPluginExtension cpp = project.extensions["cpp"]
+
+
+        when:
+        cpp.cmake.properties.each { println it.key}
+
+
+        then:
+        cpp.cmake.properties.containsKey("compileCppArgs")
+
+    }
+
+    def "check cmake dynamicals properties 2"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+
+        }
+        CppPluginExtension cpp = new CppPluginExtension(project)
+        cpp.cmake.metaClass.abruti
+
+        when:
+        cpp.cmake.properties.each { println it.key}
+
+
+        then:
+        cpp.cmake.properties.containsKey("compileCppArgs")
 
     }
 
