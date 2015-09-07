@@ -7,4 +7,7 @@ class CppPluginUtils {
 
     public static final String ZIP_EXTENSION = "zip"
     public static final String CLIB_EXTENSION = "clib"
+    public static final String EXT_LIB_PATH = "build/extLib"
+
+
 }

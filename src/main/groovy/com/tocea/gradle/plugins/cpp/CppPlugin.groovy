@@ -52,8 +52,10 @@ class CppPlugin implements Plugin<Project> {
 
 
 class CppPluginExtension {
-    def ApplicationType applicationType = ApplicationType.clibrary
-    def String classifier = ""
-    def CMake cmake = new CMake()
+    ApplicationType applicationType = ApplicationType.clibrary
+    String classifier = ""
+    String extLibPath = CppPluginUtils.EXT_LIB_PATH
+
+    CMake cmake = new CMake()
 }
 
