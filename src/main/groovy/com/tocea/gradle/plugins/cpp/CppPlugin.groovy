@@ -55,8 +55,8 @@ class CppPlugin implements Plugin<Project> {
     }
 
     def configureBuildTasks(Project _project) {
-//        CMakeTasks compileTask = _project.tasks["compileCpp"]
-//        compileTask.appArgs = "--compile cpp"
+        CMakeTasks compileTask = _project.tasks["compileCpp"]
+        compileTask.baseArgs = CppPluginUtils.COMPILE_CMAKE_BASE_ARG
 
     }
 

@@ -8,6 +8,8 @@ class CppPluginUtils {
     public static final String ZIP_EXTENSION = "zip"
     public static final String CLIB_EXTENSION = "clib"
     public static final String EXT_LIB_PATH = "build/extLib"
+    public static final String COMPILE_CMAKE_BASE_ARG = "compile"
+
 
 
 }
