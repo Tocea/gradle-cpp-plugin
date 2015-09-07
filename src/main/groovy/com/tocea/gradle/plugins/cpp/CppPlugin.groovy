@@ -2,7 +2,7 @@ package com.tocea.gradle.plugins.cpp
 
 import com.tocea.gradle.plugins.cpp.configurations.ArchivesConfigurations
 import com.tocea.gradle.plugins.cpp.model.ApplicationType
-import com.tocea.gradle.plugins.cpp.model.CMake
+
 import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
 import com.tocea.gradle.plugins.cpp.tasks.CustomTasks
 import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTasks
@@ -108,7 +108,6 @@ class CppPluginExtension {
         }
     }
 
-
-
 }
 
+class CMake{}
