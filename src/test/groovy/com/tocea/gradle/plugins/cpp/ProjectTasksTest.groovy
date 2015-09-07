@@ -59,6 +59,7 @@ class ProjectTasksTest extends Specification{
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
 
 
+
     }
 
     def clean() {

@@ -47,6 +47,7 @@ class CppPlugin implements Plugin<Project> {
         _project.task('customCmake', type: CMakeTasks, group: 'build')
         _project.task('compileCpp', type: CMakeTasks, group: 'build')
         _project.task('testCompileCpp', type: CMakeTasks, group: 'build')
+        _project.task('testCpp', type: CMakeTasks, group: 'build')
         _project.task('customTask', type: CustomTasks)
 
         configureBuildTasks(_project)
@@ -61,6 +62,9 @@ class CppPlugin implements Plugin<Project> {
 
         CMakeTasks testCompileTask = _project.tasks["testCompileCpp"]
         testCompileTask.baseArgs = CppPluginUtils.TEST_COMPILE_CMAKE_BASE_ARG
+
+        CMakeTasks testTask = _project.tasks["testCpp"]
+        testTask.baseArgs = CppPluginUtils.TEST_CMAKE_BASE_ARG
 
     }
 

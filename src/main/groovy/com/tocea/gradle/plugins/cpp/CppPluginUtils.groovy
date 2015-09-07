@@ -10,8 +10,5 @@ class CppPluginUtils {
     public static final String EXT_LIB_PATH = "build/extLib"
     public static final String COMPILE_CMAKE_BASE_ARG = "compile"
     public static final String TEST_COMPILE_CMAKE_BASE_ARG = "testCompile"
-
-
-
-
+    public static final String TEST_CMAKE_BASE_ARG = "test"
 }

@@ -104,6 +104,31 @@ class CmakeTasksSpec extends Specification {
 
     }
 
+    def "check test cpp arguments"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+
+            cpp.cmake.with {
+                testCppArgs= "-Dargs v1 --default"
+                testCppStandardOutput = new ByteArrayOutputStream()
+            }
+        }
+
+
+        when:
+        CMakeTasks cmake = project.tasks["testCpp"]
+        cmake.execute()
+        def output = cmake.cmakeOutput.toString()
+        CppPluginExtension cpp = project.extensions["cpp"]
+        println "output = $output"
+
+        then:
+        cmake.cmakeOutput.toString().contains("test -Dargs v1 --default")
+
+    }
+
     def "check cmake dynamicals properties"() {
         given:
         project.with {
