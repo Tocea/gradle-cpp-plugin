@@ -54,9 +54,14 @@ class ProjectTasksTest extends Specification{
             apply plugin: "com.tocea.gradle.cpp"
         }
 
+        project.tasks["check"].dependsOn.each {println it}
         then:
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
+        project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]
+        project.tasks["check"].dependsOn.contains project.tasks["testCpp"]
+
+
 
 
 

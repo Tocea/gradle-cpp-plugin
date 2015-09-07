@@ -72,6 +72,10 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks["customCmake"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
+        _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
+        _project.tasks["check"].dependsOn _project.tasks["testCpp"]
+
+
         _project.tasks["uploadArchives"].dependsOn _project.tasks["assembleDist"]
         _project.tasks["assembleDist"].dependsOn.remove _project.tasks["distTar"]
         _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distTar"]
