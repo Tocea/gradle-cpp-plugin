@@ -46,6 +46,7 @@ class CppPlugin implements Plugin<Project> {
         _project.task('downloadLibs', type: DownloadLibTasks, group: 'build')
         _project.task('customCmake', type: CMakeTasks, group: 'build')
         _project.task('compileCpp', type: CMakeTasks, group: 'build')
+        _project.task('testCompileCpp', type: CMakeTasks, group: 'build')
         _project.task('customTask', type: CustomTasks)
 
         configureBuildTasks(_project)
@@ -58,11 +59,20 @@ class CppPlugin implements Plugin<Project> {
         CMakeTasks compileTask = _project.tasks["compileCpp"]
         compileTask.baseArgs = CppPluginUtils.COMPILE_CMAKE_BASE_ARG
 
+        CMakeTasks testCompileTask = _project.tasks["testCompileCpp"]
+        testCompileTask.baseArgs = CppPluginUtils.TEST_COMPILE_CMAKE_BASE_ARG
+
     }
 
     private configureTasksDependencies(Project _project) {
         _project.tasks["customCmake"].dependsOn _project.tasks["downloadLibs"]
+        _project.tasks["compileCpp"].dependsOn _project.tasks["downloadLibs"]
+        _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["uploadArchives"].dependsOn _project.tasks["assembleDist"]
+        _project.tasks["assembleDist"].dependsOn.remove _project.tasks["distTar"]
+        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distTar"]
+
+
     }
 
 

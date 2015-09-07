@@ -45,6 +45,22 @@ class ProjectTasksTest extends Specification{
         tasks.getByName("compileCpp")
     }
 
+    def "check tasks dependencies"() {
+//        given:
+
+
+        when:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+        }
+
+        then:
+        project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
+        project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
+
+
+    }
+
     def clean() {
         println('Cleaning up after a test!')
         project.tasks["clean"].execute()
