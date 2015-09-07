@@ -74,11 +74,16 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
         _project.tasks["check"].dependsOn _project.tasks["testCpp"]
+        _project.tasks["assemble"].dependsOn _project.tasks["assembleDist"]
+        _project.tasks["build"].dependsOn _project.tasks["assemble"]
 
 
+        _project.tasks["distZip"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["uploadArchives"].dependsOn _project.tasks["assembleDist"]
-        _project.tasks["assembleDist"].dependsOn.remove _project.tasks["distTar"]
-        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distTar"]
+//        _project.tasks["assembleDist"].dependsOn.remove _project.tasks["distTar"]
+//        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distTar"]
+//        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distJar"]
+        _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
 
 
     }

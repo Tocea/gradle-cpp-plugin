@@ -2,6 +2,7 @@ package com.tocea.gradle.plugins.cpp
 
 import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
 import org.gradle.api.Project
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.TaskCollection
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Rule
@@ -54,12 +55,19 @@ class ProjectTasksTest extends Specification{
             apply plugin: "com.tocea.gradle.cpp"
         }
 
-        project.tasks["check"].dependsOn.each {println it}
+        println project.tasks["build"].dependsOn.asList()
+
         then:
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]
         project.tasks["check"].dependsOn.contains project.tasks["testCpp"]
+        project.tasks["distZip"].dependsOn.contains project.tasks["compileCpp"]
+        project.tasks["assembleDist"].dependsOn.contains project.tasks["distZip"]
+        project.tasks["assemble"].dependsOn.contains project.tasks["assembleDist"]
+        project.tasks["build"].dependsOn.contains project.tasks["assemble"]
+        project.tasks["uploadArchives"].dependsOn.contains project.tasks["build"]
+
 
 
 
