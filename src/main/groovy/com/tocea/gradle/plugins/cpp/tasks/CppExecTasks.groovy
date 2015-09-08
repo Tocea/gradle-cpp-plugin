@@ -16,7 +16,7 @@ class CppExecTasks extends DefaultTask {
 
 
     @TaskAction
-    void cmake() {
+    void exec() {
 
         initFields()
 
@@ -44,10 +44,10 @@ class CppExecTasks extends DefaultTask {
     }
 
     private void initFields() {
-        if (project.cpp.exec.cmakePath) {
-            cmakePath = project.cpp.exec.cmakePath
+        if (project.cpp.exec.execPath) {
+            cmakePath = project.cpp.exec.execPath
         }
-        if (project.cpp.exec."${name}CMakePath") {
+        if (project.cpp.exec."${name}ExecPath") {
             cmakePath = project.cpp.exec."${name}CMakePath"
         }
         if (project.cpp.exec."${name}StandardOutput") {

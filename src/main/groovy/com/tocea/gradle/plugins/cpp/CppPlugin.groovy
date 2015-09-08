@@ -56,6 +56,7 @@ class CppPlugin implements Plugin<Project> {
         _project.task('testCompileCpp', type: CppExecTasks, group: 'build')
         _project.task('testCpp', type: CppExecTasks, group: 'build')
         _project.task('customTask', type: CustomTasks)
+        configureBuildTasks(_project)
         configureTasksDependencies(_project)
 
     }
@@ -108,7 +109,7 @@ class CppPluginExtension {
         exec = new CppExecConfiguration()
         TaskCollection tasks = _project.tasks.withType(CppExecTasks)
         tasks.each {
-            exec.metaClass."${it.name}CMakePath" = ""
+            exec.metaClass."${it.name}ExecPath" = ""
             exec.metaClass."${it.name}BaseArgs" = ""
             exec.metaClass."${it.name}Args" = ""
             exec.metaClass."${it.name}StandardOutput" = null
@@ -118,7 +119,7 @@ class CppPluginExtension {
 }
 
 class CppExecConfiguration {
-    def cmakePath = "cmake"
+    def execPath = "cmake"
     Map<String, ?> env
 
 }
