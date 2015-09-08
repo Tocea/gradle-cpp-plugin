@@ -133,7 +133,7 @@ class CmakeTasksSpec extends Specification {
 
     }
 
-    def "check test cpp arguments with custom base arges"() {
+    def "check test cpp arguments with custom base args"() {
         given:
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
@@ -142,7 +142,7 @@ class CmakeTasksSpec extends Specification {
             cpp.cmake.with {
                 cmakePath = "echo"
                 testCppBaseArgs = "customTest"
-                testCppArgs= "-Dargs v1 --default"
+                testCppArgs = "-Dargs v1 --default"
                 testCppStandardOutput = new ByteArrayOutputStream()
             }
         }
@@ -157,6 +157,33 @@ class CmakeTasksSpec extends Specification {
 
         then:
         cmake.cmakeOutput.toString().contains("customTest -Dargs v1 --default")
+
+    }
+
+    def "check cutom exec for test task"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+        }
+        CppPluginExtension cpp = project.extensions["cpp"]
+
+        cpp.cmake.with {
+            cmakePath = "echo"
+            testCppCMakePath = "ls"
+            testCppBaseArgs = "/"
+            testCppArgs = ""
+            testCppStandardOutput = new ByteArrayOutputStream()
+
+        }
+
+        when:
+        CMakeTasks cmake = project.tasks["testCpp"]
+        cmake.execute()
+        def output = cmake.cmakeOutput.toString()
+        println "output = $output"
+
+        then:
+        project.tasks["testCpp"].cmakePath == "ls"
 
     }
 

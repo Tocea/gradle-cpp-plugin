@@ -8,24 +8,27 @@ import org.gradle.api.tasks.TaskAction
  */
 class CMakeTasks extends DefaultTask {
 
-    def baseArgs = ""
+    String baseArgs = ""
     def cmakePath = "cmake"
-    def appArgs = ""
+    String appArguments = ""
     def cmakeOutput
 
     @TaskAction
     void cmake() {
 
-        (appArgs, cmakeOutput) = initFields()
+        initFields()
 
+        def isWindows = System.properties['os.name'].toLowerCase().contains('windows')
+        def commandLinePrefix = isWindows ? ['cmd', '/c'] : []
         project.exec {
-            commandLine "echo"
+            executable cmakePath
+            commandLine commandLinePrefix + cmakePath
             String[] cmakeArgsArray = []
             if (baseArgs) {
                 cmakeArgsArray += baseArgs.split('\\s')
             }
-            if (appArgs) {
-                cmakeArgsArray += appArgs.split('\\s')
+            if (appArguments) {
+                cmakeArgsArray += appArguments.split('\\s')
             }
             args cmakeArgsArray
             if (cmakeOutput) {
@@ -35,9 +38,12 @@ class CMakeTasks extends DefaultTask {
 
     }
 
-    private List initFields() {
+    private void initFields() {
         if (project.cpp.cmake.cmakePath) {
-            cmakeOutput = project.cpp.cmake.cmakePath
+            cmakePath = project.cpp.cmake.cmakePath
+        }
+        if (project.cpp.cmake."${name}CMakePath") {
+            cmakePath = project.cpp.cmake."${name}CMakePath"
         }
         if (project.cpp.cmake."${name}StandardOutput") {
             cmakeOutput = project.cpp.cmake."${name}StandardOutput"
@@ -45,8 +51,8 @@ class CMakeTasks extends DefaultTask {
         if (project.cpp.cmake."${name}BaseArgs") {
             baseArgs = project.cpp.cmake."${name}BaseArgs"
         }
-        appArgs = project.cpp.cmake."${name}Args"
-        cmakeOutput = project.cpp.cmake."${name}StandardOutput"
-        [appArgs, cmakeOutput]
+        if (project.cpp.cmake."${name}Args") {
+            appArguments = project.cpp.cmake."${name}Args"
+        }
     }
 }
