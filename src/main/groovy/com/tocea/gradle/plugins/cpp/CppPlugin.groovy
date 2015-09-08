@@ -114,4 +114,6 @@ class CppPluginExtension {
 
 }
 
-class CMake{}
+class CMake{
+   def cmakePath = "cmake"
+}

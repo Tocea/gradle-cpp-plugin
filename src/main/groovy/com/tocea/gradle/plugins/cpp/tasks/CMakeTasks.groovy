@@ -8,15 +8,15 @@ import org.gradle.api.tasks.TaskAction
  */
 class CMakeTasks extends DefaultTask {
 
-    def cmakeOutput
     def baseArgs = ""
+    def cmakePath = "cmake"
     def appArgs = ""
+    def cmakeOutput
 
     @TaskAction
     void cmake() {
 
-        appArgs = project.cpp.cmake."${name}Args"
-        def userOutput = project.cpp.cmake."${name}StandardOutput"
+        (appArgs, cmakeOutput) = initFields()
 
         project.exec {
             commandLine "echo"
@@ -28,11 +28,22 @@ class CMakeTasks extends DefaultTask {
                 cmakeArgsArray += appArgs.split('\\s')
             }
             args cmakeArgsArray
-            if (userOutput) {
-                standardOutput = userOutput
-                cmakeOutput = userOutput
+            if (cmakeOutput) {
+                standardOutput = cmakeOutput
             }
         }
 
+    }
+
+    private List initFields() {
+        if (project.cpp.cmake.cmakePath) {
+            cmakeOutput = project.cpp.cmake.cmakePath
+        }
+        if (project.cpp.cmake."${name}StandardOutput") {
+            cmakeOutput = project.cpp.cmake."${name}StandardOutput"
+        }
+        appArgs = project.cpp.cmake."${name}Args"
+        cmakeOutput = project.cpp.cmake."${name}StandardOutput"
+        [appArgs, cmakeOutput]
     }
 }

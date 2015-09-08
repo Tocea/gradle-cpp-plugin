@@ -36,6 +36,7 @@ class CmakeTasksSpec extends Specification {
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.cmake.with {
+                cmakePath = "echo"
                 customCmakeArgs = "-Dargs v1 --default"
                 customCmakeStandardOutput = new ByteArrayOutputStream()
             }
@@ -61,6 +62,7 @@ class CmakeTasksSpec extends Specification {
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.cmake.with {
+                cmakePath = "echo"
                 compileCppArgs= "-Dargs v1 --default"
                 compileCppStandardOutput = new ByteArrayOutputStream()
             }
@@ -86,6 +88,7 @@ class CmakeTasksSpec extends Specification {
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.cmake.with {
+                cmakePath = "echo"
                 testCompileCppArgs= "-Dargs v1 --default"
                 testCompileCppStandardOutput = new ByteArrayOutputStream()
             }
@@ -111,6 +114,7 @@ class CmakeTasksSpec extends Specification {
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.cmake.with {
+                cmakePath = "echo"
                 testCppArgs= "-Dargs v1 --default"
                 testCppStandardOutput = new ByteArrayOutputStream()
             }
