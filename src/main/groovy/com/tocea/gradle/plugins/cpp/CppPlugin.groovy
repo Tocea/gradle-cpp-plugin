@@ -32,15 +32,21 @@ class CppPlugin implements Plugin<Project> {
         archiveConf.initDistZip()
 
 
-
         _project.afterEvaluate {
             // Access extension variables here, now that they are set
+
             archiveConf.ConfigureDistZip()
             archiveConf.configureArtifact()
+
+
+            if (_project.cpp.buildTasksEnabled) {
+                configureBuildTasksDependencies(_project)
+            }
 
         }
 
     }
+
 
     private void createTasks(Project _project) {
         _project.task('downloadLibs', type: DownloadLibTasks, group: 'dependancies')
@@ -50,9 +56,6 @@ class CppPlugin implements Plugin<Project> {
         _project.task('testCompileCpp', type: CppExecTasks, group: 'build')
         _project.task('testCpp', type: CppExecTasks, group: 'build')
         _project.task('customTask', type: CustomTasks)
-
-        configureBuildTasks(_project)
-
         configureTasksDependencies(_project)
 
     }
@@ -70,6 +73,16 @@ class CppPlugin implements Plugin<Project> {
     }
 
     private configureTasksDependencies(Project _project) {
+
+        _project.tasks["assemble"].dependsOn _project.tasks["assembleDist"]
+        _project.tasks["build"].dependsOn _project.tasks["assemble"]
+
+        _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
+
+
+    }
+
+    def configureBuildTasksDependencies(final Project _project) {
         _project.tasks["customCmake"].dependsOn _project.tasks["validateCMake"]
         _project.tasks["customCmake"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["validateCMake"]
@@ -77,18 +90,6 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
         _project.tasks["check"].dependsOn _project.tasks["testCpp"]
-        _project.tasks["assemble"].dependsOn _project.tasks["assembleDist"]
-        _project.tasks["build"].dependsOn _project.tasks["assemble"]
-
-
-        _project.tasks["distZip"].dependsOn _project.tasks["compileCpp"]
-        _project.tasks["uploadArchives"].dependsOn _project.tasks["assembleDist"]
-//        _project.tasks["assembleDist"].dependsOn.remove _project.tasks["distTar"]
-//        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distTar"]
-//        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distJar"]
-        _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
-
-
     }
 
 
@@ -97,6 +98,7 @@ class CppPlugin implements Plugin<Project> {
 
 class CppPluginExtension {
 
+    boolean buildTasksEnabled = true
     ApplicationType applicationType = ApplicationType.clibrary
     String classifier = ""
     String extLibPath = CppPluginUtils.EXT_LIB_PATH

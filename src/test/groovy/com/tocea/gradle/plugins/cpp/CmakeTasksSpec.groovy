@@ -63,7 +63,7 @@ class CmakeTasksSpec extends Specification {
 
             cpp.exec.with {
                 cmakePath = "echo"
-                compileCppArgs= "-Dargs v1 --default"
+                compileCppArgs = "-Dargs v1 --default"
                 compileCppStandardOutput = new ByteArrayOutputStream()
             }
         }
@@ -89,7 +89,7 @@ class CmakeTasksSpec extends Specification {
 
             cpp.exec.with {
                 cmakePath = "echo"
-                testCompileCppArgs= "-Dargs v1 --default"
+                testCompileCppArgs = "-Dargs v1 --default"
                 testCompileCppStandardOutput = new ByteArrayOutputStream()
             }
         }
@@ -115,7 +115,7 @@ class CmakeTasksSpec extends Specification {
 
             cpp.exec.with {
                 cmakePath = "echo"
-                testCppArgs= "-Dargs v1 --default"
+                testCppArgs = "-Dargs v1 --default"
                 testCppStandardOutput = new ByteArrayOutputStream()
             }
         }
@@ -219,11 +219,49 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        cpp.exec.properties.each { println it.key}
+        cpp.exec.properties.each { println it.key }
 
 
         then:
         cpp.exec.properties.containsKey("compileCppArgs")
+
+    }
+
+    def "check desactivate build taske"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+
+        }
+        CppPluginExtension cpp = project.extensions["cpp"]
+
+
+        when:
+        cpp.buildTasksEnabled = false
+
+
+        then:
+        !project.tasks["check"].dependsOn(project.tasks["testCpp"])
+
+
+    }
+
+
+    def "check activate build taske"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+
+        }
+
+        when:
+        CppPluginExtension cpp = project.extensions["cpp"]
+
+
+
+
+        then:
+        project.tasks["check"].dependsOn(project.tasks["testCpp"])
 
     }
 
@@ -237,7 +275,7 @@ class CmakeTasksSpec extends Specification {
         cpp.exec.metaClass.abruti
 
         when:
-        cpp.exec.properties.each { println it.key}
+        cpp.exec.properties.each { println it.key }
 
 
         then:
