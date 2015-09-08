@@ -23,7 +23,8 @@ class UploadArchivesTasks extends Specification {
 
     def setup() {
         projectDir = tempFolder.newFolder("uploadTest")
-         project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+        project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+        new File("CMakeLists.txt").createNewFile()
     }
 
     def "check upload archives"() {
@@ -60,7 +61,7 @@ class UploadArchivesTasks extends Specification {
         then:
 
         new File("${project.buildDir}/repo/com/tocea/test/1.0-SNAPSHOT/").
-                list().any {it ==~ /test-1.0-.*-lin_x86_64.clib/}
+                list().any { it ==~ /test-1.0-.*-lin_x86_64.clib/ }
 
 
     }

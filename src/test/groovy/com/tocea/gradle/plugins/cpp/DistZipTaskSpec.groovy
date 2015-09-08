@@ -31,6 +31,7 @@ class DistZipTaskSpec extends Specification {
     def setup() {
         projectDir = tempFolder.newFolder("dlLibProjectTest")
         project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+        new File("CMakeLists.txt").createNewFile()
     }
 
 

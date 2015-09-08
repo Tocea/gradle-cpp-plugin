@@ -58,7 +58,10 @@ class ProjectTasksTest extends Specification{
         println project.tasks["build"].dependsOn.asList()
 
         then:
+        project.tasks["customCmake"].dependsOn.contains project.tasks["downloadLibs"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
+        project.tasks["customCmake"].dependsOn.contains project.tasks["validateCMake"]
+        project.tasks["compileCpp"].dependsOn.contains project.tasks["validateCMake"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]
         project.tasks["check"].dependsOn.contains project.tasks["testCpp"]

@@ -6,6 +6,7 @@ import com.tocea.gradle.plugins.cpp.model.ApplicationType
 import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
 import com.tocea.gradle.plugins.cpp.tasks.CustomTasks
 import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTasks
+import com.tocea.gradle.plugins.cpp.tasks.ValidateCMakeProjectTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskCollection
@@ -43,7 +44,8 @@ class CppPlugin implements Plugin<Project> {
     }
 
     private void createTasks(Project _project) {
-        _project.task('downloadLibs', type: DownloadLibTasks, group: 'build')
+        _project.task('downloadLibs', type: DownloadLibTasks, group: 'dependancies')
+        _project.task('validateCMake', type: ValidateCMakeProjectTask, group: "validate")
         _project.task('customCmake', type: CMakeTasks, group: 'build')
         _project.task('compileCpp', type: CMakeTasks, group: 'build')
         _project.task('testCompileCpp', type: CMakeTasks, group: 'build')
@@ -69,7 +71,9 @@ class CppPlugin implements Plugin<Project> {
     }
 
     private configureTasksDependencies(Project _project) {
+        _project.tasks["customCmake"].dependsOn _project.tasks["validateCMake"]
         _project.tasks["customCmake"].dependsOn _project.tasks["downloadLibs"]
+        _project.tasks["compileCpp"].dependsOn _project.tasks["validateCMake"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
