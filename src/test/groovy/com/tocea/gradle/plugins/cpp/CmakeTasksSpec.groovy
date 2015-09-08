@@ -37,21 +37,21 @@ class CmakeTasksSpec extends Specification {
 
             cpp.exec.with {
                 execPath = "echo"
-                customCmakeArgs = "-Dargs v1 --default"
-                customCmakeStandardOutput = new ByteArrayOutputStream()
+                customExecArgs = "-Dargs v1 --default"
+                customExecStandardOutput = new ByteArrayOutputStream()
             }
         }
 
 
         when:
-        CppExecTasks cmake = project.tasks["customCmake"]
+        CppExecTasks cmake = project.tasks["customExec"]
         cmake.execute()
-        def output = cmake.cmakeOutput.toString()
+        def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.cmakeOutput.toString().contains("-Dargs v1 --default")
+        cmake.execOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -72,12 +72,12 @@ class CmakeTasksSpec extends Specification {
         when:
         CppExecTasks cmake = project.tasks["compileCpp"]
         cmake.execute()
-        def output = cmake.cmakeOutput.toString()
+        def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.cmakeOutput.toString().contains("compile -Dargs v1 --default")
+        cmake.execOutput.toString().contains("compile -Dargs v1 --default")
 
     }
 
@@ -98,12 +98,12 @@ class CmakeTasksSpec extends Specification {
         when:
         CppExecTasks cmake = project.tasks["testCompileCpp"]
         cmake.execute()
-        def output = cmake.cmakeOutput.toString()
+        def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.cmakeOutput.toString().contains("testCompile -Dargs v1 --default")
+        cmake.execOutput.toString().contains("testCompile -Dargs v1 --default")
 
     }
 
@@ -124,12 +124,12 @@ class CmakeTasksSpec extends Specification {
         when:
         CppExecTasks cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.cmakeOutput.toString()
+        def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.cmakeOutput.toString().contains("test -Dargs v1 --default")
+        cmake.execOutput.toString().contains("test -Dargs v1 --default")
 
     }
 
@@ -173,16 +173,16 @@ class CmakeTasksSpec extends Specification {
         when:
         CppExecTasks cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.cmakeOutput.toString()
+        def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.cmakeOutput.toString().contains("customTest -Dargs v1 --default")
+        cmake.execOutput.toString().contains("customTest -Dargs v1 --default")
 
     }
 
-    def "check cutom exec for test task"() {
+    def "check custom exec for test task"() {
         given:
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
@@ -201,7 +201,7 @@ class CmakeTasksSpec extends Specification {
         when:
         CppExecTasks cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.cmakeOutput.toString()
+        def output = cmake.execOutput.toString()
         println "output = $output"
 
         then:
@@ -231,17 +231,18 @@ class CmakeTasksSpec extends Specification {
         given:
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+            cpp.buildTasksEnabled = false
 
         }
-        CppPluginExtension cpp = project.extensions["cpp"]
 
 
         when:
-        cpp.buildTasksEnabled = false
+        project.evaluate()
 
 
         then:
-        !project.tasks["check"].dependsOn(project.tasks["testCpp"])
+        !project.tasks["check"].dependsOn.contains(project.tasks["testCpp"])
 
 
     }

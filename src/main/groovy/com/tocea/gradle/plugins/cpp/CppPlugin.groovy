@@ -39,8 +39,12 @@ class CppPlugin implements Plugin<Project> {
             archiveConf.configureArtifact()
 
 
-            if (_project.cpp.buildTasksEnabled) {
+
+            def enabled = _project.cpp.buildTasksEnabled
+            if (enabled) {
                 configureBuildTasksDependencies(_project)
+            } else {
+                println "no build tasks"
             }
 
         }
@@ -51,7 +55,7 @@ class CppPlugin implements Plugin<Project> {
     private void createTasks(Project _project) {
         _project.task('downloadLibs', type: DownloadLibTasks, group: 'dependancies')
         _project.task('validateCMake', type: ValidateCMakeProjectTask, group: "validate")
-        _project.task('customCmake', type: CppExecTasks, group: 'build')
+        _project.task('customExec', type: CppExecTasks, group: 'build')
         _project.task('compileCpp', type: CppExecTasks, group: 'build')
         _project.task('testCompileCpp', type: CppExecTasks, group: 'build')
         _project.task('testCpp', type: CppExecTasks, group: 'build')
@@ -84,13 +88,15 @@ class CppPlugin implements Plugin<Project> {
     }
 
     def configureBuildTasksDependencies(final Project _project) {
-        _project.tasks["customCmake"].dependsOn _project.tasks["validateCMake"]
-        _project.tasks["customCmake"].dependsOn _project.tasks["downloadLibs"]
+        _project.tasks["customExec"].dependsOn _project.tasks["validateCMake"]
+        _project.tasks["customExec"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["validateCMake"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
         _project.tasks["check"].dependsOn _project.tasks["testCpp"]
+        _project.tasks["distZip"].dependsOn _project.tasks["compileCpp"]
+
     }
 
 
@@ -99,7 +105,7 @@ class CppPlugin implements Plugin<Project> {
 
 class CppPluginExtension {
 
-    boolean buildTasksEnabled = true
+    def buildTasksEnabled = true
     ApplicationType applicationType = ApplicationType.clibrary
     String classifier = ""
     String extLibPath = CppPluginUtils.EXT_LIB_PATH

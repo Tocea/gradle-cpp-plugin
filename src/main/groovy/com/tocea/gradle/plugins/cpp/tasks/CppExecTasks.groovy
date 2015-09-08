@@ -9,9 +9,9 @@ import org.gradle.api.tasks.TaskAction
 class CppExecTasks extends DefaultTask {
 
     String baseArgs = ""
-    def cmakePath = "cmake"
+    def execPath = "cmake"
     String appArguments = ""
-    def cmakeOutput
+    def execOutput
     Map<String, ?> envVars
 
 
@@ -23,8 +23,8 @@ class CppExecTasks extends DefaultTask {
         def isWindows = System.properties['os.name'].toLowerCase().contains('windows')
         def commandLinePrefix = isWindows ? ['cmd', '/c'] : []
         project.exec {
-            executable cmakePath
-            commandLine commandLinePrefix + cmakePath
+            executable execPath
+            commandLine commandLinePrefix + execPath
             String[] cmakeArgsArray = []
             if (baseArgs) {
                 cmakeArgsArray += baseArgs.split('\\s')
@@ -36,8 +36,8 @@ class CppExecTasks extends DefaultTask {
             if (envVars) {
                 environment = envVars
             }
-            if (cmakeOutput) {
-                standardOutput = cmakeOutput
+            if (execOutput) {
+                standardOutput = execOutput
             }
         }
 
@@ -45,13 +45,13 @@ class CppExecTasks extends DefaultTask {
 
     private void initFields() {
         if (project.cpp.exec.execPath) {
-            cmakePath = project.cpp.exec.execPath
+            execPath = project.cpp.exec.execPath
         }
         if (project.cpp.exec."${name}ExecPath") {
-            cmakePath = project.cpp.exec."${name}CMakePath"
+            execPath = project.cpp.exec."${name}ExecPath"
         }
         if (project.cpp.exec."${name}StandardOutput") {
-            cmakeOutput = project.cpp.exec."${name}StandardOutput"
+            execOutput = project.cpp.exec."${name}StandardOutput"
         }
         if (project.cpp.exec."${name}BaseArgs") {
             baseArgs = project.cpp.exec."${name}BaseArgs"
