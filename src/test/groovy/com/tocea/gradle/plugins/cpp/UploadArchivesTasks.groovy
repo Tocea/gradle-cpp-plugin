@@ -24,7 +24,6 @@ class UploadArchivesTasks extends Specification {
     def setup() {
         projectDir = tempFolder.newFolder("uploadTest")
         project = ProjectBuilder.builder().withProjectDir(projectDir).build()
-        new File("CMakeLists.txt").createNewFile()
     }
 
     def "check upload archives"() {
