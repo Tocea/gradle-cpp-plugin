@@ -133,6 +133,28 @@ class CmakeTasksSpec extends Specification {
 
     }
 
+    def "check test cpp env"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+
+            cpp.cmake.with {
+                cmakePath = "echo"
+                env = ["MA_VAR": "abc"]
+            }
+        }
+
+
+        when:
+        CMakeTasks cmake = project.tasks["testCpp"]
+        cmake.execute()
+
+        then:
+        cmake.envVars["MA_VAR"] == "abc"
+
+    }
+
     def "check test cpp arguments with custom base args"() {
         given:
         project.with {

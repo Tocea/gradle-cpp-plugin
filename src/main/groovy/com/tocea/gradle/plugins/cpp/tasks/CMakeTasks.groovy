@@ -12,6 +12,8 @@ class CMakeTasks extends DefaultTask {
     def cmakePath = "cmake"
     String appArguments = ""
     def cmakeOutput
+    Map<String, ?> envVars
+
 
     @TaskAction
     void cmake() {
@@ -31,6 +33,9 @@ class CMakeTasks extends DefaultTask {
                 cmakeArgsArray += appArguments.split('\\s')
             }
             args cmakeArgsArray
+            if (envVars) {
+                environment = envVars
+            }
             if (cmakeOutput) {
                 standardOutput = cmakeOutput
             }
@@ -53,6 +58,9 @@ class CMakeTasks extends DefaultTask {
         }
         if (project.cpp.cmake."${name}Args") {
             appArguments = project.cpp.cmake."${name}Args"
+        }
+        if (project.cpp.cmake.env) {
+            envVars = project.cpp.cmake.env
         }
     }
 }

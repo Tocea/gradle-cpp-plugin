@@ -2,7 +2,6 @@ package com.tocea.gradle.plugins.cpp
 
 import com.tocea.gradle.plugins.cpp.configurations.ArchivesConfigurations
 import com.tocea.gradle.plugins.cpp.model.ApplicationType
-
 import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
 import com.tocea.gradle.plugins.cpp.tasks.CustomTasks
 import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTasks
@@ -116,6 +115,8 @@ class CppPluginExtension {
 
 }
 
-class CMake{
-   def cmakePath = "cmake"
+class CMake {
+    def cmakePath = "cmake"
+    Map<String, ?> env
+
 }
