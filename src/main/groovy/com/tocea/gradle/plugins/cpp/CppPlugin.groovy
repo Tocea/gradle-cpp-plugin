@@ -2,7 +2,7 @@ package com.tocea.gradle.plugins.cpp
 
 import com.tocea.gradle.plugins.cpp.configurations.ArchivesConfigurations
 import com.tocea.gradle.plugins.cpp.model.ApplicationType
-import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
+import com.tocea.gradle.plugins.cpp.tasks.CppExecTasks
 import com.tocea.gradle.plugins.cpp.tasks.CustomTasks
 import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTasks
 import com.tocea.gradle.plugins.cpp.tasks.ValidateCMakeProjectTask
@@ -45,10 +45,10 @@ class CppPlugin implements Plugin<Project> {
     private void createTasks(Project _project) {
         _project.task('downloadLibs', type: DownloadLibTasks, group: 'dependancies')
         _project.task('validateCMake', type: ValidateCMakeProjectTask, group: "validate")
-        _project.task('customCmake', type: CMakeTasks, group: 'build')
-        _project.task('compileCpp', type: CMakeTasks, group: 'build')
-        _project.task('testCompileCpp', type: CMakeTasks, group: 'build')
-        _project.task('testCpp', type: CMakeTasks, group: 'build')
+        _project.task('customCmake', type: CppExecTasks, group: 'build')
+        _project.task('compileCpp', type: CppExecTasks, group: 'build')
+        _project.task('testCompileCpp', type: CppExecTasks, group: 'build')
+        _project.task('testCpp', type: CppExecTasks, group: 'build')
         _project.task('customTask', type: CustomTasks)
 
         configureBuildTasks(_project)
@@ -58,13 +58,13 @@ class CppPlugin implements Plugin<Project> {
     }
 
     def configureBuildTasks(Project _project) {
-        CMakeTasks compileTask = _project.tasks["compileCpp"]
+        CppExecTasks compileTask = _project.tasks["compileCpp"]
         compileTask.baseArgs = CppPluginUtils.COMPILE_CMAKE_BASE_ARG
 
-        CMakeTasks testCompileTask = _project.tasks["testCompileCpp"]
+        CppExecTasks testCompileTask = _project.tasks["testCompileCpp"]
         testCompileTask.baseArgs = CppPluginUtils.TEST_COMPILE_CMAKE_BASE_ARG
 
-        CMakeTasks testTask = _project.tasks["testCpp"]
+        CppExecTasks testTask = _project.tasks["testCpp"]
         testTask.baseArgs = CppPluginUtils.TEST_CMAKE_BASE_ARG
 
     }
@@ -100,22 +100,22 @@ class CppPluginExtension {
     ApplicationType applicationType = ApplicationType.clibrary
     String classifier = ""
     String extLibPath = CppPluginUtils.EXT_LIB_PATH
-    CMake cmake
+    CppExecConfiguration exec
 
     CppPluginExtension(Project _project) {
-        cmake = new CMake()
-        TaskCollection tasks = _project.tasks.withType(CMakeTasks)
+        exec = new CppExecConfiguration()
+        TaskCollection tasks = _project.tasks.withType(CppExecTasks)
         tasks.each {
-            cmake.metaClass."${it.name}CMakePath" = ""
-            cmake.metaClass."${it.name}BaseArgs" = ""
-            cmake.metaClass."${it.name}Args" = ""
-            cmake.metaClass."${it.name}StandardOutput" = null
+            exec.metaClass."${it.name}CMakePath" = ""
+            exec.metaClass."${it.name}BaseArgs" = ""
+            exec.metaClass."${it.name}Args" = ""
+            exec.metaClass."${it.name}StandardOutput" = null
         }
     }
 
 }
 
-class CMake {
+class CppExecConfiguration {
     def cmakePath = "cmake"
     Map<String, ?> env
 

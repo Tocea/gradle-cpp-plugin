@@ -1,6 +1,6 @@
 package com.tocea.gradle.plugins.cpp
 
-import com.tocea.gradle.plugins.cpp.tasks.CMakeTasks
+import com.tocea.gradle.plugins.cpp.tasks.CppExecTasks
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Rule
@@ -35,7 +35,7 @@ class CmakeTasksSpec extends Specification {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
-            cpp.cmake.with {
+            cpp.exec.with {
                 cmakePath = "echo"
                 customCmakeArgs = "-Dargs v1 --default"
                 customCmakeStandardOutput = new ByteArrayOutputStream()
@@ -44,7 +44,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CMakeTasks cmake = project.tasks["customCmake"]
+        CppExecTasks cmake = project.tasks["customCmake"]
         cmake.execute()
         def output = cmake.cmakeOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -61,7 +61,7 @@ class CmakeTasksSpec extends Specification {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
-            cpp.cmake.with {
+            cpp.exec.with {
                 cmakePath = "echo"
                 compileCppArgs= "-Dargs v1 --default"
                 compileCppStandardOutput = new ByteArrayOutputStream()
@@ -70,7 +70,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CMakeTasks cmake = project.tasks["compileCpp"]
+        CppExecTasks cmake = project.tasks["compileCpp"]
         cmake.execute()
         def output = cmake.cmakeOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -87,7 +87,7 @@ class CmakeTasksSpec extends Specification {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
-            cpp.cmake.with {
+            cpp.exec.with {
                 cmakePath = "echo"
                 testCompileCppArgs= "-Dargs v1 --default"
                 testCompileCppStandardOutput = new ByteArrayOutputStream()
@@ -96,7 +96,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CMakeTasks cmake = project.tasks["testCompileCpp"]
+        CppExecTasks cmake = project.tasks["testCompileCpp"]
         cmake.execute()
         def output = cmake.cmakeOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -113,7 +113,7 @@ class CmakeTasksSpec extends Specification {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
-            cpp.cmake.with {
+            cpp.exec.with {
                 cmakePath = "echo"
                 testCppArgs= "-Dargs v1 --default"
                 testCppStandardOutput = new ByteArrayOutputStream()
@@ -122,7 +122,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CMakeTasks cmake = project.tasks["testCpp"]
+        CppExecTasks cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.cmakeOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -139,7 +139,7 @@ class CmakeTasksSpec extends Specification {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
-            cpp.cmake.with {
+            cpp.exec.with {
                 cmakePath = "echo"
                 env = ["MA_VAR": "abc"]
             }
@@ -147,7 +147,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CMakeTasks cmake = project.tasks["testCpp"]
+        CppExecTasks cmake = project.tasks["testCpp"]
         cmake.execute()
 
         then:
@@ -161,7 +161,7 @@ class CmakeTasksSpec extends Specification {
             apply plugin: "com.tocea.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
-            cpp.cmake.with {
+            cpp.exec.with {
                 cmakePath = "echo"
                 testCppBaseArgs = "customTest"
                 testCppArgs = "-Dargs v1 --default"
@@ -171,7 +171,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CMakeTasks cmake = project.tasks["testCpp"]
+        CppExecTasks cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.cmakeOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -189,7 +189,7 @@ class CmakeTasksSpec extends Specification {
         }
         CppPluginExtension cpp = project.extensions["cpp"]
 
-        cpp.cmake.with {
+        cpp.exec.with {
             cmakePath = "echo"
             testCppCMakePath = "ls"
             testCppBaseArgs = "/"
@@ -199,7 +199,7 @@ class CmakeTasksSpec extends Specification {
         }
 
         when:
-        CMakeTasks cmake = project.tasks["testCpp"]
+        CppExecTasks cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.cmakeOutput.toString()
         println "output = $output"
@@ -219,11 +219,11 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        cpp.cmake.properties.each { println it.key}
+        cpp.exec.properties.each { println it.key}
 
 
         then:
-        cpp.cmake.properties.containsKey("compileCppArgs")
+        cpp.exec.properties.containsKey("compileCppArgs")
 
     }
 
@@ -234,14 +234,14 @@ class CmakeTasksSpec extends Specification {
 
         }
         CppPluginExtension cpp = new CppPluginExtension(project)
-        cpp.cmake.metaClass.abruti
+        cpp.exec.metaClass.abruti
 
         when:
-        cpp.cmake.properties.each { println it.key}
+        cpp.exec.properties.each { println it.key}
 
 
         then:
-        cpp.cmake.properties.containsKey("compileCppArgs")
+        cpp.exec.properties.containsKey("compileCppArgs")
 
     }
 
