@@ -42,6 +42,9 @@ class CMakeTasks extends DefaultTask {
         if (project.cpp.cmake."${name}StandardOutput") {
             cmakeOutput = project.cpp.cmake."${name}StandardOutput"
         }
+        if (project.cpp.cmake."${name}BaseArgs") {
+            baseArgs = project.cpp.cmake."${name}BaseArgs"
+        }
         appArgs = project.cpp.cmake."${name}Args"
         cmakeOutput = project.cpp.cmake."${name}StandardOutput"
         [appArgs, cmakeOutput]

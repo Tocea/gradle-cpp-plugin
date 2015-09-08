@@ -107,6 +107,7 @@ class CppPluginExtension {
         cmake = new CMake()
         TaskCollection tasks = _project.tasks.withType(CMakeTasks)
         tasks.each {
+            cmake.metaClass."${it.name}BaseArgs" = ""
             cmake.metaClass."${it.name}Args" = ""
             cmake.metaClass."${it.name}StandardOutput" = null
         }
