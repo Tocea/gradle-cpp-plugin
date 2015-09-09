@@ -27,18 +27,8 @@ buildscript {
 }
 
 apply plugin: 'groovy'
-apply plugin: 'idea'
-apply plugin: "maven"
-
-//apply plugin: 'license'
-//apply from: 'gradle/publish.gradle'
 
 
-repositories {
-	mavenLocal()
-    mavenCentral()
-    jcenter()
-}
 
 dependencies {
     compile gradleApi()
@@ -59,6 +49,4 @@ task sourceJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.5'
-}
+

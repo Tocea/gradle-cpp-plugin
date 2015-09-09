@@ -40,12 +40,7 @@ class DownloadLibTasksSpec extends Specification {
                 repositories.mavenCentral()
             }
 
-            configurations {
-                compile {
-                    description = 'compile classpath'
-                    transitive = false
-                }
-            }
+
 
             dependencies {
                 compile "junit:junit:4.11"

@@ -26,7 +26,7 @@ class CppPlugin implements Plugin<Project> {
         createTasks(_project)
 
         _project.extensions.create("cpp", CppPluginExtension, _project)
-
+        projectConfigurations(_project)
         ArchivesConfigurations archiveConf = new ArchivesConfigurations(project: _project)
         archiveConf.configureDistribution()
         archiveConf.initDistZip()
@@ -49,6 +49,11 @@ class CppPlugin implements Plugin<Project> {
 
         }
 
+    }
+
+    private void projectConfigurations(Project _project) {
+            _project.configurations.create("compile")
+            _project.configurations.compile.transitive = false
     }
 
 
