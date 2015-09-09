@@ -5,6 +5,7 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -27,7 +28,8 @@ class InvalidCmakeProject extends Specification {
         project = ProjectBuilder.builder().withProjectDir(projectDir).build()
     }
 
-    def "check launch exception if file CMakeLists.txt not present" () {
+    @Ignore
+    def "check launch exception if file CMakeLists.txt not present"() {
         given:
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
@@ -40,8 +42,8 @@ class InvalidCmakeProject extends Specification {
         thrown GradleException
     }
 
-
-    def "check not launch exception if file CMakeLists.txt us present" () {
+    @Ignore
+    def "check not launch exception if file CMakeLists.txt us present"() {
         given:
         new File(project.projectDir, "CMakeLists.txt").createNewFile()
         project.with {

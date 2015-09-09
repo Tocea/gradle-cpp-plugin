@@ -84,7 +84,9 @@ class CppPlugin implements Plugin<Project> {
 
     private configureTasksDependencies(Project _project) {
 
-        _project.tasks["assemble"].dependsOn _project.tasks["assembleDist"]
+//        _project.distributions.each {
+//            _project.tasks["assemble"].dependsOn _project.tasks["assemble${it.name.capitalize()}Dist"]
+//        }
         _project.tasks["build"].dependsOn _project.tasks["assemble"]
 
         _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
