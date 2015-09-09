@@ -123,7 +123,7 @@ class CppPluginExtension {
         TaskCollection tasks = _project.tasks.withType(CppExecTask)
         tasks.each {
             exec.metaClass."${it.name}ExecPath" = ""
-            exec.metaClass."${it.name}BaseArgs" = ""
+            exec.metaClass."${it.name}BaseArgs" = null
             exec.metaClass."${it.name}Args" = ""
             exec.metaClass."${it.name}StandardOutput" = null
         }
