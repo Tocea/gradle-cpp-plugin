@@ -1,6 +1,6 @@
 package com.tocea.gradle.plugins.cpp
 
-import com.tocea.gradle.plugins.cpp.tasks.CppExecTasks
+import com.tocea.gradle.plugins.cpp.tasks.CppExecTask
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Rule
@@ -44,7 +44,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CppExecTasks cmake = project.tasks["customExec"]
+        CppExecTask cmake = project.tasks["customExec"]
         cmake.execute()
         def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -70,7 +70,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CppExecTasks cmake = project.tasks["compileCpp"]
+        CppExecTask cmake = project.tasks["compileCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -96,7 +96,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CppExecTasks cmake = project.tasks["testCompileCpp"]
+        CppExecTask cmake = project.tasks["testCompileCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -122,7 +122,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CppExecTasks cmake = project.tasks["testCpp"]
+        CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -147,7 +147,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CppExecTasks cmake = project.tasks["testCpp"]
+        CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
 
         then:
@@ -171,7 +171,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
-        CppExecTasks cmake = project.tasks["testCpp"]
+        CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -199,7 +199,7 @@ class CmakeTasksSpec extends Specification {
         }
 
         when:
-        CppExecTasks cmake = project.tasks["testCpp"]
+        CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
         println "output = $output"
