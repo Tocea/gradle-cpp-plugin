@@ -20,6 +20,7 @@ public class DownloadLibTask extends DefaultTask {
     @TaskAction
     void exec() {
 
+
         def files = project.configurations.compile.files
 
 //        extLibLocation = new  File(project.cpp.extLibPath)
