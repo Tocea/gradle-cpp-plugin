@@ -20,6 +20,7 @@ class CppPlugin implements Plugin<Project> {
     void apply(final Project _project) {
         _project.apply(plugin: 'distribution')
         _project.apply(plugin: 'maven')
+		_project.apply(plugin: 'cpptask')
 
 
 

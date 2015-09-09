@@ -35,6 +35,7 @@ apply plugin: "maven"
 
 
 repositories {
+	mavenLocal()
     mavenCentral()
     jcenter()
 }
