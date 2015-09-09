@@ -20,7 +20,6 @@ class CppPlugin implements Plugin<Project> {
     void apply(final Project _project) {
         _project.apply(plugin: 'distribution')
         _project.apply(plugin: 'maven')
-		_project.apply(plugin: 'cpptask')
 
 
 
@@ -33,27 +32,35 @@ class CppPlugin implements Plugin<Project> {
         archiveConf.initDistZip()
 
 
-
         _project.afterEvaluate {
             // Access extension variables here, now that they are set
+
             archiveConf.ConfigureDistZip()
             archiveConf.configureArtifact()
+
+
+
+            def enabled = _project.cpp.buildTasksEnabled
+            if (enabled) {
+                configureBuildTasksDependencies(_project)
+            } else {
+                println "no build tasks"
+            }
 
         }
 
     }
 
+
     private void createTasks(Project _project) {
         _project.task('downloadLibs', type: DownloadLibTask, group: 'dependancies')
         _project.task('validateCMake', type: ValidateCMakeProjectTask, group: "validate")
-        _project.task('customCmake', type: CppExecTask, group: 'build')
+        _project.task('customExec', type: CppExecTask, group: 'build')
         _project.task('compileCpp', type: CppExecTask, group: 'build')
         _project.task('testCompileCpp', type: CppExecTask, group: 'build')
         _project.task('testCpp', type: CppExecTask, group: 'build')
         _project.task('customTask', type: CustomTask)
-
         configureBuildTasks(_project)
-
         configureTasksDependencies(_project)
 
     }
@@ -71,24 +78,24 @@ class CppPlugin implements Plugin<Project> {
     }
 
     private configureTasksDependencies(Project _project) {
-        _project.tasks["customCmake"].dependsOn _project.tasks["validateCMake"]
-        _project.tasks["customCmake"].dependsOn _project.tasks["downloadLibs"]
+
+        _project.tasks["assemble"].dependsOn _project.tasks["assembleDist"]
+        _project.tasks["build"].dependsOn _project.tasks["assemble"]
+
+        _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
+
+
+    }
+
+    def configureBuildTasksDependencies(final Project _project) {
+        _project.tasks["customExec"].dependsOn _project.tasks["validateCMake"]
+        _project.tasks["customExec"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["validateCMake"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
         _project.tasks["check"].dependsOn _project.tasks["testCpp"]
-        _project.tasks["assemble"].dependsOn _project.tasks["assembleDist"]
-        _project.tasks["build"].dependsOn _project.tasks["assemble"]
-
-
         _project.tasks["distZip"].dependsOn _project.tasks["compileCpp"]
-        _project.tasks["uploadArchives"].dependsOn _project.tasks["assembleDist"]
-//        _project.tasks["assembleDist"].dependsOn.remove _project.tasks["distTar"]
-//        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distTar"]
-//        _project.tasks["uploadArchives"].dependsOn.remove _project.tasks["distJar"]
-        _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
-
 
     }
 
@@ -98,6 +105,7 @@ class CppPlugin implements Plugin<Project> {
 
 class CppPluginExtension {
 
+    def buildTasksEnabled = true
     ApplicationType applicationType = ApplicationType.clibrary
     String classifier = ""
     String extLibPath = CppPluginUtils.EXT_LIB_PATH
@@ -107,7 +115,7 @@ class CppPluginExtension {
         exec = new CppExecConfiguration()
         TaskCollection tasks = _project.tasks.withType(CppExecTask)
         tasks.each {
-            exec.metaClass."${it.name}CMakePath" = ""
+            exec.metaClass."${it.name}ExecPath" = ""
             exec.metaClass."${it.name}BaseArgs" = ""
             exec.metaClass."${it.name}Args" = ""
             exec.metaClass."${it.name}StandardOutput" = null
@@ -117,7 +125,7 @@ class CppPluginExtension {
 }
 
 class CppExecConfiguration {
-    def cmakePath = "cmake"
+    def execPath = "cmake"
     Map<String, ?> env
 
 }

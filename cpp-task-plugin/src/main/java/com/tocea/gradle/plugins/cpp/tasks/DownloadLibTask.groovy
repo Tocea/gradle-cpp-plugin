@@ -10,7 +10,7 @@ import org.gradle.api.tasks.TaskAction
 /**
  * Created by jguidoux on 03/09/15.
  */
-class DownloadLibTask extends DefaultTask {
+public class DownloadLibTask extends DefaultTask {
 
 
     @OutputDirectory

@@ -7,7 +7,7 @@ import org.gradle.model.InvalidModelRuleDeclarationException
 /**
  * Created by jguidoux on 08/09/15.
  */
-class ValidateCMakeProjectTask extends DefaultTask {
+public class ValidateCMakeProjectTask extends DefaultTask {
 
     @TaskAction
     void valdateCmake() {

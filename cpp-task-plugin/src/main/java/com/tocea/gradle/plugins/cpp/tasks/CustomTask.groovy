@@ -6,7 +6,7 @@ import org.gradle.api.tasks.TaskAction
 /**
  * Created by jguidoux on 03/09/15.
  */
-class CustomTask extends DefaultTask  {
+public class CustomTask extends DefaultTask  {
 
     @TaskAction
     showMessage() {

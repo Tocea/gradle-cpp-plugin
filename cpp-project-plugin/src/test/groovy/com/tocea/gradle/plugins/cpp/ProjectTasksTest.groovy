@@ -41,25 +41,27 @@ class ProjectTasksTest extends Specification{
         tasks.each{ println it.name}
 
         then:
-        tasks.getByName("customCmake")
+        tasks.getByName("customExec")
         tasks.getByName("compileCpp")
     }
 
     def "check tasks dependencies"() {
-//        given:
 
-
-        when:
+       given:
         project.with {
             apply plugin: "com.tocea.gradle.cpp"
         }
 
+        when:
+        project.evaluate()
+
+
         println project.tasks["build"].dependsOn.asList()
 
         then:
-        project.tasks["customCmake"].dependsOn.contains project.tasks["downloadLibs"]
+        project.tasks["customExec"].dependsOn.contains project.tasks["downloadLibs"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
-        project.tasks["customCmake"].dependsOn.contains project.tasks["validateCMake"]
+        project.tasks["customExec"].dependsOn.contains project.tasks["validateCMake"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["validateCMake"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]

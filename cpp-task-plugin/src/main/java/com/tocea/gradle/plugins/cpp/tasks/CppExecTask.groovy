@@ -6,25 +6,25 @@ import org.gradle.api.tasks.TaskAction
 /**
  * Created by jguidoux on 04/09/15.
  */
-class CppExecTask extends DefaultTask {
+public class CppExecTask extends DefaultTask {
 
     String baseArgs = ""
-    def cmakePath = "cmake"
+    def execPath = "cmake"
     String appArguments = ""
-    def cmakeOutput
+    def execOutput
     Map<String, ?> envVars
 
 
     @TaskAction
-    void cmake() {
+    void exec() {
 
         initFields()
 
         def isWindows = System.properties['os.name'].toLowerCase().contains('windows')
         def commandLinePrefix = isWindows ? ['cmd', '/c'] : []
         project.exec {
-            executable cmakePath
-            commandLine commandLinePrefix + cmakePath
+            executable execPath
+            commandLine commandLinePrefix + execPath
             String[] cmakeArgsArray = []
             if (baseArgs) {
                 cmakeArgsArray += baseArgs.split('\\s')
@@ -36,22 +36,22 @@ class CppExecTask extends DefaultTask {
             if (envVars) {
                 environment = envVars
             }
-            if (cmakeOutput) {
-                standardOutput = cmakeOutput
+            if (execOutput) {
+                standardOutput = execOutput
             }
         }
 
     }
 
     private void initFields() {
-        if (project.cpp.exec.cmakePath) {
-            cmakePath = project.cpp.exec.cmakePath
+        if (project.cpp.exec.execPath) {
+            execPath = project.cpp.exec.execPath
         }
-        if (project.cpp.exec."${name}CMakePath") {
-            cmakePath = project.cpp.exec."${name}CMakePath"
+        if (project.cpp.exec."${name}ExecPath") {
+            execPath = project.cpp.exec."${name}ExecPath"
         }
         if (project.cpp.exec."${name}StandardOutput") {
-            cmakeOutput = project.cpp.exec."${name}StandardOutput"
+            execOutput = project.cpp.exec."${name}StandardOutput"
         }
         if (project.cpp.exec."${name}BaseArgs") {
             baseArgs = project.cpp.exec."${name}BaseArgs"
