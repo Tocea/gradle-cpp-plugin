@@ -1,2 +1,4 @@
 rootProject.name = 'cpp'
 
+include "cpp-task-plugin"
+include "cpp-project-plugin"
