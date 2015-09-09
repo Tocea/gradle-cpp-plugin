@@ -88,7 +88,7 @@ class CppPlugin implements Plugin<Project> {
 //            _project.tasks["assemble"].dependsOn _project.tasks["assemble${it.name.capitalize()}Dist"]
 //        }
         _project.tasks["build"].dependsOn _project.tasks["assemble"]
-
+        _project.tasks["distZip"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
 
 
