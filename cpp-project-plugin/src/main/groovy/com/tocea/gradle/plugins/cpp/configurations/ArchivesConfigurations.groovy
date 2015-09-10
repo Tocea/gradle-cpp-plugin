@@ -5,6 +5,7 @@ import com.tocea.gradle.plugins.cpp.CppPluginUtils
 import com.tocea.gradle.plugins.cpp.model.ApplicationType
 import org.gradle.api.Project
 import org.gradle.api.distribution.DistributionContainer
+import org.gradle.api.tasks.Upload
 import org.gradle.api.tasks.bundling.Zip
 
 /**
@@ -21,32 +22,41 @@ class ArchivesConfigurations {
         }
     }
 
+    def configureUpload(){
+       Upload install =  project.tasks["install"]
+        install.configuration = project.configurations.getByName("cArchives")
+        Upload upload =  project.tasks["uploadArchives"]
+        upload.configuration = project.configurations.getByName("cArchives")
+    }
+
     def ConfigureDistZip() {
-        Zip distZip = project.tasks["distZip"]
-        configureArchive(distZip)
+        Zip cppArchive = project.tasks["distZip"]
+        configureArchive(cppArchive)
     }
 
     def configureArtifact() {
-        Zip distZip = project.tasks["distZip"]
+        project.configurations.create("cArchives")
+        Zip cppArchive = project.tasks["distZip"]
         project.artifacts {
 
-            project.artifacts.add("archives",  distZip)
+            project.artifacts.add("cArchives",  cppArchive)
         }
+        configureUpload()
     }
 
-    private void configureArchive(Zip _distZip) {
+    private void configureArchive(Zip _cppArchive) {
         CppPluginExtension cpp = project.extensions["cpp"]
-        _distZip.classifier = cpp.classifier
+        _cppArchive.classifier = cpp.classifier
 
         switch (cpp.applicationType) {
             case ApplicationType.clibrary:
-                configureCLibrary(_distZip)
+                configureCLibrary(_cppArchive)
                 break
             case ApplicationType.capplication:
-                configureCApplcation(_distZip)
+                configureCApplcation(_cppArchive)
                 break
             default:
-                configureCLibrary(_distZip)
+                configureCLibrary(_cppArchive)
                 break
         }
     }
@@ -59,7 +69,7 @@ class ArchivesConfigurations {
         _zip.extension = CppPluginUtils.CLIB_EXTENSION
     }
 
-    def initDistZip() {
+    def initCppArchives() {
         Zip distZip = project.tasks["distZip"]
         distZip.extension = project.cpp.applicationType
     }

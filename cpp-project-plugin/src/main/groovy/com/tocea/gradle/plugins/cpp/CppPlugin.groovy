@@ -3,6 +3,7 @@ package com.tocea.gradle.plugins.cpp
 import com.tocea.gradle.plugins.cpp.configurations.ArchivesConfigurations
 import com.tocea.gradle.plugins.cpp.model.ApplicationType
 import com.tocea.gradle.plugins.cpp.tasks.CppExecTask
+import com.tocea.gradle.plugins.cpp.tasks.CppZipTask
 import com.tocea.gradle.plugins.cpp.tasks.CustomTask
 import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTask
 import com.tocea.gradle.plugins.cpp.tasks.InitOutputDirsTask
@@ -10,6 +11,7 @@ import com.tocea.gradle.plugins.cpp.tasks.ValidateCMakeProjectTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskCollection
+import org.gradle.api.tasks.bundling.Zip
 
 /**
  * Created by jguidoux on 03/09/15.
@@ -19,6 +21,8 @@ class CppPlugin implements Plugin<Project> {
 
     @Override
     void apply(final Project _project) {
+        _project.apply(plugin: 'base')
+        _project.apply(plugin: 'java')
         _project.apply(plugin: 'distribution')
         _project.apply(plugin: 'maven')
 
@@ -26,11 +30,12 @@ class CppPlugin implements Plugin<Project> {
 
         createTasks(_project)
 
+
         _project.extensions.create("cpp", CppPluginExtension, _project)
         projectConfigurations(_project)
         ArchivesConfigurations archiveConf = new ArchivesConfigurations(project: _project)
         archiveConf.configureDistribution()
-        archiveConf.initDistZip()
+        archiveConf.initCppArchives()
 
 
         _project.afterEvaluate {
@@ -53,7 +58,6 @@ class CppPlugin implements Plugin<Project> {
     }
 
     private void projectConfigurations(Project _project) {
-            _project.configurations.create("compile")
             _project.configurations.compile.transitive = false
     }
 
@@ -66,7 +70,9 @@ class CppPlugin implements Plugin<Project> {
         _project.task('compileCpp', type: CppExecTask, group: 'build')
         _project.task('testCompileCpp', type: CppExecTask, group: 'build')
         _project.task('testCpp', type: CppExecTask, group: 'build')
+        _project.task('cppArchive', type: Zip, group: 'archives')
         _project.task('customTask', type: CustomTask)
+        _project.tasks.remove( _project.tasks["jar"])
         configureBuildTasks(_project)
         configureTasksDependencies(_project)
 
@@ -89,8 +95,8 @@ class CppPlugin implements Plugin<Project> {
 //        _project.distributions.each {
 //            _project.tasks["assemble"].dependsOn _project.tasks["assemble${it.name.capitalize()}Dist"]
 //        }
-        _project.tasks["build"].dependsOn _project.tasks["assemble"]
-        _project.tasks["distZip"].dependsOn _project.tasks["downloadLibs"]
+//        _project.tasks["build"].dependsOn _project.tasks["assemble"]
+        _project.tasks["cppArchive"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
 
 
@@ -104,7 +110,7 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
         _project.tasks["check"].dependsOn _project.tasks["testCpp"]
-        _project.tasks["distZip"].dependsOn _project.tasks["compileCpp"]
+        _project.tasks["cppArchive"].dependsOn _project.tasks["compileCpp"]
 
     }
 
