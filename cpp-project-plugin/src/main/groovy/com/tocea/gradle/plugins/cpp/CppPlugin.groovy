@@ -5,6 +5,7 @@ import com.tocea.gradle.plugins.cpp.model.ApplicationType
 import com.tocea.gradle.plugins.cpp.tasks.CppExecTask
 import com.tocea.gradle.plugins.cpp.tasks.CustomTask
 import com.tocea.gradle.plugins.cpp.tasks.DownloadLibTask
+import com.tocea.gradle.plugins.cpp.tasks.InitOutputDirsTask
 import com.tocea.gradle.plugins.cpp.tasks.ValidateCMakeProjectTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -60,6 +61,7 @@ class CppPlugin implements Plugin<Project> {
     private void createTasks(Project _project) {
         _project.task('downloadLibs', type: DownloadLibTask, group: 'dependancies')
         _project.task('validateCMake', type: ValidateCMakeProjectTask, group: "validate")
+        _project.task('initOutputDirs', type: InitOutputDirsTask, group: "init")
         _project.task('customExec', type: CppExecTask, group: 'build')
         _project.task('compileCpp', type: CppExecTask, group: 'build')
         _project.task('testCompileCpp', type: CppExecTask, group: 'build')
