@@ -38,12 +38,15 @@ class DownloadLibTasksSpec extends Specification {
 
             repositories {
                 repositories.mavenCentral()
+                repositories.mavenLocal()
             }
 
 
 
             dependencies {
                 compile "junit:junit:4.11"
+                compile "com.tocea.amalib:amalib-lib:1.0-SNAPSHOT:linux@clib"
+
             }
 
 
@@ -59,7 +62,7 @@ class DownloadLibTasksSpec extends Specification {
         then:
         junitDir.exists()
         junitDir.isDirectory()
-        extLib.list().length == 1
+        extLib.list().length == 2
 
 
     }

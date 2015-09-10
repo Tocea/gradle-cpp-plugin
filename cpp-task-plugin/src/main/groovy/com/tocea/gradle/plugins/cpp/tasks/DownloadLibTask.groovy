@@ -4,6 +4,9 @@ import com.tocea.gradle.plugins.cpp.CppPluginUtils
 import org.apache.commons.io.FilenameUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.InvalidUserDataException
+import org.gradle.api.artifacts.DependencySet
+import org.gradle.api.artifacts.ProjectDependency
+import org.gradle.api.artifacts.PublishArtifactSet
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
@@ -30,7 +33,12 @@ public class DownloadLibTask extends DefaultTask {
             project.copy {
 
                 from project.zipTree(file)
-                into getOutputLibDirectory(file).path
+                println "archive ${file} has ${project.zipTree(file).files.size()} file"
+                if (project.zipTree(file).files.size() == 1) {
+                    into extLibLocation.path
+                } else  {
+                    into getOutputLibDirectory(file).path
+                }
             }
         }
     }

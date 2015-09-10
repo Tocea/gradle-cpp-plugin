@@ -1,6 +1,7 @@
 package com.tocea.gradle.plugins.cpp.tasks
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.tasks.TaskAction
 
 /**
@@ -19,6 +20,7 @@ public class CppExecTask extends DefaultTask {
     void exec() {
 
         initFields()
+
 
         def isWindows = System.properties['os.name'].toLowerCase().contains('windows')
         def commandLinePrefix = isWindows ? ['cmd', '/c'] : []
@@ -42,6 +44,7 @@ public class CppExecTask extends DefaultTask {
         }
 
     }
+
 
     private void initFields() {
         if (project.cpp.exec.execPath) {

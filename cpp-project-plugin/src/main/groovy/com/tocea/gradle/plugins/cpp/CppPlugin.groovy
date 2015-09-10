@@ -5,7 +5,9 @@ import com.tocea.gradle.plugins.cpp.model.ApplicationType
 import com.tocea.gradle.plugins.cpp.tasks.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.internal.plugins.DslObject
+import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.MavenPlugin
 import org.gradle.api.plugins.MavenRepositoryHandlerConvention
 import org.gradle.api.tasks.TaskCollection
@@ -28,15 +30,12 @@ class CppPlugin implements Plugin<Project> {
         MavenPlugin
 
 
+        projectConfigurations(_project)
         createTasks(_project)
 
-//        SourceSet sourceSet = _project.extensions["sourceSet"]
-//        sourceSet.allJava = null
-//        sourceSet.
 
 
         _project.extensions.create("cpp", CppPluginExtension, _project)
-        projectConfigurations(_project)
         ArchivesConfigurations archiveConf = new ArchivesConfigurations(project: _project)
         archiveConf.configureDistribution()
         archiveConf.initCppArchives()
@@ -56,6 +55,10 @@ class CppPlugin implements Plugin<Project> {
             } else {
                 println "no build tasks"
             }
+
+            List dependentProjects = findDependentProjects(_project)
+            println "project ${_project.name} has project dependencies $dependentProjects"
+            _project.tasks["downloadLibs"].dependsOn dependentProjects.tasks["build"]
 
         }
 
@@ -102,8 +105,11 @@ class CppPlugin implements Plugin<Project> {
 //            _project.tasks["assemble"].dependsOn _project.tasks["assemble${it.name.capitalize()}Dist"]
 //        }
 //        _project.tasks["build"].dependsOn _project.tasks["assemble"]
+
         _project.tasks["cppArchive"].dependsOn _project.tasks["downloadLibs"]
-        _project.tasks["install"].dependsOn _project.tasks["build"]
+        _project.tasks["assemble"].dependsOn _project.tasks["cppArchive"]
+        _project.tasks["install"].dependsOn _project.tasks["assemble"]
+        _project.tasks["build"].dependsOn _project.tasks["install"]
         _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
 
     }
@@ -117,6 +123,7 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
         _project.tasks["check"].dependsOn _project.tasks["testCpp"]
         _project.tasks["cppArchive"].dependsOn _project.tasks["compileCpp"]
+        JavaPlugin
 
     }
 
@@ -128,6 +135,13 @@ class CppPlugin implements Plugin<Project> {
                 new DslObject(installUpload.repositories).convention.getPlugin(MavenRepositoryHandlerConvention);
         repositories.mavenInstaller()
         installUpload.description = "Installs the 'archives' artifacts into the local Maven repository."
+    }
+
+    private List findDependentProjects(Project _project) {
+        def projectDependencies = _project.configurations.compile.allDependencies.withType(ProjectDependency)
+        println projectDependencies
+        def dependentProjects = projectDependencies*.dependencyProject
+        dependentProjects
     }
 
 
@@ -152,6 +166,7 @@ class CppPluginExtension {
             exec.metaClass."${it.name}StandardOutput" = null
         }
     }
+
 
 }
 
