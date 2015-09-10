@@ -9,11 +9,12 @@ import org.gradle.api.tasks.TaskAction
  */
 public class CreateEmptyPackagingTask extends DefaultTask  {
 	
-	def File packagingPath
 	
 	@TaskAction
 	def buildPackaging() {
 		
+		
+		def packagingPath = project.file(project.cpp.tmpPath);
 		println "Creating empty packaging in $packagingPath"
 		FileUtils.deleteDirectory packagingPath
 		packagingPath.mkdirs()
