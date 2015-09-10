@@ -53,7 +53,7 @@ public class CppExecTask extends DefaultTask {
         if (project.cpp.exec."${name}StandardOutput") {
             execOutput = project.cpp.exec."${name}StandardOutput"
         }
-        if (project.cpp.exec."${name}BaseArgs") {
+        if (project.cpp.exec."${name}BaseArgs" != null) {
             baseArgs = project.cpp.exec."${name}BaseArgs"
         }
         if (project.cpp.exec."${name}Args") {

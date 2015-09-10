@@ -192,7 +192,7 @@ class CmakeTasksSpec extends Specification {
         cpp.exec.with {
             execPath = "echo"
             testCppExecPath = "ls"
-            testCppBaseArgs = "/"
+            testCppBaseArgs = ""
             testCppArgs = ""
             testCppStandardOutput = new ByteArrayOutputStream()
 
@@ -206,6 +206,7 @@ class CmakeTasksSpec extends Specification {
 
         then:
         project.tasks["testCpp"].execPath == "ls"
+        output.contains("userHome")
 
     }
 
