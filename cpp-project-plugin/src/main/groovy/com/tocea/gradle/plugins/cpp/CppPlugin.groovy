@@ -7,8 +7,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.internal.plugins.DslObject
-import org.gradle.api.plugins.JavaPlugin
-import org.gradle.api.plugins.MavenPlugin
 import org.gradle.api.plugins.MavenRepositoryHandlerConvention
 import org.gradle.api.tasks.TaskCollection
 import org.gradle.api.tasks.Upload
@@ -63,8 +61,13 @@ class CppPlugin implements Plugin<Project> {
     }
 
     def configureTasks(Project _project) {
-        if (_project.cpp.outPutDirs != null) {
-            _project.tasks["initOutputDirs"].outpoutDirs = _project.cpp.outPutDirs
+        if (_project.cpp.outPutDirs) {
+            CppPluginUtils.OUTPUT_DIRS << _project.cpp.outPutDirs
+            _project.tasks["initOutputDirs"].outpoutDirs = CppPluginUtils.OUTPUT_DIRS
+            if (CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.EXT_LIB_DIR]) {
+                DownloadLibTask dlTask = _project.tasks["downloadLibs"]
+                dlTask.changeExtLibLocation(CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.EXT_LIB_DIR])
+            }
         }
     }
 
@@ -148,8 +151,7 @@ class CppPluginExtension {
     def buildTasksEnabled = true
     ApplicationType applicationType = ApplicationType.clibrary
     String classifier = ""
-    String extLibPath = CppPluginUtils.EXT_LIB_PATH
-    def outPutDirs = null
+    def outPutDirs = new HashMap()
 
     CppExecConfiguration exec
 

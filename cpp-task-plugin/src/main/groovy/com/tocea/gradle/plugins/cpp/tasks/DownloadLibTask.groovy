@@ -17,7 +17,7 @@ public class DownloadLibTask extends DefaultTask {
 
 
     @OutputDirectory
-    File extLibLocation = new  File(project.projectDir, CppPluginUtils.EXT_LIB_PATH)
+    File extLibLocation = new  File(project.buildDir, CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.EXT_LIB_DIR])
 
 
     @TaskAction
@@ -27,7 +27,7 @@ public class DownloadLibTask extends DefaultTask {
         def files = project.configurations.compile.files
 
 //        extLibLocation = new  File(project.cpp.extLibPath)
-        changeExtLibLocation(project.cpp.extLibPath)
+       // changeExtLibLocation(project.cpp.extLibPath)
 
         files.each { File file ->
             project.copy {
@@ -44,8 +44,8 @@ public class DownloadLibTask extends DefaultTask {
     }
 
     def changeExtLibLocation(final String _newPath) {
-        checkPathValidity(_newPath)
-       def  newLocation = new  File(_newPath)
+        //checkPathValidity(_newPath)
+       def  newLocation = new  File(project.buildDir, _newPath)
         if (newLocation.absolutePath != extLibLocation.absolutePath) {
             extLibLocation.delete()
             extLibLocation = newLocation

@@ -14,8 +14,8 @@ public class InitOutputDirsTask extends DefaultTask {
     @TaskAction
     void initOutputs() {
         def buildDirSet = new HashSet()
-        outpoutDirs.each {
-            buildDirSet << new File(project.buildDir, it)
+        outpoutDirs.each { k,v ->
+            buildDirSet << new File(project.buildDir, v)
         }
 
         buildDirSet.each { File file ->
