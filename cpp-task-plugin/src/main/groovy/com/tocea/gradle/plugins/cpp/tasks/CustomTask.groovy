@@ -10,11 +10,7 @@ public class CustomTask extends DefaultTask  {
 
     @TaskAction
     showMessage() {
-        println '------------showMessage-------------------'
+        
     }
 }
 
-
-class GreetingPluginExtension {
-    def String message = 'Hello from GreetingPlugin'
-}
