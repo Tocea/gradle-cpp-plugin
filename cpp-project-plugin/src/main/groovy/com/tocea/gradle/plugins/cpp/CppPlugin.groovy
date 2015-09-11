@@ -23,7 +23,6 @@ class CppPlugin implements Plugin<Project> {
     @Override
     void apply(final Project _project) {
         _project.apply(plugin: 'base')
-//        _project.apply(plugin: 'java')
         _project.apply(plugin: 'distribution')
         _project.apply(plugin: 'maven')
 
@@ -80,7 +79,6 @@ class CppPlugin implements Plugin<Project> {
         _project.task('testCpp', type: CppExecTask, group: 'build')
         _project.task('cppArchive', type: Zip, group: 'archives')
         _project.task('customTask', type: CustomTask)
-//        _project.tasks.remove( _project.tasks["jar"])
         configureInstall(_project)
         configureBuildTasks(_project)
         configureTasksDependencies(_project)
@@ -101,10 +99,6 @@ class CppPlugin implements Plugin<Project> {
 
     private configureTasksDependencies(Project _project) {
 
-//        _project.distributions.each {
-//            _project.tasks["assemble"].dependsOn _project.tasks["assemble${it.name.capitalize()}Dist"]
-//        }
-//        _project.tasks["build"].dependsOn _project.tasks["assemble"]
 
         _project.tasks["cppArchive"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["assemble"].dependsOn _project.tasks["cppArchive"]
@@ -123,14 +117,10 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks["testCpp"].dependsOn _project.tasks["testCompileCpp"]
         _project.tasks["check"].dependsOn _project.tasks["testCpp"]
         _project.tasks["cppArchive"].dependsOn _project.tasks["compileCpp"]
-        JavaPlugin
-
     }
 
     private void configureInstall(Project project) {
         Upload installUpload = project.tasks.create("install", Upload);
-//        Configuration configuration = project.getConfigurations().getByName(Dependency.ARCHIVES_CONFIGURATION);
-//        installUpload.setConfiguration(configuration);
         MavenRepositoryHandlerConvention repositories =
                 new DslObject(installUpload.repositories).convention.getPlugin(MavenRepositoryHandlerConvention);
         repositories.mavenInstaller()
