@@ -8,6 +8,7 @@ import org.gradle.api.artifacts.DependencySet
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.PublishArtifactSet
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 
 /**
@@ -16,9 +17,11 @@ import org.gradle.api.tasks.TaskAction
 public class DownloadLibTask extends DefaultTask {
 
 
-    @OutputDirectory
+//    @OutputDirectory
     File extLibLocation = new  File(project.buildDir, CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.EXT_LIB_DIR])
 
+//    @OutputFiles
+//    def libs = extLibLocation.listFiles()
 
     @TaskAction
     void exec() {
@@ -34,7 +37,7 @@ public class DownloadLibTask extends DefaultTask {
 
                 from project.zipTree(file)
                 println "archive ${file} has ${project.zipTree(file).files.size()} file"
-                if (project.zipTree(file).files.size() == 1) {
+                if (file.name.endsWith(CppPluginUtils.CLIB_EXTENSION)) {
                     into extLibLocation.path
                 } else  {
                     into getOutputLibDirectory(file).path
