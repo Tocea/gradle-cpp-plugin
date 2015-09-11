@@ -26,8 +26,6 @@ class CppPlugin implements Plugin<Project> {
         _project.apply(plugin: 'distribution')
         _project.apply(plugin: 'maven')
 
-        MavenPlugin
-
 
         projectConfigurations(_project)
         createTasks(_project)
@@ -45,6 +43,7 @@ class CppPlugin implements Plugin<Project> {
 
             archiveConf.ConfigureDistZip()
             archiveConf.configureArtifact()
+            configureTasks(_project)
 
 
 
@@ -61,6 +60,12 @@ class CppPlugin implements Plugin<Project> {
 
         }
 
+    }
+
+    def configureTasks(Project _project) {
+        if (_project.cpp.outPutDirs != null) {
+            _project.tasks["initOutputDirs"].outpoutDirs = _project.cpp.outPutDirs
+        }
     }
 
     private void projectConfigurations(Project _project) {
@@ -144,6 +149,8 @@ class CppPluginExtension {
     ApplicationType applicationType = ApplicationType.clibrary
     String classifier = ""
     String extLibPath = CppPluginUtils.EXT_LIB_PATH
+    def outPutDirs = null
+
     CppExecConfiguration exec
 
     CppPluginExtension(Project _project) {

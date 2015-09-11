@@ -9,10 +9,12 @@ import org.gradle.api.tasks.TaskAction
  */
 public class InitOutputDirsTask extends DefaultTask {
 
+    def outpoutDirs = CppPluginUtils.OUTPUT_DIRS
+
     @TaskAction
     void initOutputs() {
         def buildDirSet = new HashSet()
-        CppPluginUtils.OUTPUT_DIRS.each {
+        outpoutDirs.each {
             buildDirSet << new File(project.buildDir, it)
         }
 
