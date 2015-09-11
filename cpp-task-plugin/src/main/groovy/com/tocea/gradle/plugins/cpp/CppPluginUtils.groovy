@@ -5,6 +5,7 @@ package com.tocea.gradle.plugins.cpp
  */
 class CppPluginUtils {
 
+    public static final String SOURCE_HEADERS = "src/main/headers"
     public static final String ZIP_EXTENSION = "zip"
     public static final String CLIB_EXTENSION = "clib"
     public static final String EXT_LIB_DIR = "extLibDir"
@@ -18,6 +19,8 @@ class CppPluginUtils {
     public static final String TEST_CMAKE_BASE_ARG = "test"
     public static Map OUTPUT_DIRS = ["mainDir": "main-obj", "testDir": "test-obj", "extLibDir": "extLib",
                                      "tmpDir" : "tmp", "report": "report", "doc": "docDir"]
-    public static Map OUTPUT_TMP_DIRS = ["bin":"bin", "include":"include","lib": "lib", "doc":"doc", "doxygen":"doxygen"]
+    public static Map OUTPUT_TMP_DIRS = ["headers": "headers", "bin":"bin", "include":"include","lib": "lib",
+                                         "doc":"doc", "doxygen":"doxygen"]
+
 
 }
