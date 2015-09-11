@@ -15,6 +15,8 @@ public class CppExecTask extends DefaultTask {
     def execOutput
     Map<String, ?> envVars
 
+    def execWorkingDir = null
+
 
     @TaskAction
     void exec() {
@@ -28,6 +30,9 @@ public class CppExecTask extends DefaultTask {
             executable execPath
             commandLine commandLinePrefix + execPath
             String[] cmakeArgsArray = []
+            if (execWorkingDir) {
+                workingDir = execWorkingDir
+            }
             if (baseArgs) {
                 cmakeArgsArray += baseArgs.split('\\s')
             }
@@ -41,6 +46,7 @@ public class CppExecTask extends DefaultTask {
             if (execOutput) {
                 standardOutput = execOutput
             }
+
         }
 
     }
@@ -61,6 +67,9 @@ public class CppExecTask extends DefaultTask {
         }
         if (project.cpp.exec."${name}Args") {
             appArguments = project.cpp.exec."${name}Args"
+        }
+        if (project.cpp.exec."${name}ExecWorkingDir") {
+            execWorkingDir = project.cpp.exec."${name}ExecWorkingDir"
         }
         if (project.cpp.exec.env) {
             envVars = project.cpp.exec.env

@@ -18,4 +18,6 @@ class CppPluginUtils {
     public static final String TEST_CMAKE_BASE_ARG = "test"
     public static Map OUTPUT_DIRS = ["mainDir": "main-obj", "testDir": "test-obj", "extLibDir": "extLib",
                                      "tmpDir" : "tmp", "report": "report", "doc": "docDir"]
+    public static Map OUTPUT_TMP_DIRS = ["bin":"bin", "include":"include","lib": "lib", "doc":"doc", "doxygen":"doxygen"]
+
 }

@@ -45,5 +45,6 @@ class InitOutputDirsTasks extends Specification{
         new File(project.buildDir, "test-obj").exists()
         new File(project.buildDir, "report").exists()
         new File(project.buildDir, "tmp").exists()
+        new File(project.buildDir, "tmp/lib").exists()
     }
 }

@@ -10,14 +10,18 @@ import org.gradle.api.tasks.TaskAction
 public class InitOutputDirsTask extends DefaultTask {
 
     def outpoutDirs = CppPluginUtils.OUTPUT_DIRS
-
+    def outpoutTmpDirs = CppPluginUtils.OUTPUT_TMP_DIRS
     @TaskAction
     void initOutputs() {
         def buildDirSet = new HashSet()
         outpoutDirs.each { k,v ->
             buildDirSet << new File(project.buildDir, v)
         }
-
+        def tmpDir =  new File(project.buildDir,  CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.TMP_DIR])
+        outpoutTmpDirs.each { k,v ->
+            buildDirSet << new File(tmpDir, v)
+        }
+        outpoutDirs[CppPluginUtils.TMP_DIR]
         buildDirSet.each { File file ->
             if (!file.exists()) {
                 file.mkdirs()

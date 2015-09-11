@@ -152,7 +152,7 @@ class CppPluginExtension {
     ApplicationType applicationType = ApplicationType.clibrary
     String classifier = ""
     def outPutDirs = new HashMap()
-
+    def outPutTmpDirs = new HashMap()
     CppExecConfiguration exec
 
     CppPluginExtension(Project _project) {
@@ -163,8 +163,11 @@ class CppPluginExtension {
             exec.metaClass."${it.name}BaseArgs" = null
             exec.metaClass."${it.name}Args" = ""
             exec.metaClass."${it.name}StandardOutput" = null
+            exec.metaClass."${it.name}ExecWorkingDir" = null
         }
     }
+
+
 
 
 }

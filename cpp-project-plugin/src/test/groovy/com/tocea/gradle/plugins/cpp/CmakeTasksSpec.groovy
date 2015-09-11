@@ -195,6 +195,7 @@ class CmakeTasksSpec extends Specification {
             testCppBaseArgs = ""
             testCppArgs = ""
             testCppStandardOutput = new ByteArrayOutputStream()
+            testCppExecWorkingDir="."
 
         }
 
