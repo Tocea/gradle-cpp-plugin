@@ -54,7 +54,6 @@ class CppPlugin implements Plugin<Project> {
             }
 
             List dependentProjects = findDependentProjects(_project)
-            println "project ${_project.name} has project dependencies $dependentProjects"
             _project.tasks["downloadLibs"].dependsOn dependentProjects.tasks["build"]
 
         }
@@ -121,7 +120,7 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks["cppArchive"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["assemble"].dependsOn _project.tasks["cppArchive"]
         _project.tasks["install"].dependsOn _project.tasks["assemble"]
-        _project.tasks["build"].dependsOn _project.tasks["install"]
+//        _project.tasks["build"].dependsOn _project.tasks["install"]
         _project.tasks["uploadArchives"].dependsOn _project.tasks["build"]
 
     }
@@ -148,7 +147,6 @@ class CppPlugin implements Plugin<Project> {
 
     private List findDependentProjects(Project _project) {
         def projectDependencies = _project.configurations.compile.allDependencies.withType(ProjectDependency)
-        println projectDependencies
         def dependentProjects = projectDependencies*.dependencyProject
         dependentProjects
     }

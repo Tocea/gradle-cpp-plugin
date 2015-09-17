@@ -77,7 +77,7 @@ class CmakeTasksSpec extends Specification {
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("compile -Dargs v1 --default")
+        cmake.execOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -103,7 +103,7 @@ class CmakeTasksSpec extends Specification {
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("testCompile -Dargs v1 --default")
+        cmake.execOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -129,7 +129,7 @@ class CmakeTasksSpec extends Specification {
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("test -Dargs v1 --default")
+        cmake.execOutput.toString().contains("-Dargs v1 --default")
 
     }
 

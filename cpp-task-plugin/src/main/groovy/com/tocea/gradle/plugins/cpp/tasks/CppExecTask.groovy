@@ -10,7 +10,7 @@ import org.gradle.api.tasks.TaskAction
 public class CppExecTask extends DefaultTask {
 
     String baseArgs = ""
-    def execPath = "cmake"
+    def execPath = "make"
     String appArguments = ""
     def execOutput
     Map<String, ?> envVars
