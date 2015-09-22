@@ -117,6 +117,8 @@ class CppPlugin implements Plugin<Project> {
 
 
         _project.tasks["downloadLibs"].dependsOn _project.tasks["initOutputDirs"]
+
+
         _project.tasks["cppArchive"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["assemble"].dependsOn _project.tasks["cppArchive"]
         _project.tasks["install"].dependsOn _project.tasks["assemble"]
@@ -197,7 +199,7 @@ class CppPluginExtension {
 }
 
 class CppExecConfiguration {
-    def execPath = "cmake"
+    def execPath = ""
     Map<String, ?> env
 
 }

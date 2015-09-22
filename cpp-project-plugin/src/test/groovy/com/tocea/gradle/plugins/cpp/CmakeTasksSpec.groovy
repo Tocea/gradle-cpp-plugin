@@ -122,6 +122,33 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.tasks["compileCpp"].execute()
+        CppExecTask cmake = project.tasks["testCpp"]
+        cmake.execute()
+        def output = cmake.execOutput.toString()
+        CppPluginExtension cpp = project.extensions["cpp"]
+        println "output = $output"
+
+        then:
+        cmake.execOutput.toString().contains("-Dargs v1 --default")
+
+    }
+
+    def "check test cpp arguments with custom executable"() {
+        given:
+        project.with {
+            apply plugin: "com.tocea.gradle.cpp"
+            CppPluginExtension cpp = project.extensions["cpp"]
+
+            cpp.exec.with {
+                testCppExecPath = "echo"
+                testCppArgs = "-Dargs v1 --default"
+                testCppStandardOutput = new ByteArrayOutputStream()
+            }
+        }
+
+
+        when:
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
@@ -278,6 +305,7 @@ class CmakeTasksSpec extends Specification {
         cpp.exec.metaClass.abruti
 
         when:
+
         cpp.exec.properties.each { println it.key }
 
 

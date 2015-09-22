@@ -30,4 +30,14 @@ allprojects{
     task wrapper(type: Wrapper) {
         gradleVersion = '2.5'
     }
+
+
+
+}
+
+
+task copyResources(type: Copy) {
+    from 'resources'
+    into 'target'
+    include('**/*.txt', '**/*.xml', '**/*.properties')
 }

@@ -26,6 +26,7 @@ class UtilsSpec extends Specification{
 
     def "find properties number when added dinamcally"() {
         given:
+
         def person = new Person(name: "halyna")
 
         when:
@@ -33,6 +34,9 @@ class UtilsSpec extends Specification{
         person.properties.each {
             println it.key
         }
+
+        println "mon nom est ${person.name}"
+
 
         then:
         person.properties.containsKey("age")
