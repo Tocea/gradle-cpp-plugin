@@ -45,8 +45,6 @@ class DownloadLibTasksSpec extends Specification {
 
             dependencies {
                 compile "junit:junit:4.11"
-                compile "com.tocea.amalib:amalib-lib:1.0-SNAPSHOT:linux@clib"
-                compile "fr.amabis:sqlapi:4.1.4-SNAPSHOT@clib"
 
 
             }
@@ -64,7 +62,7 @@ class DownloadLibTasksSpec extends Specification {
         then:
         junitDir.exists()
         junitDir.isDirectory()
-        extLib.list().length == 3
+        extLib.list().length ==1
 
 
     }
