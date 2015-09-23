@@ -47,12 +47,12 @@ class CmakeTasksSpec extends Specification {
         project.evaluate()
         CppExecTask cmake = project.tasks["customExec"]
         cmake.execute()
-        def output = cmake.execOutput.toString()
+        def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("-Dargs v1 --default")
+        cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -74,12 +74,12 @@ class CmakeTasksSpec extends Specification {
         project.evaluate()
         CppExecTask cmake = project.tasks["compileCpp"]
         cmake.execute()
-        def output = cmake.execOutput.toString()
+        def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("-Dargs v1 --default")
+        cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -100,13 +100,14 @@ class CmakeTasksSpec extends Specification {
         when:
         project.evaluate()
         CppExecTask cmake = project.tasks["testCompileCpp"]
+       // cmake.standardOutput =  new ByteArrayOutputStream()
         cmake.execute()
-        def output = cmake.execOutput.toString()
+        def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("-Dargs v1 --default")
+        cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -129,12 +130,12 @@ class CmakeTasksSpec extends Specification {
         project.tasks["compileCpp"].execute()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.execOutput.toString()
+        def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("-Dargs v1 --default")
+        cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -156,12 +157,12 @@ class CmakeTasksSpec extends Specification {
         project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.execOutput.toString()
+        def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("-Dargs v1 --default")
+        cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -184,7 +185,7 @@ class CmakeTasksSpec extends Specification {
         cmake.execute()
 
         then:
-        cmake.envVars["MA_VAR"] == "abc"
+        cmake.environment["MA_VAR"] == "abc"
 
     }
 
@@ -207,12 +208,12 @@ class CmakeTasksSpec extends Specification {
         project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.execOutput.toString()
+        def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then:
-        cmake.execOutput.toString().contains("customTest -Dargs v1 --default")
+        cmake.standardOutput.toString().contains("customTest -Dargs v1 --default")
 
     }
 
@@ -237,11 +238,11 @@ class CmakeTasksSpec extends Specification {
         project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.execOutput.toString()
+        def output = cmake.standardOutput.toString()
         println "output = $output"
 
         then:
-        project.tasks["testCpp"].execPath == "ls"
+        project.tasks["testCpp"].executable == "ls"
         output.contains("userHome")
 
     }

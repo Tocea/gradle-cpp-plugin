@@ -1,7 +1,7 @@
 package com.tocea.gradle.plugins.cpp
 
 import com.tocea.gradle.plugins.cpp.configurations.ArchivesConfigurations
-import com.tocea.gradle.plugins.cpp.configurations.CppConfiguraiton
+import com.tocea.gradle.plugins.cpp.configurations.CppConfiguration
 import com.tocea.gradle.plugins.cpp.model.ApplicationType
 import com.tocea.gradle.plugins.cpp.tasks.*
 import org.gradle.api.Plugin
@@ -34,7 +34,7 @@ class CppPlugin implements Plugin<Project> {
 
         _project.extensions.create("cpp", CppPluginExtension, _project)
         ArchivesConfigurations archiveConf = new ArchivesConfigurations(project: _project)
-        def cppConfiguration = new CppConfiguraiton()
+        def cppConfiguration = new CppConfiguration()
         archiveConf.configureDistribution()
         archiveConf.initCppArchives()
 
