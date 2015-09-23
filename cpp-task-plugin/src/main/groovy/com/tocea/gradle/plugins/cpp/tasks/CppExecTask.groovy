@@ -21,7 +21,7 @@ public class CppExecTask extends DefaultTask {
     @TaskAction
     void exec() {
 
-        initFields()
+//        initFields()
 
 
         def isWindows = System.properties['os.name'].toLowerCase().contains('windows')

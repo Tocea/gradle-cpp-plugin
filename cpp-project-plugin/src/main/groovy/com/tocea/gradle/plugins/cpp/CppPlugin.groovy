@@ -1,6 +1,7 @@
 package com.tocea.gradle.plugins.cpp
 
 import com.tocea.gradle.plugins.cpp.configurations.ArchivesConfigurations
+import com.tocea.gradle.plugins.cpp.configurations.CppConfiguraiton
 import com.tocea.gradle.plugins.cpp.model.ApplicationType
 import com.tocea.gradle.plugins.cpp.tasks.*
 import org.gradle.api.Plugin
@@ -33,6 +34,7 @@ class CppPlugin implements Plugin<Project> {
 
         _project.extensions.create("cpp", CppPluginExtension, _project)
         ArchivesConfigurations archiveConf = new ArchivesConfigurations(project: _project)
+        def cppConfiguration = new CppConfiguraiton()
         archiveConf.configureDistribution()
         archiveConf.initCppArchives()
 
@@ -43,6 +45,8 @@ class CppPlugin implements Plugin<Project> {
             archiveConf.ConfigureDistZip()
             archiveConf.configureArtifact()
             configureTasks(_project)
+            cppConfiguration.configureCppExecTask(_project)
+
 
 
 
@@ -102,14 +106,7 @@ class CppPlugin implements Plugin<Project> {
     }
 
     def configureBuildTasks(Project _project) {
-        CppExecTask compileTask = _project.tasks["compileCpp"]
-        compileTask.baseArgs = CppPluginUtils.COMPILE_CMAKE_BASE_ARG
 
-        CppExecTask testCompileTask = _project.tasks["testCompileCpp"]
-        testCompileTask.baseArgs = CppPluginUtils.TEST_COMPILE_CMAKE_BASE_ARG
-
-        CppExecTask testTask = _project.tasks["testCpp"]
-        testTask.baseArgs = CppPluginUtils.TEST_CMAKE_BASE_ARG
 
     }
 

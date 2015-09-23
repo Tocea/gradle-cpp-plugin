@@ -64,7 +64,6 @@ class DownloadLibTasksSpec extends Specification {
         junitDir.isDirectory()
         extLib.list().length ==1
 
-
     }
 
     @Ignore

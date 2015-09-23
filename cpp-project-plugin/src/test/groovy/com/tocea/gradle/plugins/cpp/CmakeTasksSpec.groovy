@@ -44,6 +44,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         CppExecTask cmake = project.tasks["customExec"]
         cmake.execute()
         def output = cmake.execOutput.toString()
@@ -70,6 +71,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         CppExecTask cmake = project.tasks["compileCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
@@ -96,6 +98,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         CppExecTask cmake = project.tasks["testCompileCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
@@ -122,6 +125,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         project.tasks["compileCpp"].execute()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
@@ -149,6 +153,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
@@ -174,6 +179,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
 
@@ -198,6 +204,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
@@ -227,6 +234,7 @@ class CmakeTasksSpec extends Specification {
         }
 
         when:
+        project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.execOutput.toString()
@@ -248,6 +256,7 @@ class CmakeTasksSpec extends Specification {
 
 
         when:
+        project.evaluate()
         cpp.exec.properties.each { println it.key }
 
 
@@ -285,6 +294,7 @@ class CmakeTasksSpec extends Specification {
         }
 
         when:
+        project.evaluate()
         CppPluginExtension cpp = project.extensions["cpp"]
 
 
@@ -305,7 +315,7 @@ class CmakeTasksSpec extends Specification {
         cpp.exec.metaClass.abruti
 
         when:
-
+        project.evaluate()
         cpp.exec.properties.each { println it.key }
 
 
