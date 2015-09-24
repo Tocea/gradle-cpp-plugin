@@ -1,0 +1,10 @@
+language: groovy
+<<<<<<< HEAD
+script: ./gradlew build
+jdk: oraclejdk7
+=======
+script: ./gradlew build jacocoTestReport
+jdk: oraclejdk7
+after_success:
+- ./gradlew jacocoRootReport coveralls
+>>>>>>> release/1.2.0
