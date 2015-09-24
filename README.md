@@ -26,7 +26,7 @@ buildscript {
     }    
     dependencies{
 	// identifiant unique du plugin
-        classpath 'com.tocea.gradle.plugins:cpp-project-plugin:1.2.0'
+        classpath 'com.tocea.gradle.plugins:cpp-project-plugin:1.2.1'
     }
 }
 
