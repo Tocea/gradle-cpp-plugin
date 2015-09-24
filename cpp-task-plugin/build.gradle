@@ -16,12 +16,6 @@
 
 
 
-apply plugin: 'groovy'
-
-
-//apply plugin: 'license'
-//apply from: 'gradle/publish.gradle'
-
 
 
 dependencies {

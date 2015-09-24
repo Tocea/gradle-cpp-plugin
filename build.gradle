@@ -1,3 +1,4 @@
+
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
 
@@ -5,27 +6,11 @@ plugins {
 
 allprojects{
 
-    buildscript {
-        repositories {
-            mavenCentral()
-            jcenter()
-        }
 
-        dependencies {
-//            classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
-//            classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
-        }
-    }
 
     apply plugin: 'idea'
     apply plugin: "maven"
     apply plugin: 'jacoco'
-    apply plugin: 'project-report'
-
-    //apply plugin: 'license'
-    //apply from: 'gradle/publish.gradle'
-
-
 
 
     repositories {
@@ -45,9 +30,8 @@ allprojects{
 }
 
 
-
 subprojects {
-
+    apply plugin: 'groovy'
     jacocoTestReport {
         reports {
             html.enabled = true
@@ -56,7 +40,6 @@ subprojects {
         }
     }
 }
-
 
 coveralls {
     sourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs).files.absolutePath
@@ -72,7 +55,7 @@ task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
         html.enabled = true
         xml.enabled = true
         csv.enabled = false
-        xml.destination = "${reportsDir}/jacoco/test/jacocoTestReport.xml"
+        xml.destination = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
     }
     onlyIf = {
         true

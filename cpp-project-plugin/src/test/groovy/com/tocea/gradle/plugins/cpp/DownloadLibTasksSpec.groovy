@@ -34,6 +34,7 @@ class DownloadLibTasksSpec extends Specification {
 
         given:
         project.with {
+
             apply plugin: "com.tocea.gradle.cpp"
 
             repositories {
