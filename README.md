@@ -65,6 +65,12 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 | install       | build    | Upload    | upload the distZip archive in the local repository |
 | uploadArchive       | build    | Upload    | upload the distZip archive in a remote repository |
 
+**Figure 1. Cpp plugin -tasks**
+
+![plugin tassks](images/cppPluginGraph.jpg)
+
+
+
 
 
  
