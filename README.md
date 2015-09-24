@@ -74,7 +74,7 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 
 The cpp plugin adds a number of dependency configurations to your project, as shown below. It assigns those configurations to tasks such as compileCpp.
 
-** Table 2. Cpp plugin - dependency configurations**
+**Table 2. Cpp plugin - dependency configurations**
 
 | Name        | exdends    | Used by tasks    |  Used by tasks                 | 
 | ----------- | ---------- | ---------------- | -------------------------------|
