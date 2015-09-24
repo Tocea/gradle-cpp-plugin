@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/Tocea/gradle-cpp-plugin.svg?branch=develop)](https://travis-ci.org/Tocea/gradle-cpp-plugin)
-[![Coverage Status](https://coveralls.io/repos/Tocea/gradle-cpp-plugin/badge.svg?branch=develop)](https://coveralls.io/r/Tocea/gradle-cpp-plugin?branch=develop)
+[![Build Status](https://travis-ci.org/Tocea/gradle-cpp-plugin.svg?branch=master)](https://travis-ci.org/Tocea/gradle-cpp-plugin)
+[![Coverage Status](https://coveralls.io/repos/Tocea/gradle-cpp-plugin/badge.svg?branch=master)](https://coveralls.io/r/Tocea/gradle-cpp-plugin?branch=master)
 
 # gradle-cpp-plugin
 Gradle C/C++ plugin with C++ build tools interactions. This plugins launche C++ build tools and add Gradle capabilities like :
@@ -26,7 +26,7 @@ buildscript {
     }    
     dependencies{
 	// identifiant unique du plugin
-        classpath 'com.tocea.gradle.plugins:cpp-project-plugin:1.2.0-SNAPSHOT'
+        classpath 'com.tocea.gradle.plugins:cpp-project-plugin:1.2.0'
     }
 }
 
