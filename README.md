@@ -28,7 +28,7 @@ To use the gradle-cpp-plugin, include the following in your build script:
 }
 
 apply plugin: "com.tocea.gradle.cpp"
-...
+```
 
 ## Tasks
 
