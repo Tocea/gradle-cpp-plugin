@@ -1,24 +1,30 @@
-allprojects{
-
-    buildscript {
-        repositories {
-            mavenCentral()
-            jcenter()
-        }
-
-        dependencies {
-//            classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
-//            classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.3'
+// First, apply the publishing plugin
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
         }
     }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.1"
+    }
+}
+
+
+plugins {
+    id "com.github.kt3k.coveralls" version "2.4.0"
+    id "com.gradle.plugin-publish" version "0.9.1"
+
+}
+
+
+allprojects{
+
+
 
     apply plugin: 'idea'
     apply plugin: "maven"
-
-    //apply plugin: 'license'
-    //apply from: 'gradle/publish.gradle'
-
-
+    apply plugin: 'jacoco'
 
 
     repositories {
@@ -28,16 +34,62 @@ allprojects{
     }
 
     task wrapper(type: Wrapper) {
-        gradleVersion = '2.5'
+        gradleVersion = gradeleWrapper
     }
 
-
+    jacoco {
+        toolVersion = '0.7.1.201405082137'
+    }
 
 }
 
 
-task copyResources(type: Copy) {
-    from 'resources'
-    into 'target'
-    include('**/*.txt', '**/*.xml', '**/*.properties')
+subprojects {
+    apply plugin: 'groovy'
+    jacocoTestReport {
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
+    }
+}
+
+coveralls {
+    sourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs).files.absolutePath
+}
+
+
+task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    dependsOn = subprojects.test
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    }
+    onlyIf = {
+        true
+    }
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
+}
+
+// The configuration example below shows the minimum required properties
+// configured to publish your plugin to the plugin portal
+pluginBundle {
+    vcsUrl = 'https://github.com/Tocea/gradle-cpp-plugin'
+    description = 'gradle plugin for c++'
+    tags = ['cpp', 'c++']
+
+    plugins {
+        cppPlugin {
+            id = 'fr.echoes.gradle.cpp'
+            displayName = 'gradle plugin for c++'
+        }
+    }
 }

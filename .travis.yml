@@ -1,3 +1,5 @@
 language: groovy
-script: ./gradlew build
+script: ./gradlew build jacocoTestReport
 jdk: oraclejdk7
+after_success:
+- ./gradlew jacocoRootReport coveralls
