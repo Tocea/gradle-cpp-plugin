@@ -34,7 +34,16 @@ apply plugin: "com.tocea.gradle.cpp"
 
 The cpp plugin adds a number of tasks to your project, as shown below.
 
-**Table 1. Cpp plugin - tasks
+**Table 1. Cpp plugin - tasks **
+
+| Left align | Right align | Center align |
+|:-----------|------------:|:------------:|
+| This       |        This |     This     
+| column     |      column |    column    
+| will       |        will |     will     
+| be         |          be |      be      
+| left       |       right |    center    
+| aligned    |     aligned |   aligned
 
 
 ------------------------------------------------
@@ -42,8 +51,21 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 ------------------------------------------------
 
 
++------------+---------+
+|    Type    |  MySQL  |
++------------+---------+
+| Header     | Top Row |
+| Auto Align | On      |
++------------+---------+
 
- 
+
+╔═══╦════════════╦═════════════╗
+║   ║ A          ║ B           ║
+╠═══╬════════════╬═════════════╣
+║ 1 ║ Type       ║ Unicode Art ║
+║ 2 ║ Header     ║ Spreadsheet ║
+║ 3 ║ Auto Align ║ Off         ║
+╚═══╩════════════╩═════════════╝
 
  
     
