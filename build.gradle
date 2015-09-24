@@ -1,3 +1,8 @@
+plugins {
+    id "com.github.kt3k.coveralls" version "2.4.0"
+
+}
+
 allprojects{
 
     buildscript {
@@ -14,6 +19,7 @@ allprojects{
 
     apply plugin: 'idea'
     apply plugin: "maven"
+    apply plugin: 'jacoco'
 
     //apply plugin: 'license'
     //apply from: 'gradle/publish.gradle'
@@ -31,13 +37,46 @@ allprojects{
         gradleVersion = gradeleWrapper
     }
 
-
+    jacoco {
+        toolVersion = '0.7.1.201405082137'
+    }
 
 }
 
 
-task copyResources(type: Copy) {
-    from 'resources'
-    into 'target'
-    include('**/*.txt', '**/*.xml', '**/*.properties')
+
+subprojects {
+
+    jacocoTestReport {
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
+    }
+}
+
+
+coveralls {
+    sourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs).files.absolutePath
+}
+
+
+task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    dependsOn = subprojects.test
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination = "${reportsDir}/jacoco/test/jacocoTestReport.xml"
+    }
+    onlyIf = {
+        true
+    }
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
 }
