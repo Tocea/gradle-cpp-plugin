@@ -29,7 +29,7 @@ class UploadArchivesTask extends Specification {
     def "check upload archives"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             version = "1.0-SNAPSHOT"
             group = "com.tocea"
 
@@ -68,7 +68,7 @@ class UploadArchivesTask extends Specification {
     def "check upload archives 2"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             version = "1.0-SNAPSHOT"
             group = "com.tocea"
 

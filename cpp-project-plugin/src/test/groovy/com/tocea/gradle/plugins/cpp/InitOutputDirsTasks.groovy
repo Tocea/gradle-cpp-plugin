@@ -33,7 +33,7 @@ class InitOutputDirsTasks extends Specification{
     def "test build dir is initialised"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
         }
         when:
         project.tasks["initOutputDirs"].execute()

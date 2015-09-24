@@ -32,7 +32,7 @@ class CmakeTasksSpec extends Specification {
     def "check cmake arguments"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.exec.with {
@@ -59,7 +59,7 @@ class CmakeTasksSpec extends Specification {
     def "check compile cpp arguments"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.exec.with {
@@ -86,7 +86,7 @@ class CmakeTasksSpec extends Specification {
     def "check testcompile cpp arguments"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.exec.with {
@@ -114,7 +114,7 @@ class CmakeTasksSpec extends Specification {
     def "check test cpp arguments"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.exec.with {
@@ -142,7 +142,7 @@ class CmakeTasksSpec extends Specification {
     def "check test cpp arguments with custom executable"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.exec.with {
@@ -169,7 +169,7 @@ class CmakeTasksSpec extends Specification {
     def "check test cpp env"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.exec.with {
@@ -192,7 +192,7 @@ class CmakeTasksSpec extends Specification {
     def "check test cpp arguments with custom base args"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
 
             cpp.exec.with {
@@ -220,7 +220,7 @@ class CmakeTasksSpec extends Specification {
     def "check custom exec for test task"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
         }
         CppPluginExtension cpp = project.extensions["cpp"]
 
@@ -250,7 +250,7 @@ class CmakeTasksSpec extends Specification {
     def "check cmake dynamicals properties"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
 
         }
         CppPluginExtension cpp = project.extensions["cpp"]
@@ -269,7 +269,7 @@ class CmakeTasksSpec extends Specification {
     def "check desactivate build taske"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
             cpp.buildTasksEnabled = false
 
@@ -290,7 +290,7 @@ class CmakeTasksSpec extends Specification {
     def "check activate build taske"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
 
         }
 
@@ -309,7 +309,7 @@ class CmakeTasksSpec extends Specification {
     def "check cmake dynamicals properties 2"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
 
         }
         CppPluginExtension cpp = new CppPluginExtension(project)

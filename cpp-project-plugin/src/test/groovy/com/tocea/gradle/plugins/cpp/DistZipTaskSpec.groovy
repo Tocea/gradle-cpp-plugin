@@ -38,7 +38,7 @@ class DistZipTaskSpec extends Specification {
         given:
 
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
             version = "1.0"
             cpp.with {
@@ -73,7 +73,7 @@ class DistZipTaskSpec extends Specification {
         given:
 
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             version = "1.0"
 
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -102,9 +102,9 @@ class DistZipTaskSpec extends Specification {
 
     def "check change packaging type to clib"() {
         given:
-        // project.pluginManager.apply "com.tocea.gradle.cpp"
+        // project.pluginManager.apply "fr.echoes.gradle.cpp"
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
             version = "1.0"
 
@@ -132,9 +132,9 @@ class DistZipTaskSpec extends Specification {
 
     def "check change packaging type to capplication"() {
         given:
-        // project.pluginManager.apply "com.tocea.gradle.cpp"
+        // project.pluginManager.apply "fr.echoes.gradle.cpp"
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             version = "1.0"
 
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -160,9 +160,9 @@ class DistZipTaskSpec extends Specification {
 
     def "check packaging without architecture information"() {
         given:
-        // project.pluginManager.apply "com.tocea.gradle.cpp"
+        // project.pluginManager.apply "fr.echoes.gradle.cpp"
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
             version = "1.0"
 
             CppPluginExtension cpp = project.extensions["cpp"]

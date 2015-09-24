@@ -34,7 +34,7 @@ class SourceSetSpec extends Specification{
 //    def "test get sourcset convention"() {
 //        given:
 //        project.with {
-//            apply plugin: "com.tocea.gradle.cpp"
+//            apply plugin: "fr.echoes.gradle.cpp"
 //        }
 //        project.getPluginManager().apply(BasePlugin.class);
 //        when:

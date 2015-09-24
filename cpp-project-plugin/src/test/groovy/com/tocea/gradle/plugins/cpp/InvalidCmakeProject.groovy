@@ -32,7 +32,7 @@ class InvalidCmakeProject extends Specification {
     def "check launch exception if file CMakeLists.txt not present"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
         }
 
         when:
@@ -47,7 +47,7 @@ class InvalidCmakeProject extends Specification {
         given:
         new File(project.projectDir, "CMakeLists.txt").createNewFile()
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
         }
 
         when:

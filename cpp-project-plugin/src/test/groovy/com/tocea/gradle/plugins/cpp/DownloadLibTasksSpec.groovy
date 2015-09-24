@@ -35,7 +35,7 @@ class DownloadLibTasksSpec extends Specification {
         given:
         project.with {
 
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
 
             repositories {
                 repositories.mavenCentral()
@@ -72,7 +72,7 @@ class DownloadLibTasksSpec extends Specification {
 
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
 
             repositories {
                 repositories.mavenCentral()
@@ -117,7 +117,7 @@ class DownloadLibTasksSpec extends Specification {
 
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
 
             repositories {
                 repositories.mavenCentral()
@@ -159,7 +159,7 @@ class DownloadLibTasksSpec extends Specification {
 
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
 
             repositories {
                 repositories.mavenCentral()

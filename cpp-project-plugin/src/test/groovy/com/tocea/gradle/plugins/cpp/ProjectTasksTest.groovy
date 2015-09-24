@@ -33,7 +33,7 @@ class ProjectTasksTest extends Specification{
     def "find all tasks of type cmake"() {
         given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
         }
 
         when:
@@ -48,7 +48,7 @@ class ProjectTasksTest extends Specification{
 
        given:
         project.with {
-            apply plugin: "com.tocea.gradle.cpp"
+            apply plugin: "fr.echoes.gradle.cpp"
         }
 
         when:
