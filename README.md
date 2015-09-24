@@ -36,9 +36,9 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 
 **Table 1. Cpp plugin - tasks**
 
-| Task name        | Depends on     | Type    |  Description                                                    | |:----------------:|:--------------:|:-------:|:---------------------------------------------------------------:|
-| initOutputDirs   | -              | Task    | Initialize structure folders in project.buildDir directory      |
-| downloadLibs     | initOutputDirs | Task    | Copy project dependencies in project.buildDir/extLib directtory |   
+| Task name        | Depends on     | Type    |  Description                                                    | |:-----------------|:---------------|:-------:|:----------------------------------------------------------------|
+| initOutputDirs   | -              | Task    | Initialize structure folders in project.buildDir directory      
+| downloadLibs     | initOutputDirs | Task    | Copy project dependencies in project.buildDir/extLib directtory   
 
 
  
