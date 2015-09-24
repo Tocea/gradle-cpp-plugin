@@ -92,13 +92,11 @@ class CppPlugin implements Plugin<Project> {
         _project.task('downloadLibs', type: DownloadLibTask, group: 'dependancies')
         _project.task('validateCMake', type: ValidateCMakeProjectTask, group: "validate")
         _project.task('initOutputDirs', type: InitOutputDirsTask, group: "init")
-        _project.task('customExec', type: CppExecTask, group: 'build')
         _project.task('copyHeaders', type: Copy)
         _project.task('compileCpp', type: CppExecTask, group: 'build')
         _project.task('testCompileCpp', type: CppExecTask, group: 'build')
         _project.task('testCpp', type: CppExecTask, group: 'build')
         _project.task('cppArchive', type: Zip, group: 'archives')
-        _project.task('customTask', type: CustomTask)
         configureInstall(_project)
         configureBuildTasks(_project)
         configureTasksDependencies(_project)
@@ -125,8 +123,6 @@ class CppPlugin implements Plugin<Project> {
     }
 
     def configureBuildTasksDependencies(final Project _project) {
-        _project.tasks["customExec"].dependsOn _project.tasks["validateCMake"]
-        _project.tasks["customExec"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["validateCMake"]
         _project.tasks["compileCpp"].dependsOn _project.tasks["downloadLibs"]
         _project.tasks["testCompileCpp"].dependsOn _project.tasks["compileCpp"]

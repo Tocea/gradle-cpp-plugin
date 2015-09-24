@@ -41,7 +41,6 @@ class ProjectTasksTest extends Specification{
         tasks.each{ println it.name}
 
         then:
-        tasks.getByName("customExec")
         tasks.getByName("compileCpp")
     }
 
@@ -59,9 +58,7 @@ class ProjectTasksTest extends Specification{
         println project.tasks["build"].dependsOn.asList()
 
         then:
-        project.tasks["customExec"].dependsOn.contains project.tasks["downloadLibs"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
-        project.tasks["customExec"].dependsOn.contains project.tasks["validateCMake"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["validateCMake"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]

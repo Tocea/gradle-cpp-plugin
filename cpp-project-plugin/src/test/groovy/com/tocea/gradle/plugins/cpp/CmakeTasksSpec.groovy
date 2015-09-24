@@ -37,15 +37,15 @@ class CmakeTasksSpec extends Specification {
 
             cpp.exec.with {
                 execPath = "echo"
-                customExecArgs = "-Dargs v1 --default"
-                customExecStandardOutput = new ByteArrayOutputStream()
+                compileCppArgs = "-Dargs v1 --default"
+                compileCppStandardOutput = new ByteArrayOutputStream()
             }
         }
 
 
         when:
         project.evaluate()
-        CppExecTask cmake = project.tasks["customExec"]
+        CppExecTask cmake = project.tasks["compileCpp"]
         cmake.execute()
         def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
