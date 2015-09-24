@@ -47,7 +47,6 @@ public class DownloadLibTask extends DefaultTask {
     }
 
     def changeExtLibLocation(final String _newPath) {
-        //checkPathValidity(_newPath)
        def  newLocation = new  File(project.buildDir, _newPath)
         if (newLocation.absolutePath != extLibLocation.absolutePath) {
             extLibLocation.delete()
@@ -56,19 +55,8 @@ public class DownloadLibTask extends DefaultTask {
 
     }
 
-    def checkPathValidity(final String _path) {
-        def path = FilenameUtils.getPath(_path)
-        if (!path) {
-            throw  new InvalidUserDataException("path ${path} is not a valid path")
-        }
-    }
-
-    def simpleFileName(file) {
-        file.name.replaceFirst(~/\.[^\.]+$/, '')
-    }
-
     def getOutputLibDirectory(file) {
-        def simpleName = simpleFileName(file)
+        def simpleName = FilenameUtils.getBaseName(file.name)
         new File(extLibLocation, simpleName)
     }
 }
