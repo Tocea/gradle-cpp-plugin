@@ -75,6 +75,7 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 The cpp plugin adds a number of dependency configurations to your project, as shown below. It assigns those configurations to tasks such as compileCpp.
 
 ** Table 2. Cpp plugin - dependency configurations**
+
 | Name        | exdends    | Used by tasks    |  Used by tasks                 | 
 | ----------- | ---------- | ---------------- | -------------------------------|
 |  compile 	  | - 	       | compileJava 	 | Compile time dependencies      |
@@ -89,12 +90,14 @@ dependencies {
     compile group: "fr.amabis", name: "sqlapi", version: "4.1.4", classifier: "lin_x86_64", ext: "clib"
 }
 ```
+
 **Exemple 3. Internal dependencies** 
 
 ```groovy
 dependencies {
     compile preject(path: ":projectPath", configuration: "cArchives"
 }
+```
 
 ## Extension properties
 
