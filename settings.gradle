@@ -1,7 +1,5 @@
-rootProject.name = 'cpp'
+rootProject.name = 'cpp-project-plugin'
 
-include "cpp-task-plugin"
-include "cpp-project-plugin"
 
 
 
