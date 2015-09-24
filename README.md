@@ -28,7 +28,23 @@ To use the gradle-cpp-plugin, include the following in your build script:
 }
 
 apply plugin: "com.tocea.gradle.cpp"
- ```
+...
+
+## Tasks
+
+The cpp plugin adds a number of tasks to your project, as shown below.
+
+**Table 1. Cpp plugin - tasks
+
+
+------------------------------------------------
+| Task name | Depends on | type | Description |
+------------------------------------------------
+
+
+
+ 
+
  
     
     
