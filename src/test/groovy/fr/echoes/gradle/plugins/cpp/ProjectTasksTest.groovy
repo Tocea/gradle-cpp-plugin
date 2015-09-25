@@ -12,8 +12,7 @@ import spock.lang.Specification
 /**
  * Created by jguidoux on 07/09/15.
  */
-class ProjectTasksTest extends Specification{
-
+class ProjectTasksTest extends Specification {
 
 
     @Rule
@@ -30,34 +29,35 @@ class ProjectTasksTest extends Specification{
         project = ProjectBuilder.builder().withProjectDir(projectDir).build()
     }
 
-    def "find all tasks of type cmake"() {
-        given:
+    def "find all tasks of type CppExecTask"() {
+
+        given: "a gradle project applying che fr.echoes.gradle.cpp"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
         }
 
-        when:
+        when: "I ask for task of type 'CppExecTask'"
         TaskCollection tasks = project.tasks.withType(CppExecTask)
-        tasks.each{ println it.name}
+        tasks.each { println it.name }
 
-        then:
+        then: "the list must contain the 'compileCpp'"
         tasks.getByName("compileCpp")
     }
 
     def "check tasks dependencies"() {
 
-       given:
+        given: "a gradle project applying che fr.echoes.gradle.cpp"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
         }
 
-        when:
+        when: "when gradle evaluate the file build.gradle"
         project.evaluate()
 
 
         println project.tasks["build"].dependsOn.asList()
 
-        then:
+        then: "The Directed Acyclic Graph of task must be correct"
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["validateCMake"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
@@ -65,10 +65,6 @@ class ProjectTasksTest extends Specification{
         project.tasks["check"].dependsOn.contains project.tasks["testCpp"]
         project.tasks["cppArchive"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["uploadArchives"].dependsOn.contains project.tasks["build"]
-
-
-
-
 
 
     }
