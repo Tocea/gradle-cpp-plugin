@@ -22,10 +22,10 @@ To use the gradle-cpp-plugin, include the following in your build script:
    
 buildscript {
     repositories { 
-        mavenLocal() // référerence au dépôt local qui contient le plugin
+        mavenLocal() // reference to local repository that contains the plugin
     }    
     dependencies{
-	// identifiant unique du plugin
+	// Plugin Unique ID
         classpath 'com.tocea.gradle.plugins:cpp-project-plugin:1.2.1'
     }
 }
@@ -34,7 +34,7 @@ apply plugin: "com.tocea.gradle.cpp"
 ```
 ## Source sets
 
-The Cpp plugin is used to be used with this kind of structure folders
+The C++ plugin is used to be used with this kind of structure folders
 
 ```
 project
@@ -42,15 +42,15 @@ project
 |-> build/
 |-> src/
       |-> main/
-            |-> headers/ //fichier hpp, h…
-            |-> cpp/     // cpp,c files
+            |-> headers/ // hpp, h files
+            |-> cpp/     // cpp ,c files
      |-> test/
             |-> cpp/     // resources
 ```
 
 ## Tasks
 
-The cpp plugin adds a number of tasks to your project, as shown below.
+The C++ plugin adds a number of tasks to your project, as shown below.
 
 **Table 1. Cpp plugin - tasks**
 
@@ -88,9 +88,9 @@ The cpp plugin adds a number of dependency configurations to your project, as sh
 
 ```groovy
 dependencies {
-    compile "fr.amabis:sqlapi:4.1.4:lin_x86_64@clib"
+    compile "foo.bar:sqlapi:4.1.4:lin_x86_64@clib"
     // or 
-    compile group: "fr.amabis", name: "sqlapi", version: "4.1.4", classifier: "lin_x86_64", ext: "clib"
+    compile group: "foo.bar", name: "sqlapi", version: "4.1.4", classifier: "lin_x86_64", ext: "clib"
 }
 ```
 
