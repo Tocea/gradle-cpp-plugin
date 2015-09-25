@@ -98,7 +98,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    compile preject(path: ":projectPath", configuration: "cArchives"
+    compile project(path: ":projectPath", configuration: "cArchives"
 }
 ```
 
