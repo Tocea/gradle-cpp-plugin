@@ -29,8 +29,9 @@ class CmakeTasksSpec extends Specification {
     }
 
 
-    def "check cmake arguments"() {
-        given:
+    def "check compileCpp  arguments"() {
+
+        given: "task compileCpp is configured to launch 'echo -Dargs v1 --default' "
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -43,48 +44,20 @@ class CmakeTasksSpec extends Specification {
         }
 
 
-        when:
+        when: " I launch the task compileCpp"
         project.evaluate()
         CppExecTask cmake = project.tasks["compileCpp"]
         cmake.execute()
-        def output = cmake.standardOutput.toString()
-        CppPluginExtension cpp = project.extensions["cpp"]
-        println "output = $output"
 
-        then:
+        then: "task output must be 'gs v1 --default'"
         cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
-    def "check compile cpp arguments"() {
-        given:
-        project.with {
-            apply plugin: "fr.echoes.gradle.cpp"
-            CppPluginExtension cpp = project.extensions["cpp"]
-
-            cpp.exec.with {
-                execPath = "echo"
-                compileCppArgs = "-Dargs v1 --default"
-                compileCppStandardOutput = new ByteArrayOutputStream()
-            }
-        }
-
-
-        when:
-        project.evaluate()
-        CppExecTask cmake = project.tasks["compileCpp"]
-        cmake.execute()
-        def output = cmake.standardOutput.toString()
-        CppPluginExtension cpp = project.extensions["cpp"]
-        println "output = $output"
-
-        then:
-        cmake.standardOutput.toString().contains("-Dargs v1 --default")
-
-    }
 
     def "check testcompile cpp arguments"() {
-        given:
+
+        given: "task testCompileCpp is configured to launch 'echo -Dargs v1 --default' "
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -97,22 +70,23 @@ class CmakeTasksSpec extends Specification {
         }
 
 
-        when:
+        when: " I launch the task testCompileCpp"
         project.evaluate()
         CppExecTask cmake = project.tasks["testCompileCpp"]
-       // cmake.standardOutput =  new ByteArrayOutputStream()
+        // cmake.standardOutput =  new ByteArrayOutputStream()
         cmake.execute()
         def output = cmake.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
-        then:
+        then: "task output must be 'gs v1 --default'"
         cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
-    def "check test cpp arguments"() {
-        given:
+    def "check testCpp arguments"() {
+
+        given: "task testCpp is configured to launch 'echo -Dargs v1 --default' "
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -124,23 +98,20 @@ class CmakeTasksSpec extends Specification {
             }
         }
 
-
-        when:
+        when: " I launch the task testCpp"
         project.evaluate()
         project.tasks["compileCpp"].execute()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.standardOutput.toString()
-        CppPluginExtension cpp = project.extensions["cpp"]
-        println "output = $output"
 
-        then:
+        then: "task output must be '-Dargs v1 --default'"
         cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
     def "check test cpp arguments with custom executable"() {
-        given:
+
+        given: "task testCpp is configured to launch 'echo -Dargs v1 --default' using testCppExecPath"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -153,21 +124,19 @@ class CmakeTasksSpec extends Specification {
         }
 
 
-        when:
+        when: " I launch the task testCpp"
         project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.standardOutput.toString()
-        CppPluginExtension cpp = project.extensions["cpp"]
-        println "output = $output"
 
-        then:
+        then: "task output must be '-Dargs v1 --default'"
         cmake.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
     def "check test cpp env"() {
-        given:
+
+        given: "cpp extension cpp.exec.env is set with environment variable MA_VAR = 'abc' "
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -179,18 +148,18 @@ class CmakeTasksSpec extends Specification {
         }
 
 
-        when:
+        when: "I launch the task testCpp"
         project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
 
-        then:
+        then: "the testCpp task must know the variable 'MA_VAR set to 'abc'"
         cmake.environment["MA_VAR"] == "abc"
 
     }
 
     def "check test cpp arguments with custom base args"() {
-        given:
+        given: "using cpp extension with testCppBaseArgs='customTest' and   testCppArgs='-Dargs v1 --default'"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -204,21 +173,18 @@ class CmakeTasksSpec extends Specification {
         }
 
 
-        when:
+        when: "I launch the task testCpp"
         project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
-        def output = cmake.standardOutput.toString()
-        CppPluginExtension cpp = project.extensions["cpp"]
-        println "output = $output"
 
-        then:
+        then: "task output must be 'customTest -Dargs v1 --default'"
         cmake.standardOutput.toString().contains("customTest -Dargs v1 --default")
 
     }
 
     def "check custom exec for test task"() {
-        given:
+        given: "I override the exec path the execPath with testCppExecPath = \"ls\""
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
         }
@@ -230,25 +196,25 @@ class CmakeTasksSpec extends Specification {
             testCppBaseArgs = ""
             testCppArgs = ""
             testCppStandardOutput = new ByteArrayOutputStream()
-            testCppExecWorkingDir="."
+            testCppExecWorkingDir = "."
 
         }
 
-        when:
+        when: "I launch the task testCpp"
         project.evaluate()
         CppExecTask cmake = project.tasks["testCpp"]
         cmake.execute()
         def output = cmake.standardOutput.toString()
         println "output = $output"
 
-        then:
+        then: "task output must contain be 'userHome'"
         project.tasks["testCpp"].executable == "ls"
         output.contains("userHome")
 
     }
 
     def "check cmake dynamicals properties"() {
-        given:
+        given: "I apply the plugin 'fr.echoes.gradle.cpp' to a gradle project"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
 
@@ -256,18 +222,17 @@ class CmakeTasksSpec extends Specification {
         CppPluginExtension cpp = project.extensions["cpp"]
 
 
-        when:
+        when: "when gradle evaluet the file build.gradle"
         project.evaluate()
-        cpp.exec.properties.each { println it.key }
 
 
-        then:
+        then: "the property 'cpp.exec.compileCppArgs' must exist"
         cpp.exec.properties.containsKey("compileCppArgs")
 
     }
 
     def "check desactivate build taske"() {
-        given:
+        given: "when I deactivate the build tasks of the cpp plugin"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
             CppPluginExtension cpp = project.extensions["cpp"]
@@ -276,11 +241,11 @@ class CmakeTasksSpec extends Specification {
         }
 
 
-        when:
+        when: "when gradle evaluet the file build.gradle"
         project.evaluate()
 
 
-        then:
+        then: "the 'check' task must not depend of the task 'testCpp'"
         !project.tasks["check"].dependsOn.contains(project.tasks["testCpp"])
 
 
@@ -288,40 +253,38 @@ class CmakeTasksSpec extends Specification {
 
 
     def "check activate build taske"() {
-        given:
+        given: "when I do not deactivate the build tasks of the cpp plugin"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
 
         }
 
-        when:
+        when: "when gradle evaluet the file build.gradle"
         project.evaluate()
         CppPluginExtension cpp = project.extensions["cpp"]
 
 
 
 
-        then:
+        then: "the 'check' task must not depend of the task 'testCpp'"
         project.tasks["check"].dependsOn(project.tasks["testCpp"])
 
     }
 
-    def "check cmake dynamicals properties 2"() {
-        given:
+    def "check  adding dynamicals properties in cpp.exec extension"() {
+        given: "I add foo attribute in 'cpp.exec' using metaclass groovy system"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
 
         }
         CppPluginExtension cpp = new CppPluginExtension(project)
-        cpp.exec.metaClass.abruti
+        cpp.exec.metaClass.foo = ""
 
-        when:
+        when: "when gradle evaluet the file build.gradle"
         project.evaluate()
-        cpp.exec.properties.each { println it.key }
 
-
-        then:
-        cpp.exec.properties.containsKey("compileCppArgs")
+        then: "foo attribute must exist"
+        cpp.exec.properties.containsKey("foo")
 
     }
 
