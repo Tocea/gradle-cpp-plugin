@@ -224,7 +224,7 @@ class CppExecTaskSpec extends Specification {
         CppPluginExtension cpp = project.extensions["cpp"]
 
 
-        when: "when gradle evaluet the file build.gradle"
+        when: "when gradle evaluate the file build.gradle"
         project.evaluate()
 
 
@@ -243,7 +243,7 @@ class CppExecTaskSpec extends Specification {
         }
 
 
-        when: "when gradle evaluet the file build.gradle"
+        when: "when gradle evaluate the file build.gradle"
         project.evaluate()
 
 
@@ -261,7 +261,7 @@ class CppExecTaskSpec extends Specification {
 
         }
 
-        when: "when gradle evaluet the file build.gradle"
+        when: "when gradle evaluate the file build.gradle"
         project.evaluate()
         CppPluginExtension cpp = project.extensions["cpp"]
 
@@ -282,7 +282,7 @@ class CppExecTaskSpec extends Specification {
         CppPluginExtension cpp = new CppPluginExtension(project)
         cpp.exec.metaClass.foo = ""
 
-        when: "when gradle evaluet the file build.gradle"
+        when: "when gradle evaluate the file build.gradle"
         project.evaluate()
 
         then: "foo attribute must exist"

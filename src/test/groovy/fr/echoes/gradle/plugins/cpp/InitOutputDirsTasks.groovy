@@ -10,7 +10,7 @@ import spock.lang.Specification
 /**
  * Created by jguidoux on 10/09/15.
  */
-class InitOutputDirsTasks extends Specification{
+class InitOutputDirsTasks extends Specification {
 
 
     @Rule
@@ -29,15 +29,16 @@ class InitOutputDirsTasks extends Specification{
 
 
     def "test build dir is initialised"() {
-        given:
+        given: "a gradle project applying che fr.echoes.gradle.cpp"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
         }
-        when:
+
+        when: "when gradle evaluate the file build.gradle"
         project.tasks["initOutputDirs"].execute()
 
 
-        then:
+        then: "directories 'build/main-obj', 'build/main-obj', 'build/report', 'build/tmp', 'build/tmp/lib' "
         project.buildDir.exists()
         new File(project.buildDir, "main-obj").exists()
         new File(project.buildDir, "test-obj").exists()

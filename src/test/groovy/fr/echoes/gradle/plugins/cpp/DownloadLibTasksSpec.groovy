@@ -10,6 +10,7 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 /**
+ * test the downloadLib task
  * Created by jguidoux on 03/09/15.
  */
 class DownloadLibTasksSpec extends Specification {
@@ -32,7 +33,7 @@ class DownloadLibTasksSpec extends Specification {
 
     def "download junit in extlib folder"() {
 
-        given:
+        given: "the project depend of 'junit' version '4.11'"
         project.with {
 
             apply plugin: "fr.echoes.gradle.cpp"
@@ -42,25 +43,20 @@ class DownloadLibTasksSpec extends Specification {
                 repositories.mavenLocal()
             }
 
-
-
             dependencies {
                 compile "junit:junit:4.11"
-
-
             }
-
 
         }
 
 
-        when:
+        when: "I launch the task 'downloadLibs' task"
         project.tasks["downloadLibs"].execute()
         def extLib = new File(projectDir, "build/extLib")
         def junitDir = new File(extLib, "junit-4.11")
 
 
-        then:
+        then: "the directory 'build/extLib/junit-4.11' must exist"
         junitDir.exists()
         junitDir.isDirectory()
         extLib.list().length ==1
@@ -70,7 +66,7 @@ class DownloadLibTasksSpec extends Specification {
     @Ignore
     def "download junit in custom extlib folder"() {
 
-        given:
+        given: "when I set lib folden in 'tartenpion'"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
 
@@ -97,14 +93,14 @@ class DownloadLibTasksSpec extends Specification {
         }
 
 
-        when:
+        when: "I launch the task 'downloadLibs' task"
         project.evaluate()
         project.tasks["downloadLibs"].execute()
         def extLib = new File(projectDir, "build/tartenpion")
         def junitDir = new File(extLib, "junit-4.11")
 
 
-        then:
+        then: "the directory 'build/tartenpion/junit-4.11' must exist"
         junitDir.exists()
         junitDir.isDirectory()
         extLib.list().length == 1
