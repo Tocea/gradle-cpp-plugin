@@ -2,7 +2,7 @@ language: groovy
 script: "./gradlew build jacocoTestReport"
 jdk: oraclejdk7
 after_success:
-- "./gradlew jacocoRootReport coveralls"
+- "./gradlew coveralls"
 - "./update-gh-pages.sh"
 env:
   global:
