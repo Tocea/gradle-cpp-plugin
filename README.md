@@ -21,13 +21,14 @@ To use the gradle-cpp-plugin, include the following in your build script:
 ```groovy
    
 buildscript {
-    repositories { 
-        mavenLocal() // local plugin repository reference
-    }    
-    dependencies{
-	// unique identifier fot the plugin
-        classpath 'com.tocea.gradle.plugins:cpp-project-plugin:1.2.4-SNAPSHOT
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
+  }
+  dependencies {
+    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.4"
+  }
 }
 
 apply plugin: "com.tocea.gradle.cpp"
