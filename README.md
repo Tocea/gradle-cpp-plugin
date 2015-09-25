@@ -1,10 +1,10 @@
-[![Build Status](https://travis-ci.org/Tocea/gradle-cpp-plugin.svg?branch=master)](https://travis-ci.org/Tocea/gradle-cpp-plugin)
-[![Coverage Status](https://coveralls.io/repos/Tocea/gradle-cpp-plugin/badge.svg?branch=master)](https://coveralls.io/r/Tocea/gradle-cpp-plugin?branch=master)
+[![Build Status](https://travis-ci.org/Tocea/gradle-cpp-plugin.svg?branch=develop)](https://travis-ci.org/Tocea/gradle-cpp-plugin)
+[![Coverage Status](https://coveralls.io/repos/Tocea/gradle-cpp-plugin/badge.svg?branch=develop)](https://coveralls.io/r/Tocea/gradle-cpp-plugin?branch=develop)
 
 # gradle-cpp-plugin
-Gradle C/C++ plugin with C++ build tools interactions. This plugins launche C++ build tools and add Gradle capabilities like :
+Gradle C/C++ plugin with C++ build tools interactions. This plugins launches C++ build tools and adds Gradle capabilities like :
 
-1. Dedendenciers management
+1. Dedendencies management
 2. Packaging
 3. Upload
 4. DAG of tasks
@@ -21,13 +21,14 @@ To use the gradle-cpp-plugin, include the following in your build script:
 ```groovy
    
 buildscript {
-    repositories { 
-        mavenLocal() // référerence au dépôt local qui contient le plugin
-    }    
-    dependencies{
-	// identifiant unique du plugin
-        classpath 'com.tocea.gradle.plugins:cpp-project-plugin:1.2.3'
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
+  }
+  dependencies {
+    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.4"
+  }
 }
 
 apply plugin: "com.tocea.gradle.cpp"
@@ -56,17 +57,17 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 
 | Task name        | Depends on      | Type    |  Description                                                    | 
 | ---------------- | --------------  | ------- | --------------------------------------------------------------- |
-| initOutputDirs   | -               | Task    | Initialize structure folders in project.buildDir directory      |
-| downloadLibs     | initOutputDirs  | Task    | Copy project dependencies in project.buildDir/extLib directtory |
-| compileCpp       | downloadLibs    | CppExecTask --> Exec    | compile source code. Need to be configured to launch the correct tool |
-| testCompileCpp       | compileCpp    | CppExecTask --> Exec    | compile test source code. Need to be configured te launch the correct tool |
-| testCpp       | testCompileCpp    | CppExecTask --> Exec    | jaunch test. Need to be configured to launcho the correct tool |
-| distZip       | compileCpp    | Zip    | assemble the ZIP file it it's an c-application or a CLIB file tf it's a c-library |
-| assemble       | all archives tassa as distJip    | Task    | Assembles the outputs of this project |
-| check       | all tests taska as testCpp    | Task    | Assembles the outputs of this project |
-| build       | check and assemble    | Task    | Assembles ant check this project |
-| install       | build    | Upload    | upload the distZip archive in the local repository |
-| uploadArchive       | build    | Upload    | upload the distZip archive in a remote repository |
+| initOutputDirs   | -               | Task    | Initializes structure folders in project.buildDir directory      |
+| downloadLibs     | initOutputDirs  | Task    | Copies project dependencies in project.buildDir/extLib directtory |
+| compileCpp       | downloadLibs    | CppExecTask --> Exec    | Compiles source code. Needs to be configured to launch the correct tool |
+| testCompileCpp       | compileCpp    | CppExecTask --> Exec    | Compile test source code. Needs to be configured te launch the correct tool |
+| testCpp       | testCompileCpp    | CppExecTask --> Exec    | Launches test. Needs to be configured to launch the correct tool |
+| distZip       | compileCpp    | Zip    | Assembles the ZIP file if it is a c-application or a CLIB file if it is a c-library |
+| assemble       | all archives task as distZip    | Task    | Assembles the outputs of this project |
+| check       | all tests task as testCpp    | Task    | Assembles the outputs of this project |
+| build       | check and assemble    | Task    | Assembles and checks this project |
+| install       | build    | Upload    | Uploads the distZip archive in the local repository |
+| uploadArchive       | build    | Upload    | Uploads the distZip archive in a remote repository |
 
 **Figure 1. Cpp plugin -tasks**
 
@@ -75,7 +76,7 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 
 ## Dependency management
 
-The cpp plugin adds a number of dependency configurations to your project, as shown below. It assigns those configurations to tasks such as compileCpp.
+The cpp plugin adds a number of dependencies configurations to your project, as shown below. It assigns those configurations to tasks such as compileCpp.
 
 **Table 2. Cpp plugin - dependency configurations**
 
@@ -88,9 +89,9 @@ The cpp plugin adds a number of dependency configurations to your project, as sh
 
 ```groovy
 dependencies {
-    compile "fr.amabis:sqlapi:4.1.4:lin_x86_64@clib"
+    compile "fr.extern:sqlapi:4.1.4:lin_x86_64@clib"
     // or 
-    compile group: "fr.amabis", name: "sqlapi", version: "4.1.4", classifier: "lin_x86_64", ext: "clib"
+    compile group: "fr.extern", name: "sqlapi", version: "4.1.4", classifier: "lin_x86_64", ext: "clib"
 }
 ```
 
@@ -98,19 +99,19 @@ dependencies {
 
 ```groovy
 dependencies {
-    compile preject(path: ":projectPath", configuration: "cArchives"
+    compile project(path: ":projectPath", configuration: "cArchives"
 }
 ```
 
 ## Extension properties
 
-The Java plugin adds a number of convention properties to the project, shown below. You can use these properties in your build script as though they were properties of the project object. 
+The Java plugin adds a number of conventions properties to the project, shown below. You can use these properties in your build script as though they were properties of the project object. 
 
 **Table 3. Cpp plugin - Project projerties**
     
 | Name        | Type       | Default value    |  Description          | 
 | ----------- | ---------- | ---------------- | -------------------------------|
-|  cpp 	  | CppPluginExtension 	       | - 	 | contain the configuration of cpp      |
+|  cpp 	  | CppPluginExtension 	       | - 	 | Contains the configuration of cpp      |
     
 **Exemple 2. Cpp extension exemple** 
 
@@ -124,10 +125,10 @@ cpp {
     
 | Name        | Type    | Default value    |  Description          | 
 | ----------- | ---------- | ---------------- | -------------------------------|
-|  applicationType | ApplicationType | ApplicationType.clibrary | type of the project : ApplicationType.clibrary or ApplicationType.capplication |
-|  classifier | String | classifier | allows to distinguish artifacts for a same version. |
-|  buildTasksEnabled | boolean | true | activate or desactivate the compileCpp, testCompileCpp, testCpp tasks |
-|  exec | CppExecConfiguration | - | To configure the builds tasks |
+|  applicationType | ApplicationType | ApplicationType.clibrary | Type of project : ApplicationType.clibrary or ApplicationType.capplication |
+|  classifier | String | classifier | Allows to distinguish artifacts for a same version. |
+|  buildTasksEnabled | boolean | true | Activates or desactivates the compileCpp, testCompileCpp, testCpp tasks |
+|  exec | CppExecConfiguration | - | Configures the builds tasks |
 
 **Exemple 4. Cpp extension exemple** 
 
@@ -146,13 +147,13 @@ cpp {
     
 | Name        | Type    | Default value    |  Description          | 
 | ----------- | ---------- | ---------------- | -------------------------------|
-|  execPath | String | "" | path of the executable for all taskes of type CppExecTask |
-| env       | java.util.Map | null | environment variables map   for all taskes of type CppExecTask |
-| ${task.name}ExecPath | String | "" | path of the executable for the task  ${task.name} of type CppExecTask (override the execPath value)|
-| ${task.name}BaseArgs | String | null | arguments of the command launched by the task ${task.name} of type CppExecTask |
-| ${task.name}Args | String | "" | more arguments of the command launched by the task  ${task.name} of type CppExecTask |
-| ${task.name}ExecWorkingDir | String | null | file location to execute the command launched by the task ${task.name} of type CppExecTask |
-| ${task.name}StandardOutput | OutputStream  | null | outPutStream to store the result of the command launched by the task ${task.name} of type CppExecTask |
+|  execPath | String | "" | Path of the executable for all tasks of type CppExecTask |
+| env       | java.util.Map | null | Environment variables map for all tasks of type CppExecTask |
+| ${task.name}ExecPath | String | "" | Path of the executable for the task ${task.name} of type CppExecTask (overrides the execPath value)|
+| ${task.name}BaseArgs | String | null | Arguments of the command launched by the task ${task.name} of type CppExecTask |
+| ${task.name}Args | String | "" | More arguments of the command launched by the task  ${task.name} of type CppExecTask |
+| ${task.name}ExecWorkingDir | String | null | File location to execute the command launched by the task ${task.name} of type CppExecTask |
+| ${task.name}StandardOutput | OutputStream  | null | Output stream used to store the result of the command launched by the task ${task.name} of type CppExecTask |
 
 **Exemple 5. CppExecConfiguration exemple** 
 
@@ -206,10 +207,10 @@ Then launch the build.
 An exemple of console output.
 
 ```
-amasoft:amalib:clean
-:amasoft:amalib:initOutputDirs
-:amasoft:amalib:downloadLibs
-:amasoft:amalib:launchCMake
+extern:externlib:clean
+:extern:externlib:initOutputDirs
+:extern:externlib:downloadLibs
+:extern:externlib:launchCMake
 -- The C compiler identification is GNU 4.9.2
 -- The CXX compiler identification is GNU 4.9.2
 -- Check for working C compiler: /usr/bin/cc
@@ -232,20 +233,20 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/jguidoux/work/clients/Amabis/applis/amaserver/projects/amasoft/amalib/build
-:amasoft:amalib:validateCMake
-:amasoft:amalib:compileCpp
+-- Build files have been written to: /where/it/should/be/build
+:extern:externlib:validateCMake
+:extern:externlib:compileCpp
   …
-:amasoft:amalib:copyHeaders
-:amasoft:amalib:cppArchive UP-TO-DATE
-:amasoft:amalib:distTar
-:amasoft:amalib:distZip
-:amasoft:amalib:assemble
-:amasoft:amalib:testCompileCpp
+:extern:externlib:copyHeaders
+:extern:externlib:cppArchive UP-TO-DATE
+:extern:externlib:distTar
+:extern:externlib:distZip
+:extern:externlib:assemble
+:extern:externlib:testCompileCpp
 
-:amasoft:amalib:testCpp
+:extern:externlib:testCpp
 
-:amasoft:amalib:check
-:amasoft:amalib:build
+:extern:externlib:check
+:extern:externlib:build
 ```
 
