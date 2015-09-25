@@ -15,12 +15,13 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
   #go into diractory and copy data we're interested in to that directory
   cd gh-pages
-  cp -Rf $HOME/spock-reports/* .
+  mkdir spock-reports
+  cp -Rf $HOME/spock-reports/* spock-reports/
 
   #add, commit and push files
   git add -f .
   git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
   git push -fq origin gh-pages > /dev/null
 
-  echo -e "Done magic with coverage\n"
+  echo -e "Done magic with spock-reports\n"
 fi
