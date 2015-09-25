@@ -9,9 +9,11 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 /**
+ * this test class si used to test CppExecTask class
+ * 
  * Created by jguidoux on 04/09/15.
  */
-class CmakeTasksSpec extends Specification {
+class CppExecTaskSpec extends Specification {
 
 
     @Rule
@@ -46,11 +48,11 @@ class CmakeTasksSpec extends Specification {
 
         when: " I launch the task compileCpp"
         project.evaluate()
-        CppExecTask cmake = project.tasks["compileCpp"]
-        cmake.execute()
+        CppExecTask task = project.tasks["compileCpp"]
+        task.execute()
 
         then: "task output must be 'gs v1 --default'"
-        cmake.standardOutput.toString().contains("-Dargs v1 --default")
+        task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -72,15 +74,15 @@ class CmakeTasksSpec extends Specification {
 
         when: " I launch the task testCompileCpp"
         project.evaluate()
-        CppExecTask cmake = project.tasks["testCompileCpp"]
-        // cmake.standardOutput =  new ByteArrayOutputStream()
-        cmake.execute()
-        def output = cmake.standardOutput.toString()
+        CppExecTask task = project.tasks["testCompileCpp"]
+        // task.standardOutput =  new ByteArrayOutputStream()
+        task.execute()
+        def output = task.standardOutput.toString()
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
         then: "task output must be 'gs v1 --default'"
-        cmake.standardOutput.toString().contains("-Dargs v1 --default")
+        task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -101,11 +103,11 @@ class CmakeTasksSpec extends Specification {
         when: " I launch the task testCpp"
         project.evaluate()
         project.tasks["compileCpp"].execute()
-        CppExecTask cmake = project.tasks["testCpp"]
-        cmake.execute()
+        CppExecTask task = project.tasks["testCpp"]
+        task.execute()
 
         then: "task output must be '-Dargs v1 --default'"
-        cmake.standardOutput.toString().contains("-Dargs v1 --default")
+        task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -126,11 +128,11 @@ class CmakeTasksSpec extends Specification {
 
         when: " I launch the task testCpp"
         project.evaluate()
-        CppExecTask cmake = project.tasks["testCpp"]
-        cmake.execute()
+        CppExecTask task = project.tasks["testCpp"]
+        task.execute()
 
         then: "task output must be '-Dargs v1 --default'"
-        cmake.standardOutput.toString().contains("-Dargs v1 --default")
+        task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
 
@@ -150,11 +152,11 @@ class CmakeTasksSpec extends Specification {
 
         when: "I launch the task testCpp"
         project.evaluate()
-        CppExecTask cmake = project.tasks["testCpp"]
-        cmake.execute()
+        CppExecTask task = project.tasks["testCpp"]
+        task.execute()
 
         then: "the testCpp task must know the variable 'MA_VAR set to 'abc'"
-        cmake.environment["MA_VAR"] == "abc"
+        task.environment["MA_VAR"] == "abc"
 
     }
 
@@ -175,11 +177,11 @@ class CmakeTasksSpec extends Specification {
 
         when: "I launch the task testCpp"
         project.evaluate()
-        CppExecTask cmake = project.tasks["testCpp"]
-        cmake.execute()
+        CppExecTask task = project.tasks["testCpp"]
+        task.execute()
 
         then: "task output must be 'customTest -Dargs v1 --default'"
-        cmake.standardOutput.toString().contains("customTest -Dargs v1 --default")
+        task.standardOutput.toString().contains("customTest -Dargs v1 --default")
 
     }
 
@@ -202,9 +204,9 @@ class CmakeTasksSpec extends Specification {
 
         when: "I launch the task testCpp"
         project.evaluate()
-        CppExecTask cmake = project.tasks["testCpp"]
-        cmake.execute()
-        def output = cmake.standardOutput.toString()
+        CppExecTask task = project.tasks["testCpp"]
+        task.execute()
+        def output = task.standardOutput.toString()
         println "output = $output"
 
         then: "task output must contain be 'userHome'"
@@ -213,7 +215,7 @@ class CmakeTasksSpec extends Specification {
 
     }
 
-    def "check cmake dynamicals properties"() {
+    def "check task dynamicals properties"() {
         given: "I apply the plugin 'fr.echoes.gradle.cpp' to a gradle project"
         project.with {
             apply plugin: "fr.echoes.gradle.cpp"
