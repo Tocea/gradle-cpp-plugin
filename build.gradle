@@ -86,7 +86,7 @@ jacocoTestReport {
 // The configuration example below shows the minimum required properties
 // configured to publish your plugin to the plugin portal
 pluginBundle {
-    website = 'https://github.com/Tocea/gradle-cpp-plugin'
+    website = 'http://tocea.github.io/gradle-cpp-plugin/'
     vcsUrl = 'https://github.com/Tocea/gradle-cpp-plugin'
     description = 'gradle plugin for c++'
     tags = ['cpp', 'c++']
