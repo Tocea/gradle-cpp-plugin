@@ -2,6 +2,9 @@
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   echo -e "Starting to update gh-pages\n"
 
+  # load gradle.properties
+  . ./gradle.properties
+
   #copy data we're interested in to other place
   cp -R build/spock-reports $HOME/spock-reports
 
@@ -19,7 +22,12 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   # Control will enter here if $DIRECTORY exists.
   mkdir spock-reports
   fi
-  cp -Rf $HOME/spock-reports/* spock-reports/
+
+   if [ ! -d "spock-reports/$version" ]; then
+  # Control will enter here if $DIRECTORY exists.
+  mkdir "spock-reports/$version"
+  fi
+  cp -Rf $HOME/spock-reports/* "spock-reports/$version"
 
   #add, commit and push files
   git add -f .
