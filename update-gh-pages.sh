@@ -18,14 +18,10 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
   #go into diractory and copy data we're interested in to that directory
   cd gh-pages
-  if [ ! -d "spock-reports" ]; then
-  # Control will enter here if $DIRECTORY exists.
-  mkdir spock-reports
-  fi
 
    if [ ! -d "spock-reports/$version" ]; then
   # Control will enter here if $DIRECTORY exists.
-  mkdir "spock-reports/$version"
+  mkdir -p "spock-reports/$version"
   fi
   cp -Rf $HOME/spock-reports/* "spock-reports/$version"
 
