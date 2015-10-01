@@ -30,6 +30,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
   ## groovyDoc reports ############
   cd $HOME
+  cd gh-pages
   if [ ! -d "groovydoc/$version" ]; then
   # Control will enter here if $DIRECTORY exists.
   mkdir -p "groovydoc/$version"
