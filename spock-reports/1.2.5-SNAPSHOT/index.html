@@ -1,70 +1,171 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
-<html>
+<!DOCTYPE html><html>
 <head>
-<title>Index (cpp-project-plugin 1.2.5-SNAPSHOT API)</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="groovy.ico" type="image/x-icon" rel="shortcut icon">
-<link href="groovy.ico" type="image/x-icon" rel="icon">
-<script type="text/javascript">
-    targetPage = "" + window.location.search;
-    if (targetPage != "" && targetPage != "undefined")
-        targetPage = targetPage.substring(1);
-    if (targetPage.indexOf(":") != -1)
-        targetPage = "undefined";
-    if (targetPage != "" && !validURL(targetPage))
-        targetPage = "undefined";
-    function validURL(url) {
-        var pos = url.indexOf(".html");
-        if (pos == -1 || pos != url.length - 5)
-            return false;
-        var allowNumber = false;
-        var allowSep = false;
-        var seenDot = false;
-        for (var i = 0; i < url.length - 5; i++) {
-            var ch = url.charAt(i);
-            if ('a' <= ch && ch <= 'z' ||
-                    'A' <= ch && ch <= 'Z' ||
-                    ch == '$' ||
-                    ch == '_') {
-                allowNumber = true;
-                allowSep = true;
-            } else if ('0' <= ch && ch <= '9'
-                    || ch == '-') {
-                if (!allowNumber)
-                    return false;
-            } else if (ch == '/' || ch == '.') {
-                if (!allowSep)
-                    return false;
-                allowNumber = false;
-                allowSep = false;
-                if (ch == '.')
-                    seenDot = true;
-                if (ch == '/' && seenDot)
-                    return false;
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-    function loadFrames() {
-        if (targetPage != "" && targetPage != "undefined")
-            top.classFrame.location = top.targetPage;
-    }
-</script>
-<noscript></noscript>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'></meta>
+<style>body {
+  font-family: Helvetica;
+}
+
+table {
+  margin: 5px;
+}
+
+div.date-test-ran {
+  font-size: small;
+  font-style: italic;
+}
+
+table.summary-table {
+  width: 800px;
+  text-align: left;
+  font-weight: bold;
+  font-size: small;
+}
+
+table.summary-table th {
+  background: lightblue;
+  padding: 6px;
+}
+
+table.summary-table td {
+  background: #E0E0E0;
+  padding: 6px;
+}
+
+tr.error td, td.error {
+  background-color: #F89A4F !important;
+}
+
+tr.failure td, td.failure {
+  color: red;
+}
+
+div.footer {
+  text-align: center;
+  font-size: small;
+}
+</style>
 </head>
-<frameset cols="20%,80%" title="Documentation frame" onload="top.loadFrames()">
-    <frameset rows="30%,70%" title="Left frames" onload="top.loadFrames()">
-        <frame src="overview-frame.html" name="packageListFrame" title="All Packages">
-        <frame src="allclasses-frame.html" name="packageFrame" title="All classes and interfaces (except non-static nested types)">
-    </frameset>
-    <frame src="overview-summary.html" name="classFrame" title="Package, class and interface descriptions" scrolling="yes">
-    <noframes>
-        <noscript>
-            <div>JavaScript is disabled on your browser.</div>
-        </noscript>
-        <h2>Frame Alert</h2>
-        <p>This document is designed to be viewed using the frames feature. If you see this message, you are using a non-frame-capable web client. Link to <a href="overview-summary.html">Non-frame version</a>.</p>
-    </noframes>
-</frameset></html>
+<body>
+<h2>Specification run results</h2>
+<hr></hr>
+<div class='summary-report'>
+<h3>Specifications summary:</h3>
+<div class='date-test-ran'>Created on Thu Oct 01 16:47:11 UTC 2015 by travis</div>
+<table class='summary-table'>
+<thead>
+<th>Total</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Feature failures</th>
+<th>Feature errors</th>
+<th>Success rate</th>
+<th>Total time</th>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100.0%</td>
+<td>12.869 seconds</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Specifications:</h3>
+<table class='summary-table'>
+<thead>
+<th>Name</th>
+<th>Features</th>
+<th>Failed</th>
+<th>Errors</th>
+<th>Skipped</th>
+<th>Success rate</th>
+<th>Time</th>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href='fr.echoes.gradle.plugins.cpp.CppExecTaskSpec.html'>fr.echoes.gradle.plugins.cpp.CppExecTaskSpec</a>
+</td>
+<td>11</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100.0%</td>
+<td>6.403 seconds</td>
+</tr>
+<tr>
+<td>
+<a href='fr.echoes.gradle.plugins.cpp.DistZipTaskSpec.html'>fr.echoes.gradle.plugins.cpp.DistZipTaskSpec</a>
+</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100.0%</td>
+<td>1.104 seconds</td>
+</tr>
+<tr>
+<td>
+<a href='fr.echoes.gradle.plugins.cpp.DownloadLibTasksSpec.html'>fr.echoes.gradle.plugins.cpp.DownloadLibTasksSpec</a>
+</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>100.0%</td>
+<td>3.261 seconds</td>
+</tr>
+<tr>
+<td>
+<a href='fr.echoes.gradle.plugins.cpp.InitOutputDirsTasks.html'>fr.echoes.gradle.plugins.cpp.InitOutputDirsTasks</a>
+</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100.0%</td>
+<td>0.121 seconds</td>
+</tr>
+<tr>
+<td>
+<a href='fr.echoes.gradle.plugins.cpp.ProjectTasksTest.html'>fr.echoes.gradle.plugins.cpp.ProjectTasksTest</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100.0%</td>
+<td>0.236 seconds</td>
+</tr>
+<tr>
+<td>
+<a href='fr.echoes.gradle.plugins.cpp.UploadArchivesTask.html'>fr.echoes.gradle.plugins.cpp.UploadArchivesTask</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100.0%</td>
+<td>1.726 seconds</td>
+</tr>
+<tr>
+<td>
+<a href='fr.echoes.gradle.plugins.cpp.UtilsSpec.html'>fr.echoes.gradle.plugins.cpp.UtilsSpec</a>
+</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100.0%</td>
+<td>0.018 seconds</td>
+</tr>
+</tbody>
+</table>
+<hr></hr>
+<div class='footer'>Generated by <a href='https://github.com/renatoathaydes/spock-reports'>Athaydes Spock Reports</a></div>
+</body>
+</html>
