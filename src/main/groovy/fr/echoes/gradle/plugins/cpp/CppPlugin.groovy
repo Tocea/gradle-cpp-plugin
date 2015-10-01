@@ -109,6 +109,8 @@ class CppPlugin implements Plugin<Project> {
     private configureTasksDependencies(Project _project) {
 
         _project.tasks.downloadLibs.dependsOn _project.tasks.initOutputDirs
+        _project.tasks.copyHeaders.dependsOn _project.tasks.initOutputDirs
+        _project.tasks.distZip.dependsOn _project.tasks.copyHeaders
         _project.tasks.install.dependsOn _project.tasks.assemble
         _project.tasks.uploadArchives.dependsOn _project.tasks.build
 
@@ -119,7 +121,6 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks.testCompileCpp.dependsOn _project.tasks.compileCpp
         _project.tasks.testCpp.dependsOn _project.tasks.testCompileCpp
         _project.tasks.check.dependsOn _project.tasks.testCpp
-        _project.tasks.distZip.dependsOn _project.tasks.copyHeaders
     }
 
     private List findDependentProjects(Project _project) {

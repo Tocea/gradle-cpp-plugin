@@ -58,6 +58,8 @@ class ProjectTasksTest extends Specification {
         println project.tasks["build"].dependsOn.asList()
 
         then: "The Directed Acyclic Graph of task must be correct"
+        project.tasks["copyHeaders"].dependsOn.contains project.tasks["initOutputDirs"]
+        project.tasks["downloadLibs"].dependsOn.contains project.tasks["initOutputDirs"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]
