@@ -3,6 +3,7 @@ script: "./gradlew build jacocoTestReport"
 jdk: oraclejdk7
 after_success:
 - "./gradlew coveralls"
+- "./gradlew groovydoc"
 - "./update-gh-pages.sh"
 env:
   global:
