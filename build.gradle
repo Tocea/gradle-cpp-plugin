@@ -44,6 +44,12 @@ repositories {
     jcenter()
 }
 
+
+compileJava {
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+}
+
 dependencies {
     compile gradleApi()
     compile localGroovy()
