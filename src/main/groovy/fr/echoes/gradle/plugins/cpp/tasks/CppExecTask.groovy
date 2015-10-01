@@ -3,68 +3,44 @@ package fr.echoes.gradle.plugins.cpp.tasks
 import org.gradle.api.tasks.Exec
 
 /**
- * Created by jguidoux on 04/09/15.
+ * This class is use for build tasks for the gradle-cpp-plugin.
+ * <p>
+ *  Existing CppExecTask are 'compileCpp', 'testCompileCpp', 'testCpp'.
+ *  <p>
+ *      User can create this CppExecTask like this :
+ *   <pre>
+ *       task testIntegration(type: CppExecTask)
+ *       testIntegration.dependsOn testCpp
+ *       check.dependsOn testIntegration
+ *   </pre>
+ *       User can configuere this task directly. CppExecTask is of type {@link Exec},
+ *       so, all properties of {@link Exec} class can be used.
+ *   <pre>
+ *     task testIntegration(type: CppExecTask) {
+ *       workingDir = "build/test-obj"
+ *       executable = "make"
+ *       args  "IT"
+ *     }
+ *     </pre>
+ *
+ *    Or in the configuration of the plugin
+ *  <pre>
+ *      cpp.exec.with {
+ *          testIntegrationExecPath = "make"
+ *          testIntegrationExecWorkingDir = "build/test-obj"
+ *          testIntegrationBaseArgs = "IT"
+ *      }
+ *   </pre>
+ *
+ *   <p>
+ *  Created by jguidoux on 04/09/15.
+ *   <p>
+ *   @see org.gradle.api.tasks.Exec
+ *
+ *
+ *
  */
 public class CppExecTask extends Exec {
 
 
-
-
-//    @TaskAction
-//    void exec() {
-//
-////        initFields()
-//
-//
-//        def isWindows = System.properties['os.name'].toLowerCase().contains('windows')
-//        def commandLinePrefix = isWindows ? ['cmd', '/c'] : []
-//
-//            executable execPath
-//            commandLine commandLinePrefix + execPath
-//            String[] cmakeArgsArray = []
-//            if (execWorkingDir) {
-//                workingDir = execWorkingDir
-//            }
-//            if (baseArgs) {
-//                cmakeArgsArray += baseArgs.split('\\s')
-//            }
-//            if (appArguments) {
-//                cmakeArgsArray += appArguments.split('\\s')
-//            }
-//            args cmakeArgsArray
-//            if (envVars) {
-//                environment = envVars
-//            }
-//            if (execOutput) {
-//                standardOutput = execOutput
-//            }
-//
-//
-//
-//    }
-//
-//
-//    private void initFields() {
-//        if (project.cpp.exec.execPath) {
-//            execPath = project.cpp.exec.execPath
-//        }
-//        if (project.cpp.exec."${name}ExecPath") {
-//            execPath = project.cpp.exec."${name}ExecPath"
-//        }
-//        if (project.cpp.exec."${name}StandardOutput") {
-//            execOutput = project.cpp.exec."${name}StandardOutput"
-//        }
-//        if (project.cpp.exec."${name}BaseArgs" != null) {
-//            baseArgs = project.cpp.exec."${name}BaseArgs"
-//        }
-//        if (project.cpp.exec."${name}Args") {
-//            appArguments = project.cpp.exec."${name}Args"
-//        }
-//        if (project.cpp.exec."${name}ExecWorkingDir") {
-//            execWorkingDir = project.cpp.exec."${name}ExecWorkingDir"
-//        }
-//        if (project.cpp.exec.env) {
-//            envVars = project.cpp.exec.env
-//        }
-//    }
 }
