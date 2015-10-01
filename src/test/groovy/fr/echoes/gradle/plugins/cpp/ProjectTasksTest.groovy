@@ -62,7 +62,7 @@ class ProjectTasksTest extends Specification {
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]
         project.tasks["check"].dependsOn.contains project.tasks["testCpp"]
-        project.tasks["cppArchive"].dependsOn.contains project.tasks["compileCpp"]
+        project.tasks["distZip"].dependsOn.contains project.tasks["copyHeaders"]
         project.tasks["uploadArchives"].dependsOn.contains project.tasks["build"]
 
 
