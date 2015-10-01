@@ -13,7 +13,7 @@ import org.gradle.api.tasks.Exec
  *       testIntegration.dependsOn testCpp
  *       check.dependsOn testIntegration
  *   </pre>
- *       User can configuere this task directly. CppExecTask is of type {@link Exec},
+ *       User can configure this task directly. CppExecTask is of type {@link Exec},
  *       so, all properties of {@link Exec} class can be used.
  *   <pre>
  *     task testIntegration(type: CppExecTask) {
