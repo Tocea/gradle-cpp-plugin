@@ -7,6 +7,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
   #copy data we're interested in to other place
   cp -R build/spock-reports $HOME/spock-reports
+  cp -R build/docs/groovydoc  $HOME/groovydoc
+
 
   #go to home and setup git
   cd $HOME
@@ -19,11 +21,20 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   #go into diractory and copy data we're interested in to that directory
   cd gh-pages
 
+	## test reports ############
    if [ ! -d "spock-reports/$version" ]; then
   # Control will enter here if $DIRECTORY exists.
   mkdir -p "spock-reports/$version"
   fi
   cp -Rf $HOME/spock-reports/* "spock-reports/$version"
+
+  ## groovyDoc reports ############
+  cd $HOME
+  if [ ! -d "groovydoc/$version" ]; then
+  # Control will enter here if $DIRECTORY exists.
+  mkdir -p "groovydoc/$version"
+  fi
+  cp -Rf $HOME/groovydoc/* "spock-reports/$version"
 
   #add, commit and push files
   git add -f .
