@@ -17,11 +17,16 @@ import org.gradle.api.tasks.Upload
 import org.gradle.api.tasks.bundling.Zip
 
 /**
+ * This class is the entry point of the gradle-cpp-plugin
+ *
+ * <p>
  * Created by jguidoux on 03/09/15.
  */
 class CppPlugin implements Plugin<Project> {
 
-
+    /**
+     * @see org.gradle.api.Plugin#apply
+     */
     @Override
     void apply(final Project _project) {
         _project.apply(plugin: 'base')
@@ -117,7 +122,7 @@ class CppPlugin implements Plugin<Project> {
 
     }
 
-    def configureBuildTasksDependencies(final Project _project) {
+    private configureBuildTasksDependencies(final Project _project) {
         _project.tasks.compileCpp.dependsOn _project.tasks.validateCMake
         _project.tasks.compileCpp.dependsOn _project.tasks.downloadLibs
         _project.tasks.testCompileCpp.dependsOn _project.tasks.compileCpp
