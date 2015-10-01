@@ -2,6 +2,7 @@ package fr.echoes.gradle.plugins.cpp
 
 import fr.echoes.gradle.plugins.cpp.configurations.ArchivesConfigurations
 import fr.echoes.gradle.plugins.cpp.configurations.CppConfiguration
+import fr.echoes.gradle.plugins.cpp.extensions.CppPluginExtension
 import fr.echoes.gradle.plugins.cpp.model.ApplicationType
 import com.tocea.gradle.plugins.cpp.tasks.*
 import fr.echoes.gradle.plugins.cpp.tasks.CppExecTask
@@ -68,7 +69,7 @@ class CppPlugin implements Plugin<Project> {
 
     }
 
-    def configureTasks(Project _project) {
+    private configureTasks(Project _project) {
 
         if (_project.cpp.outPutDirs) {
             CppPluginUtils.OUTPUT_DIRS << _project.cpp.outPutDirs
@@ -154,49 +155,5 @@ class CppPlugin implements Plugin<Project> {
 }
 
 
-class CppPluginExtension {
-
-    def buildTasksEnabled = true
-    ApplicationType applicationType = ApplicationType.clibrary
-    String classifier = ""
-    def outPutDirs = new HashMap()
-    def outPutTmpDirs = new HashMap()
-    CppExecConfiguration exec
-
-    private  Project project
-    CppPluginExtension(Project _project) {
-        project = _project
-        exec = new CppExecConfiguration()
-        TaskCollection tasks = _project.tasks.withType(CppExecTask)
-        tasks.each {
-            exec.metaClass."${it.name}ExecPath" = ""
-            exec.metaClass."${it.name}BaseArgs" = null
-            exec.metaClass."${it.name}Args" = ""
-            exec.metaClass."${it.name}StandardOutput" = null
-            exec.metaClass."${it.name}ExecWorkingDir" = null
-        }
-    }
-
-    File getTempFolder() {
-        new  File(project.buildDir, CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.TMP_DIR])
-    }
-
-    File getLibFolder() {
-        new  File( getTempFolder(), CppPluginUtils.OUTPUT_TMP_DIRS["lib"])
-    }
-
-    File getHeadersFolder() {
-        new  File( getTempFolder(), CppPluginUtils.OUTPUT_TMP_DIRS["headers"])
-    }
 
 
-
-
-
-}
-
-class CppExecConfiguration {
-    def execPath = ""
-    Map<String, ?> env
-
-}

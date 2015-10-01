@@ -1,5 +1,6 @@
 package fr.echoes.gradle.plugins.cpp
 
+import fr.echoes.gradle.plugins.cpp.extensions.CppPluginExtension
 import fr.echoes.gradle.plugins.cpp.tasks.CppExecTask
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
