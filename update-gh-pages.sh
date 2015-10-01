@@ -35,7 +35,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   # Control will enter here if $DIRECTORY exists.
   mkdir -p "groovydoc/$version"
   fi
-  cp -Rf $HOME/groovydoc/* "spock-reports/$version"
+  cp -Rf $HOME/groovydoc/* "groovydoc/$version"
 
   #add, commit and push files
   git add -f .
