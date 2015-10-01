@@ -6,7 +6,6 @@ import fr.echoes.gradle.plugins.cpp.extensions.CppPluginExtension
 import fr.echoes.gradle.plugins.cpp.tasks.CppExecTask
 import fr.echoes.gradle.plugins.cpp.tasks.DownloadLibTask
 import fr.echoes.gradle.plugins.cpp.tasks.InitOutputDirsTask
-import fr.echoes.gradle.plugins.cpp.tasks.ValidateCMakeProjectTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
@@ -96,7 +95,6 @@ class CppPlugin implements Plugin<Project> {
 
     private void createTasks(Project _project) {
         _project.task('downloadLibs', type: DownloadLibTask, group: 'dependancies')
-        _project.task('validateCMake', type: ValidateCMakeProjectTask, group: "validate")
         _project.task('initOutputDirs', type: InitOutputDirsTask, group: "init")
         _project.task('copyHeaders', type: Copy)
         _project.task('compileCpp', type: CppExecTask, group: 'build')
@@ -111,10 +109,7 @@ class CppPlugin implements Plugin<Project> {
 
     private configureTasksDependencies(Project _project) {
 
-
         _project.tasks.downloadLibs.dependsOn _project.tasks.initOutputDirs
-
-
         _project.tasks.cppArchive.dependsOn _project.tasks.downloadLibs
         _project.tasks.assemble.dependsOn _project.tasks.cppArchive
         _project.tasks.install.dependsOn _project.tasks.assemble
@@ -123,7 +118,6 @@ class CppPlugin implements Plugin<Project> {
     }
 
     private configureBuildTasksDependencies(final Project _project) {
-        _project.tasks.compileCpp.dependsOn _project.tasks.validateCMake
         _project.tasks.compileCpp.dependsOn _project.tasks.downloadLibs
         _project.tasks.testCompileCpp.dependsOn _project.tasks.compileCpp
         _project.tasks.testCpp.dependsOn _project.tasks.testCompileCpp
