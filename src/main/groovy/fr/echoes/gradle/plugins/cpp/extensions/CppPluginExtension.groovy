@@ -8,7 +8,7 @@ import org.gradle.api.Project
  * <p>
  * This extension can be used like this in build.gradle file.
  * <p>
- * usage exemple :
+ * usage example :
  * <pre>
  *  cpp {
  *
@@ -20,7 +20,7 @@ import org.gradle.api.Project
 class CppPluginExtension {
 
     /**
-     * Enable build tasks (compileCpp, testCompileCpp, testCpp).
+     * Enable build tasks ('compileCpp', 'testCompileCpp', 'testCpp').
      * <p>
      *     Default value : 'true'
      *  <p>
@@ -37,8 +37,8 @@ class CppPluginExtension {
      * <p>
      *     possible values are :
      *     <ul>
-     *         <li>'clibrary' : for library application (no main). Produce a .clib archive</li>
-     *         <li>'capplication' : for runnable application. Produce a .zip archive</li>
+     *         <li>'clibrary' : for library application (no main). Produce a '.clib' archive</li>
+     *         <li>'capplication' : for runnable application. Produce a '.zip' archive</li>
      *      </ul>
      *  <p>
      *      Default value : 'clibrary'
@@ -75,7 +75,7 @@ class CppPluginExtension {
     def outPutDirs = new HashMap()
 
     /**
-     * Set the configuration of all tasks of type CppExecTask (compileCpp, testCompileCpp, testCpp)
+     * Set the configuration of all tasks of type {@link fr.echoes.gradle.plugins.cpp.tasks.CppExecTask}. ('compileCpp', 'testCompileCpp', 'testCpp')
      *  <p>
      *   Usage example:
      *  <pre>
