@@ -6,25 +6,46 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 /**
+ * This class is used by the task 'downloadLibs'.
+ *
+ * <p>
+ *     The downloadLibs download libraries from a known repository
+ *     and place it in the 'build/extLib' directory.
+ *
+ *  <p>
+ *   Usage exemple :
+ *   <pre>
+ *   compile  "fr.extern:sqlapi:4.1.4:lin_x86_64@clib"
+ *   </pre>
+ *   Or :
+ *   <pre>
+ *   compile group: "fr.extern", name: "sqlapi", version: "4.1.4", classifier: "lin_x86_64", ext: "clib"
+ *   </pre>
+ *   Or if you want to use an internal project dependency un multi-modules projects
+ *   <pre>
+ *    compile project(path: ":projectPath", configuration: "cArchives"
+ *   </pre>
+ *
  * Created by jguidoux on 03/09/15.
  */
 public class DownloadLibTask extends DefaultTask {
 
+    /**
+     * The location where libraries are downloads.
+     * <p>
+     *  Default Value : 'build/extLib'
+     */
+    File extLibLocation
 
-//    @OutputDirectory
-    File extLibLocation = new File(project.buildDir, CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.EXT_LIB_DIR])
-
-//    @OutputFiles
-//    def libs = extLibLocation.listFiles()
-
+    /**
+    * execute the task
+    */
     @TaskAction
     void exec() {
 
-
+        extLibLocation = new File(project.buildDir, CppPluginUtils.OUTPUT_DIRS[CppPluginUtils.EXT_LIB_DIR])
         def files = project.configurations.compile.files
 
-//        extLibLocation = new  File(project.cpp.extLibPath)
-        // changeExtLibLocation(project.cpp.extLibPath)
 
         files.each { File file ->
             project.copy {
@@ -41,7 +62,7 @@ public class DownloadLibTask extends DefaultTask {
     }
 
     def changeExtLibLocation(final String _newPath) {
-       def  newLocation = new  File(project.buildDir, _newPath)
+        def newLocation = new File(project.buildDir, _newPath)
         if (newLocation.absolutePath != extLibLocation.absolutePath) {
             extLibLocation.delete()
             extLibLocation = newLocation
