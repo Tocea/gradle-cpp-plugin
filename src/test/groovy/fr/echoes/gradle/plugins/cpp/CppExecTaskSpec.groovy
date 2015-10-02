@@ -52,7 +52,7 @@ class CppExecTaskSpec extends Specification {
         CppExecTask task = project.tasks["compileCpp"]
         task.execute()
 
-        then: "task output must be 'gs v1 --default'"
+        then: "task output must be '-Dargs v1 --default'"
         task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
@@ -82,7 +82,7 @@ class CppExecTaskSpec extends Specification {
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
-        then: "task output must be 'gs v1 --default'"
+        then: "task output must be '-Dargs v1 --default'"
         task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
