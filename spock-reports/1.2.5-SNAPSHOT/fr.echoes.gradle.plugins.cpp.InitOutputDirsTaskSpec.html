@@ -168,11 +168,11 @@ div.footer {
 </style>
 </head>
 <body>
-<h2>Report for fr.echoes.gradle.plugins.cpp.UploadArchivesTask</h2>
+<h2>Report for fr.echoes.gradle.plugins.cpp.InitOutputDirsTaskSpec</h2>
 <hr></hr>
 <div class='summary-report'>
 <h3>Summary:</h3>
-<div class='date-test-ran'>Created on Fri Oct 02 09:18:38 UTC 2015 by travis</div>
+<div class='date-test-ran'>Created on Fri Oct 02 09:18:36 UTC 2015 by travis</div>
 <table class='summary-table'>
 <thead>
 <th>Executed features</th>
@@ -184,12 +184,12 @@ div.footer {
 </thead>
 <tbody>
 <tr>
-<td>2</td>
+<td>1</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100.0%</td>
-<td>1.871 seconds</td>
+<td>0.108 seconds</td>
 </tr>
 </tbody>
 </table>
@@ -203,16 +203,13 @@ div.footer {
 <tbody>
 <ul id='toc'>
 <li>
-<a href='#-604320744' class='feature-toc-pass'>check upload archives</a>
-</li>
-<li>
-<a href='#-931648982' class='feature-toc-pass'>check upload archives 2</a>
+<a href='#2070045002' class='feature-toc-pass'>test build dir is initialised</a>
 </li>
 </ul>
 <tr>
 <td colspan='10'>
-<div class='feature-description' id='-604320744'>
-<span>check upload archives</span>
+<div class='feature-description' id='2070045002'>
+<span>test build dir is initialised</span>
 <span style='float: right; font-size: 60%;'>
 <a href='#toc'>Return</a>
 </span>
@@ -224,7 +221,7 @@ div.footer {
 <div class='block-kind'>Given:</div>
 </td>
 <td>
-<div class='block-text'>----</div>
+<div class='block-text'>a gradle project applying che fr.echoes.gradle.cpp</div>
 </td>
 </tr>
 <tr>
@@ -232,7 +229,7 @@ div.footer {
 <div class='block-kind'>When:</div>
 </td>
 <td>
-<div class='block-text'>----</div>
+<div class='block-text'>when gradle evaluate the file build.gradle</div>
 </td>
 </tr>
 <tr>
@@ -240,41 +237,7 @@ div.footer {
 <div class='block-kind'>Then:</div>
 </td>
 <td>
-<div class='block-text'>----</div>
-</td>
-</tr>
-<tr>
-<td colspan='10'>
-<div class='feature-description' id='-931648982'>
-<span>check upload archives 2</span>
-<span style='float: right; font-size: 60%;'>
-<a href='#toc'>Return</a>
-</span>
-</div>
-</td>
-</tr>
-<tr>
-<td>
-<div class='block-kind'>Given:</div>
-</td>
-<td>
-<div class='block-text'>----</div>
-</td>
-</tr>
-<tr>
-<td>
-<div class='block-kind'>When:</div>
-</td>
-<td>
-<div class='block-text'>----</div>
-</td>
-</tr>
-<tr>
-<td>
-<div class='block-kind'>Then:</div>
-</td>
-<td>
-<div class='block-text'>----</div>
+<div class='block-text'>directories 'build/main-obj', 'build/main-obj', 'build/report', 'build/tmp', 'build/tmp/lib' </div>
 </td>
 </tr>
 </tbody>

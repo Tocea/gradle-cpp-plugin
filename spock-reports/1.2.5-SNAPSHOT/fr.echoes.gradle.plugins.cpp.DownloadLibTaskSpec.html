@@ -168,11 +168,11 @@ div.footer {
 </style>
 </head>
 <body>
-<h2>Report for fr.echoes.gradle.plugins.cpp.DistZipTaskSpec</h2>
+<h2>Report for fr.echoes.gradle.plugins.cpp.DownloadLibTaskSpec</h2>
 <hr></hr>
 <div class='summary-report'>
 <h3>Summary:</h3>
-<div class='date-test-ran'>Created on Fri Oct 02 09:18:32 UTC 2015 by travis</div>
+<div class='date-test-ran'>Created on Fri Oct 02 09:18:36 UTC 2015 by travis</div>
 <table class='summary-table'>
 <thead>
 <th>Executed features</th>
@@ -184,12 +184,12 @@ div.footer {
 </thead>
 <tbody>
 <tr>
-<td>5</td>
+<td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
+<td>3</td>
 <td>100.0%</td>
-<td>1.357 seconds</td>
+<td>4.273 seconds</td>
 </tr>
 </tbody>
 </table>
@@ -203,25 +203,22 @@ div.footer {
 <tbody>
 <ul id='toc'>
 <li>
-<a href='#-2034072111' class='feature-toc-pass'>check zip created</a>
+<a href='#-383316199' class='feature-toc-pass'>download junit in extlib folder</a>
 </li>
 <li>
-<a href='#-1927162004' class='feature-toc-pass'>check zip has valid extension and classifier</a>
+<a href='#-1774531028' class='feature-toc-ignored'>download junit in custom extlib folder</a>
 </li>
 <li>
-<a href='#-1067856174' class='feature-toc-pass'>check change packaging type to 'clib'</a>
+<a href='#360724495' class='feature-toc-ignored'>download junit in custom extlib folder and old extlib folder does not exist</a>
 </li>
 <li>
-<a href='#-714984089' class='feature-toc-pass'>check change packaging type to 'capplication'</a>
-</li>
-<li>
-<a href='#1332754764' class='feature-toc-pass'>check packaging without architecture information</a>
+<a href='#502002162' class='feature-toc-ignored'>download junit in custom extlib bad syntax folder</a>
 </li>
 </ul>
 <tr>
 <td colspan='10'>
-<div class='feature-description' id='-2034072111'>
-<span>check zip created</span>
+<div class='feature-description' id='-383316199'>
+<span>download junit in extlib folder</span>
 <span style='float: right; font-size: 60%;'>
 <a href='#toc'>Return</a>
 </span>
@@ -233,7 +230,7 @@ div.footer {
 <div class='block-kind'>Given:</div>
 </td>
 <td>
-<div class='block-text'>a cpp project of type 'clibrabry' with classifie 'lin_x86_64'</div>
+<div class='block-text'>the project depend of 'junit' version '4.11'</div>
 </td>
 </tr>
 <tr>
@@ -241,7 +238,7 @@ div.footer {
 <div class='block-kind'>When:</div>
 </td>
 <td>
-<div class='block-text'>I launch the distZip task</div>
+<div class='block-text'>I launch the task 'downloadLibs' task</div>
 </td>
 </tr>
 <tr>
@@ -249,143 +246,109 @@ div.footer {
 <div class='block-kind'>Then:</div>
 </td>
 <td>
-<div class='block-text'>the file 'build/distributions/test-1.0-lin_x86_64.clib' must contain the correct content</div>
+<div class='block-text'>the directory 'build/extLib/junit-4.11' must exist</div>
 </td>
 </tr>
 <tr>
 <td colspan='10'>
-<div class='feature-description' id='-1927162004'>
-<span>check zip has valid extension and classifier</span>
+<div class='feature-description ignored' id='-1774531028'>
+<span>download junit in custom extlib folder</span>
 <span style='float: right; font-size: 60%;'>
 <a href='#toc'>Return</a>
 </span>
 </div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>Given:</div>
 </td>
 <td>
-<div class='block-text'>a cpp project of type 'clibrabry' with classifie 'lin_x86_64' and version '1.0'</div>
+<div class='block-text'>when I set lib folden in 'tartenpion'</div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>When:</div>
 </td>
 <td>
-<div class='block-text'>I launch the distZip task</div>
+<div class='block-text'>I launch the task 'downloadLibs' task</div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>Then:</div>
 </td>
 <td>
-<div class='block-text'>the file 'build/distributions/test-1.0-lin_x86_64.clib' must exist with correct content</div>
+<div class='block-text'>the directory 'build/tartenpion/junit-4.11' must exist</div>
 </td>
 </tr>
 <tr>
 <td colspan='10'>
-<div class='feature-description' id='-1067856174'>
-<span>check change packaging type to 'clib'</span>
+<div class='feature-description ignored' id='360724495'>
+<span>download junit in custom extlib folder and old extlib folder does not exist</span>
 <span style='float: right; font-size: 60%;'>
 <a href='#toc'>Return</a>
 </span>
 </div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>Given:</div>
 </td>
 <td>
-<div class='block-text'>a cpp project of type 'clibrabry' </div>
+<div class='block-text'>----</div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>When:</div>
 </td>
 <td>
-<div class='block-text'>I launch the distZip task</div>
+<div class='block-text'>----</div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>Then:</div>
 </td>
 <td>
-<div class='block-text'>the produced archive must exist and  have 'clib' extension</div>
+<div class='block-text'>----</div>
 </td>
 </tr>
 <tr>
 <td colspan='10'>
-<div class='feature-description' id='-714984089'>
-<span>check change packaging type to 'capplication'</span>
+<div class='feature-description ignored' id='502002162'>
+<span>download junit in custom extlib bad syntax folder</span>
 <span style='float: right; font-size: 60%;'>
 <a href='#toc'>Return</a>
 </span>
 </div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>Given:</div>
 </td>
 <td>
-<div class='block-text'>a cpp project of type 'clibrabry' </div>
+<div class='block-text'>----</div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>When:</div>
 </td>
 <td>
-<div class='block-text'>I launch the distZip task</div>
+<div class='block-text'>----</div>
 </td>
 </tr>
-<tr>
+<tr class='ignored'>
 <td>
 <div class='block-kind'>Then:</div>
 </td>
 <td>
-<div class='block-text'>the produced archive must exist and  have 'zip' extension</div>
-</td>
-</tr>
-<tr>
-<td colspan='10'>
-<div class='feature-description' id='1332754764'>
-<span>check packaging without architecture information</span>
-<span style='float: right; font-size: 60%;'>
-<a href='#toc'>Return</a>
-</span>
-</div>
-</td>
-</tr>
-<tr>
-<td>
-<div class='block-kind'>Given:</div>
-</td>
-<td>
-<div class='block-text'>a cpp project of type 'capplication' version '1.0' without cla </div>
-</td>
-</tr>
-<tr>
-<td>
-<div class='block-kind'>When:</div>
-</td>
-<td>
-<div class='block-text'>I launch the distZip task</div>
-</td>
-</tr>
-<tr>
-<td>
-<div class='block-kind'>Then:</div>
-</td>
-<td>
-<div class='block-text'>the produced archive must the base name 'test-1.0'</div>
+<div class='block-text'>----</div>
 </td>
 </tr>
 </tbody>
