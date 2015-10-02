@@ -49,6 +49,10 @@ compileJava {
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
 }
+compileGroovy {
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+}
 
 
 configurations {
