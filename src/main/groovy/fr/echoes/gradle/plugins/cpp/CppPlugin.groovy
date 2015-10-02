@@ -111,6 +111,7 @@ class CppPlugin implements Plugin<Project> {
         _project.tasks.downloadLibs.dependsOn _project.tasks.initOutputDirs
         _project.tasks.copyHeaders.dependsOn _project.tasks.initOutputDirs
         _project.tasks.distZip.dependsOn _project.tasks.copyHeaders
+        _project.tasks.distZip.dependsOn _project.tasks.compileCpp
         _project.tasks.install.dependsOn _project.tasks.assemble
         _project.tasks.uploadArchives.dependsOn _project.tasks.build
 

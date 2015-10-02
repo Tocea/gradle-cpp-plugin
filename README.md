@@ -22,10 +22,10 @@ To use the gradle-cpp-plugin, include the following in your build script:
    
 buildscript {
   repositories {
-    mavenLocal()
+    mavenCentral()
   }
   dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.5-SNAPSHOT"
+    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.6-SNAPSHOT"
   }
 }
 
