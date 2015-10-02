@@ -1,5 +1,6 @@
 package fr.echoes.gradle.plugins.cpp
 
+import fr.echoes.gradle.plugins.cpp.extensions.CppPluginExtension
 import fr.echoes.gradle.plugins.cpp.tasks.CppExecTask
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -51,7 +52,7 @@ class CppExecTaskSpec extends Specification {
         CppExecTask task = project.tasks["compileCpp"]
         task.execute()
 
-        then: "task output must be 'gs v1 --default'"
+        then: "task output must be '-Dargs v1 --default'"
         task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }
@@ -81,7 +82,7 @@ class CppExecTaskSpec extends Specification {
         CppPluginExtension cpp = project.extensions["cpp"]
         println "output = $output"
 
-        then: "task output must be 'gs v1 --default'"
+        then: "task output must be '-Dargs v1 --default'"
         task.standardOutput.toString().contains("-Dargs v1 --default")
 
     }

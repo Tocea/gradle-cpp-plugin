@@ -12,7 +12,7 @@ import spock.lang.Specification
 /**
  * Created by jguidoux on 07/09/15.
  */
-class ProjectTasksTest extends Specification {
+class ProjectTaskSpec extends Specification {
 
 
     @Rule
@@ -58,12 +58,13 @@ class ProjectTasksTest extends Specification {
         println project.tasks["build"].dependsOn.asList()
 
         then: "The Directed Acyclic Graph of task must be correct"
+        project.tasks["copyHeaders"].dependsOn.contains project.tasks["initOutputDirs"]
+        project.tasks["downloadLibs"].dependsOn.contains project.tasks["initOutputDirs"]
         project.tasks["compileCpp"].dependsOn.contains project.tasks["downloadLibs"]
-        project.tasks["compileCpp"].dependsOn.contains project.tasks["validateCMake"]
         project.tasks["testCompileCpp"].dependsOn.contains project.tasks["compileCpp"]
         project.tasks["testCpp"].dependsOn.contains project.tasks["testCompileCpp"]
         project.tasks["check"].dependsOn.contains project.tasks["testCpp"]
-        project.tasks["cppArchive"].dependsOn.contains project.tasks["compileCpp"]
+        project.tasks["distZip"].dependsOn.contains project.tasks["copyHeaders"]
         project.tasks["uploadArchives"].dependsOn.contains project.tasks["build"]
 
 

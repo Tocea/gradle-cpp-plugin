@@ -44,15 +44,35 @@ repositories {
     jcenter()
 }
 
+
+compileJava {
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+}
+
+
+configurations {
+    groovyDoc.extendsFrom runtime
+}
+
+
+
 dependencies {
     compile gradleApi()
     compile localGroovy()
     compile "commons-io:commons-io:$commonsioVersion"
+
     testCompile("org.spockframework:spock-core:$spockVersion") {
         exclude module: 'groovy-all'
     }
     testRuntime("com.athaydes:spock-reports:$spockSeportVersion"){
         exclude module: 'groovy-all'
+    }
+
+    //documentation
+    dependencies {
+        groovyDoc "org.codehaus.groovy:groovy-groovydoc:$groovyVersion"
+        groovyDoc "org.codehaus.groovy:groovy-ant:$groovyVersion"
     }
 }
 
@@ -66,6 +86,11 @@ task sourceJar(type: Jar) {
 
 task wrapper(type: Wrapper) {
     gradleVersion = gradeleWrapper
+}
+
+
+groovydoc {
+    groovyClasspath = configurations.groovyDoc
 }
 
 jacoco {
@@ -86,7 +111,7 @@ jacocoTestReport {
 // The configuration example below shows the minimum required properties
 // configured to publish your plugin to the plugin portal
 pluginBundle {
-    website = 'https://github.com/Tocea/gradle-cpp-plugin'
+    website = 'http://tocea.github.io/gradle-cpp-plugin/'
     vcsUrl = 'https://github.com/Tocea/gradle-cpp-plugin'
     description = 'gradle plugin for c++'
     tags = ['cpp', 'c++']

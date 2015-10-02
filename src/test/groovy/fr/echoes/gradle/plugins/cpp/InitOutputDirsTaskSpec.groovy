@@ -10,7 +10,7 @@ import spock.lang.Specification
 /**
  * Created by jguidoux on 10/09/15.
  */
-class InitOutputDirsTasks extends Specification {
+class InitOutputDirsTaskSpec extends Specification {
 
 
     @Rule
@@ -42,7 +42,7 @@ class InitOutputDirsTasks extends Specification {
         project.buildDir.exists()
         new File(project.buildDir, "main-obj").exists()
         new File(project.buildDir, "test-obj").exists()
-        new File(project.buildDir, "report").exists()
+        new File(project.buildDir, "reports").exists()
         new File(project.buildDir, "tmp").exists()
         new File(project.buildDir, "tmp/lib").exists()
     }

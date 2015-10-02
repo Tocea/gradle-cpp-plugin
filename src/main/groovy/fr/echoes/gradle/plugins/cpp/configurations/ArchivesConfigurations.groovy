@@ -1,8 +1,8 @@
 package fr.echoes.gradle.plugins.cpp.configurations
 
 import fr.echoes.gradle.plugins.cpp.CppPluginUtils
+import fr.echoes.gradle.plugins.cpp.extensions.CppPluginExtension
 import fr.echoes.gradle.plugins.cpp.model.ApplicationType
-import fr.echoes.gradle.plugins.cpp.CppPluginExtension
 import org.gradle.api.Project
 import org.gradle.api.distribution.DistributionContainer
 import org.gradle.api.tasks.Upload

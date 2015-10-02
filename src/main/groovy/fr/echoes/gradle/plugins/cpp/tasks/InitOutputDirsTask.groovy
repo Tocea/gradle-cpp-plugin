@@ -5,12 +5,33 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 /**
+ * This sask init build directories with directories.
+ *
+ * <p>
+ *  Default directories struture is
+ *  project/
+ *  |___build/
+ *      |___main-obj/
+ *      |___test-obj/
+ *      |___extLib/
+ *      |___reports/
+ *      |___docDir/
+ *      |___tmp/
+ *          |___headers/
+ *          |___bin/
+ *          |___lib/
+ *          |___doc/
+ *          |___doxyger/
+ *
+ *
  * Created by jguidoux on 08/09/15.
  */
 public class InitOutputDirsTask extends DefaultTask {
 
+
     def outpoutDirs = CppPluginUtils.OUTPUT_DIRS
     def outpoutTmpDirs = CppPluginUtils.OUTPUT_TMP_DIRS
+
     @TaskAction
     void initOutputs() {
         def buildDirSet = new HashSet()

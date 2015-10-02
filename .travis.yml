@@ -1,5 +1,10 @@
 language: groovy
-script: ./gradlew build jacocoTestReport
+script: "./gradlew build jacocoTestReport"
 jdk: oraclejdk7
 after_success:
-- ./gradlew jacocoRootReport coveralls
+- "./gradlew coveralls"
+- "./gradlew groovydoc"
+- "./update-gh-pages.sh"
+env:
+  global:
+    secure: YVjSUOJU+si4TfcxOFJ9CSA4vozBrgn8X0rfP72Z5IzYpKXO2CRGNMbYfd00hznNQPp2BlZwZMvxj0etTZ+9mG5t6DiAOSDYOfLYnzcJ89bvAchNK8xDmAselSaby9v3iOHysgSX07zCKZhDQHfVRpQ8jc9B72qva3NwLXN1J9up0hbxkujvG3vtm3MoPxIJEXZyKlzsrcijur8aL2RogwXHTSdJ6z55DijD9jN7PmP0325z1b15AeuYza3cImadz4CBHuKhLuHNGA3kZZTsrH+ZWrQnMeYvESCdWItvKd2VuIDgiq3cvUpar0J1BDFJr2lQsEsndjMsoAVo/NWirbOOlig5XbxxzQ8ovWEZpdHYkEXHvI90dYPQ1jDSGNiHD4gX6V3ezmNVyqSj813UUyv8VtR8yMTYC1PK6JWLwddsRWhhxRRAF3w7w28uliN2rus5FXCLx9b72fhZ0tpvafdBvMns82+1463PZKhuHCKC9njTG4hYKSn8ZsgpFAPpWIESmT+2yZZTTvmHPlWR6DlRDebxgcUeHGi9oDqzSO4meGQ4FgGMdAdOxnZZicunGCqBML2SYOJ2pdnT2oh/+3am4RZrREzSpiPDc4r+fjqYix5u1Xuq6hv+H36MdXArhCJoRHKVeVWe7vBRuYy/hnHtcCIZ8yt4OkmrO8MNdQE=

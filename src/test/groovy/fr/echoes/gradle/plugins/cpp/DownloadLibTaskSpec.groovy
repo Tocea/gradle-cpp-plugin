@@ -1,5 +1,6 @@
 package fr.echoes.gradle.plugins.cpp
 
+import fr.echoes.gradle.plugins.cpp.extensions.CppPluginExtension
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskExecutionException
 import org.gradle.testfixtures.ProjectBuilder
@@ -13,7 +14,7 @@ import spock.lang.Specification
  * test the downloadLib task
  * Created by jguidoux on 03/09/15.
  */
-class DownloadLibTasksSpec extends Specification {
+class DownloadLibTaskSpec extends Specification {
 
 
     @Rule
