@@ -12,7 +12,7 @@ import spock.lang.Specification
 /**
  * Created by jguidoux on 07/09/15.
  */
-class ProjectTasksTest extends Specification {
+class ProjectTaskSpec extends Specification {
 
 
     @Rule

@@ -10,7 +10,7 @@ import spock.lang.Specification
 /**
  * Created by jguidoux on 10/09/15.
  */
-class InitOutputDirsTasks extends Specification {
+class InitOutputDirsTaskSpec extends Specification {
 
 
     @Rule

@@ -14,7 +14,7 @@ import spock.lang.Specification
  * test the downloadLib task
  * Created by jguidoux on 03/09/15.
  */
-class DownloadLibTasksSpec extends Specification {
+class DownloadLibTaskSpec extends Specification {
 
 
     @Rule
