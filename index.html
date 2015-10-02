@@ -32,7 +32,24 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
 
-
+<h3>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h3>
+<p>
+The gradle-cpp-plugin can be used to build c++ projects. 
+This plugin does not compile directly c++ source files, but let the 'traditionals c tools' (cmake, make,…) to do it.
+The plugins task just call these tools.
+</p>
+<p>
+  The plugins add these features to the 'tradionals c tools' :
+  <ul>
+    <li>Dependencies management</li>
+    <li>Structure directories conventions</li>
+    <li>Directed Acyclic Graph (DAG) ef task (compilation --> test --> assembly --> deploy</li>
+    <li>Packaging</li>
+    <li>Deployment on remote repository (ex. Nexus)</li>
+    <li>possibility to create Multi-modules project</li>
+  </ul>
+</p>
 <h3>
 <a id="documentations" class="anchor" href="#documentations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentations</h3>
 <p>
