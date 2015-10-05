@@ -19,16 +19,14 @@ file(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
 ## Default include directories
 
 include_directories(${C_HEADERS})
-include_directories(${C_SRC})
+#However, the file(GLOB...) allows for wildcard additions:
+file(GLOB SOURCES "${C_SRC}/*.cpp")
 
 SET(CMakeHelloWorldName "CMakeHelloWorld-${VERSION}")
 
-add_executable(
-    ${CMakeHelloWorldName}
-    ${C_SRC}/Speaker.cpp
-)
+add_executable(${CMakeHelloWorldName} ${SOURCES})
 
-target_link_libraries( ${AMATEST} "")
+#target_link_libraries( ${AMATEST} ${C_HEADERS})
 
 
 
