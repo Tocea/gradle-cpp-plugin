@@ -7,6 +7,7 @@ project (hello-library)
 
 SET(C_SRC "${PROJECT_SOURCE_DIR}/src/main/cpp")
 SET(C_HEADERS "${PROJECT_SOURCE_DIR}/src/main/headers")
+SET(C_SRC_TEST "${PROJECT_SOURCE_DIR}/src/test/cpp")
 cmake_minimum_required (VERSION 2.8)
 project (hello-library)
 
@@ -31,8 +32,35 @@ file(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
 ## Default include directories
 
 include_directories(${C_HEADERS})
+
 #However, the file(GLOB...) allows for wildcard additions:
 file(GLOB SOURCES "${C_SRC}/*.cpp")
+
+
+
+
+# -------------------------
+
+# Usefull to get CPPUNIT ...
+# I would love to find a way to have cppunit
+# only required for builds where unit test make sense ...
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
+FIND_PACKAGE(CPPUNIT REQUIRED)
+
+
+##################### tests ##################
+SET(${C_SRC_TEST} "${PROJECT_SOURCE_DIR}/src/test/cpp" )
+SET(${TEST} "${PROJECT_SOURCE_DIR}/src/test/headers")
+
+include_directories(${C_HEADERS} )
+include_directories(${C_SRC})
+include_directories("${PROJECT_SOURCE_DIR}/src/test/headers")
+#include_directories("${PROJECT_SOURCE_DIR}/src/main/cpp")
+
+file(GLOB TEST_SOURCES "${C_SRC_TEST}/*.cpp")
+
+add_executable(${PROJECT_NAME}-test ${SOURCES} ${TEST_SOURCES})
+target_link_libraries(${PROJECT_NAME}-test  cppunit)
 
 
 ####################################"

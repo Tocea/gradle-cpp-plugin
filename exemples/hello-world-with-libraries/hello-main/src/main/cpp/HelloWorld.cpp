@@ -1,4 +1,4 @@
-#include <Speaker.h>
+#include <Speaker.hpp>
 
 using namespace std;
 using namespace Hello;
@@ -6,5 +6,5 @@ using namespace Hello;
 int main(int argc, char *argv[]) {
   Speaker* speaker = new Speaker();
 
-  speaker->sayHello();  
+  cout << speaker->sayHello();  
 }

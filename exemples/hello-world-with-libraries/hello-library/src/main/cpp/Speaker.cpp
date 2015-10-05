@@ -1,10 +1,11 @@
-#include "Speaker.h"
+#include "Speaker.hpp"
 
 using namespace Hello;
 using namespace std;
 
 namespace Hello {
-  void Speaker::sayHello() {
-    cout << "Hello, world!\n";
+  
+    string Speaker::sayHello() {
+    return "Hello, world!\n";
   }
 }
