@@ -22,7 +22,7 @@ include_directories(${C_HEADERS})
 #However, the file(GLOB...) allows for wildcard additions:
 file(GLOB SOURCES "${C_SRC}/*.cpp")
 
-SET(CMakeHelloWorldName "CMakeHelloWorld-${VERSION}")
+SET(CMakeHelloWorldName "hello-world-${VERSION}")
 
 add_executable(${CMakeHelloWorldName} ${SOURCES})
 
