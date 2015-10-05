@@ -18,7 +18,7 @@ SET(C_SRC "${PROJECT_SOURCE_DIR}/src/main/cpp")
 SET(C_HEADERS "${PROJECT_SOURCE_DIR}/src/main/headers")
 
 SET(VERSION "1.0.0-SNAPSHOT")
-SET(PROJECT_STATICNAME "hello-${VERSION}")
+SET(PROJECT_NAME "hello-${VERSION}")
 SET(PROJECT_STATICNAME "hello_static-${VERSION}")
 
 # Default output directories 
