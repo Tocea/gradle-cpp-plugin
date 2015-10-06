@@ -1,6 +1,8 @@
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libcppunit-dev
+addons:
+    apt:
+        packages:
+            - libcppunit-dev
+
 language: groovy
 script: "./gradlew build install systemTests jacocoTestReport"
 jdk: oraclejdk7
