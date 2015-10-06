@@ -1,5 +1,5 @@
 language: groovy
-script: "./gradlew build systemTests jacocoTestReport"
+script: "./gradlew build install systemTests jacocoTestReport"
 jdk: oraclejdk7
 after_success:
 - "./gradlew coveralls"
