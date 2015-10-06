@@ -36,6 +36,7 @@ buildscript {
   
   repositories {
     mavenLocal()
+    jcenter()
   }
   dependencies {
     classpath "fr.echoes.gradle.plugins:cpp-project-plugin:${cppPluginVersion('../../../gradle.properties')}"
