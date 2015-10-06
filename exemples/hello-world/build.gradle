@@ -31,14 +31,18 @@ dependencies {
 }
 */
 
+
+
+
+
 buildscript {
+  apply from: '../version.gradle'
+  
   repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
+    mavenLocal()
   }
   dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.7"
+    classpath "fr.echoes.gradle.plugins:cpp-project-plugin:${cppPluginVersion('../../gradle.properties')}"
   }
 }
 
@@ -69,4 +73,10 @@ cpp {
 task run(type: Exec, dependsOn: build) {
     workingDir "$buildDir/tmp/bin"
     executable "./${project.name}-$version"
-}  
+} 
+
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
+}
