@@ -1,0 +1,20 @@
+
+
+
+def getCppPluginVersion(String _gradlePropertiesPath) {
+    Properties properties = new Properties()
+        File propertiesFile = new File(_gradlePropertiesPath)
+        propertiesFile.withInputStream {
+            properties.load(it)
+        }
+    properties.version
+}
+
+
+
+ext {
+    cppPluginVersion = this.&getCppPluginVersion
+}
+
+
+//println getCppPluginVersion('../../gradle.properties')

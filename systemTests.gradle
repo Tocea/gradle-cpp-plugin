@@ -1,0 +1,16 @@
+
+
+//////////////// test hello-world project //////////////////////
+task helloWorldTest(type: Exec) {
+    workingDir 'exemples/hello-world'
+        commandLine './gradlew'
+        args '-q', 'clean', 'run'
+          //store the output instead of printing to the console:
+  standardOutput = new ByteArrayOutputStream()
+
+
+}
+
+helloWorldTest << {
+    assert standardOutput.toString().contains('Hello, world!\n')
+}

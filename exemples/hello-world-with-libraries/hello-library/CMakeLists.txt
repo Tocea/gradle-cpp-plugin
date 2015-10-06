@@ -8,8 +8,7 @@ project (hello-library)
 SET(C_SRC "${PROJECT_SOURCE_DIR}/src/main/cpp")
 SET(C_HEADERS "${PROJECT_SOURCE_DIR}/src/main/headers")
 SET(C_SRC_TEST "${PROJECT_SOURCE_DIR}/src/test/cpp")
-cmake_minimum_required (VERSION 2.8)
-project (hello-library)
+
 
 
 # Main useful constants
@@ -28,16 +27,57 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/tmp/lib)
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
 
-
+############################# compile sources #############################$
 ## Default include directories
 
-include_directories(${C_HEADERS})
+#add_custom_target(compileSources)
 
-#However, the file(GLOB...) allows for wildcard additions:
-file(GLOB SOURCES "${C_SRC}/*.cpp")
+if (TARGET compileSources) 
+    message("teetaunet")
+endif(TARGET compileSources)
+
+if (TARGET compileSources)
+    message("compiling sources…")
+    include_directories(${C_HEADERS})
+
+    #however, the file(GLOB...) allows for wildcard additions:
+    file(GLOB SOURCES "${C_SRC}/*.cpp")
 
 
+    ####################################"
+    # AMALIB STATIC
+    add_library (
+        ${PROJECT_STATICNAME}
+        STATIC
+        ${SOURCES}        
+        )
+    ####################################"
+    # AMALIB SHARED
 
+    add_library (
+        ${PROJECT_NAME}
+        SHARED
+        ${SOURCES}
+        )
+    ####################################"
+    ## Libraries
+    SET(REQUIRED_LIBS, "")
+
+
+    ####################################"
+    # FIN INITIALISATION VARIABLES
+    #
+
+
+    # LINK LIBRARIES
+
+    target_link_libraries( ${PROJECT_STATICNAME} ${REQUIRED_LIBS} )
+    target_link_libraries( ${PROJECT_NAME} ${REQUIRED_LIBS} )
+
+
+    # Add own output directory to library dir
+    LIST(APPEND CMAKE_PREFIX_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+endif(TARGET compileSources)
 
 # -------------------------
 
@@ -49,51 +89,25 @@ FIND_PACKAGE(CPPUNIT REQUIRED)
 
 
 ##################### tests ##################
-SET(${C_SRC_TEST} "${PROJECT_SOURCE_DIR}/src/test/cpp" )
-SET(${TEST} "${PROJECT_SOURCE_DIR}/src/test/headers")
+add_custom_target(compileTests)
 
-include_directories(${C_HEADERS} )
-include_directories(${C_SRC})
-include_directories("${PROJECT_SOURCE_DIR}/src/test/headers")
-#include_directories("${PROJECT_SOURCE_DIR}/src/main/cpp")
+if (TARGET compileTests)
+    message("compiling tests…")
+    SET(${C_SRC_TEST} "${PROJECT_SOURCE_DIR}/src/test/cpp" )
+    SET(${TEST} "${PROJECT_SOURCE_DIR}/src/test/headers")
 
-file(GLOB TEST_SOURCES "${C_SRC_TEST}/*.cpp")
+    include_directories(${C_HEADERS} )
+    include_directories(${C_SRC})
+    include_directories("${PROJECT_SOURCE_DIR}/src/test/headers")
+    #include_directories("${PROJECT_SOURCE_DIR}/src/main/cpp")
 
-add_executable(${PROJECT_NAME}-test ${SOURCES} ${TEST_SOURCES})
-target_link_libraries(${PROJECT_NAME}-test  cppunit)
+    file(GLOB TEST_SOURCES "${C_SRC_TEST}/*.cpp")
 
-
-####################################"
-# AMALIB STATIC
-add_library (
-    ${PROJECT_STATICNAME}
-    STATIC
-   ${SOURCES}        
-)
-####################################"
-# AMALIB SHARED
-
-add_library (
-    ${PROJECT_NAME}
-    SHARED
-    ${SOURCES}
-)
-####################################"
-## Libraries
-SET(REQUIRED_LIBS, "")
+    add_executable(${PROJECT_NAME}-test ${SOURCES} ${TEST_SOURCES})
+    target_link_libraries(${PROJECT_NAME}-test  cppunit)
+endif(TARGET compileTests)
 
 
-####################################"
-# FIN INITIALISATION VARIABLES
-#
 
 
-# LINK LIBRARIES
-
-target_link_libraries( ${PROJECT_STATICNAME} ${REQUIRED_LIBS} )
-target_link_libraries( ${PROJECT_NAME} ${REQUIRED_LIBS} )
-
-
-# Add own output directory to library dir
-LIST(APPEND CMAKE_PREFIX_PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
