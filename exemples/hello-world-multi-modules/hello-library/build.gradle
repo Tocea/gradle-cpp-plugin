@@ -31,16 +31,6 @@ dependencies {
 }
 */
 
-buildscript {
-  apply from: '../../version.gradle'
-  
-  repositories {
-    mavenLocal()
-  }
-  dependencies {
-    classpath "fr.echoes.gradle.plugins:cpp-project-plugin:${cppPluginVersion('../../../gradle.properties')}"
-  }
-}
 
 apply plugin: "fr.echoes.gradle.cpp"
 
@@ -58,13 +48,9 @@ cpp {
     exec.with {
         execPath = 'echo'
         compileCppExecPath = 'make'
-        compileCppBaseArgs = 'compile'
         compileCppExecWorkingDir = "build"
         testCppExecPath = "./hello-1.0.0-SNAPSHOT-test"
         testCppExecWorkingDir = "$buildDir/tmp/bin"
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.7'
-}

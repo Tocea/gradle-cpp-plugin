@@ -26,7 +26,7 @@ SET(PROJECT_STATICNAME "hello_static-${VERSION}")
 # Default output directories 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/tmp/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/tmp/lib)
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/main-obj)
+#SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/main-obj)
 file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
 
@@ -39,17 +39,6 @@ include_directories(${C_HEADERS})
 #However, the file(GLOB...) allows for wildcard additions:
 file(GLOB SOURCES "${C_SRC}/*.cpp")
 
-
-
-enable_testing()
-
-add_custom_target(
-    compile
-    SOURCES ${SOURCES}
-    COMMAND echo "aeae"
-#    COMMAND include_directories(${C_HEADERS})
- #   COMMAND file(GLOB SOURCES "${C_SRC}/*.cpp")
-)
 
 
 # -------------------------
