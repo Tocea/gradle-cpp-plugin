@@ -49,8 +49,9 @@ cpp {
         execPath = 'echo'
         compileCppExecPath = 'make'
         compileCppExecWorkingDir = "build"
-        testCppExecPath = "./hello-1.0.0-SNAPSHOT-test"
-        testCppExecWorkingDir = "$buildDir/tmp/bin"
+        testCppExecPath = "make"
+        testCppBaseArgs = "test"
+        testCppExecWorkingDir = "$buildDir"
     }
 }
 
