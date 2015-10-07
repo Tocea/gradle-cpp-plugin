@@ -56,6 +56,7 @@ buildscript {
 
 1. update the develop branch source for the next version : <NEXT_VERSION>
 2. change some informations in `readme.md` file.
+
   1. change the branch name in the two first link in the two first lines.
 
   ```markdown
