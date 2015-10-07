@@ -22,27 +22,27 @@ This page use git-flow to process release. So you need to install it : https://w
 ```
   2. change the buildScript information
   ```groovy
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEW_VERSION>-SNAPSHOT"
-  }
-}
+    buildscript {
+      repositories {
+        mavenCentral()
+      }
+      dependencies {
+        classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEW_VERSION>-SNAPSHOT"
+      }
+    }
   ```
   must be replaced with :
   ```groovy
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
+    buildscript {
+      repositories {
+        maven {
+          url "https://plugins.gradle.org/m2/"
+        }
+      }
+      dependencies {
+        classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEW_VERSION>"
+      }
     }
-  }
-  dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEW_VERSION>"
-  }
-}
   ```
 4. finish the release.
   * `git flow release finish`
@@ -75,28 +75,28 @@ buildscript {
   2. change the buildScript information.
 
   ```groovy
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
+    buildscript {
+      repositories {
+        maven {
+          url "https://plugins.gradle.org/m2/"
+        }
+      }
+      dependencies {
+        classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEXT_VERSION>"
+      }
     }
-  }
-  dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEXT_VERSION>"
-  }
-}
  ```
   must be replaced with :
 
   ```groovy
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEXT_VERSION>-SNAPSHOT"
-  }
-}
+    buildscript {
+      repositories {
+        mavenCentral()
+      }
+      dependencies {
+        classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:<NEXT_VERSION>-SNAPSHOT"
+      }
+    }
   ```
 
 
