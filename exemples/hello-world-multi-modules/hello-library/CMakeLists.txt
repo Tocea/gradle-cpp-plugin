@@ -53,7 +53,7 @@ FIND_PACKAGE(CPPUNIT REQUIRED)
 ##################### tests ##################
 
 enable_testing()
-
+INCLUDE(CTest)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/tmp/bin)
 set(TMP_VAR ${EXECUTABLE_OUTPUT_PATH})
