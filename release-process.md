@@ -57,11 +57,13 @@ buildscript {
 1. update the develop branch source for the next version : <NEXT_VERSION>
 2. change some informations in `readme.md` file.
   1 change the branch name in the two first link in the two first lines.
+
   ```markdown
 [![Build Status](https://travis-ci.org/Tocea/gradle-cpp-plugin.svg?branch=master)](https://travis-ci.org/Tocea/gradle-cpp-plugin)
 [![Coverage Status](https://coveralls.io/repos/Tocea/gradle-cpp-plugin/badge.svg?branch=master)](https://coveralls.io/r/Tocea/gradle-cpp-plugin?branch=master)
 ```
   must be replaced by :
+
   ```markdown
 [![Build Status](https://travis-ci.org/Tocea/gradle-cpp-plugin.svg?branch=develop)](https://travis-ci.org/Tocea/gradle-cpp-plugin)
 [![Coverage Status](https://coveralls.io/repos/Tocea/gradle-cpp-plugin/badge.svg?branch=develop)](https://coveralls.io/r/Tocea/gradle-cpp-plugin?branch=develop)
