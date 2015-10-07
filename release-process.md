@@ -10,7 +10,8 @@ This page use git-flow to process release. So you need to install it : https://w
   *. 'git flow release start <NEW_VERSION>`
 2. update version in the file build.gradle to `<NEW_VERSION>`
 3. change some informations in `readme.md` file.
-  1 change the branch name in the two first link in the two first lines.
+
+  1. change the branch name in the two first link in the two first lines.
   ```markdown
 [![Build Status](https://travis-ci.org/Tocea/gradle-cpp-plugin.svg?branch=develop)](https://travis-ci.org/Tocea/gradle-cpp-plugin)
 [![Coverage Status](https://coveralls.io/repos/Tocea/gradle-cpp-plugin/badge.svg?branch=develop)](https://coveralls.io/r/Tocea/gradle-cpp-plugin?branch=develop)
