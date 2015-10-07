@@ -121,11 +121,15 @@ If someone can tell me how to do this in the examples projects. All contribution
 
 *Cmake* project are used to have a `CMakeLists.txt` file in many folders. And C project are used to have libraries notions inside a project as we can see in this project : https://github.com/jameskbride/cmake-hello-world. 
 
+### Exemple of possible refactorings for the project cmake-hello-world
+
 In this project, a library 'hello' is used by the main file `helloWorld.cpp`. So, how is the good way to use this library ? There are three ways to do that :
 
-1. **Use the library as a sources.**
+#### **Use the library as a sources.**
 
 First choice, you considere that the 'hello' library, as the 'helloword.cpp' file is a part of the project et must be placed inside as sources :
+
+**Exemple : A single gradle project**
 
 ```groovy
 cmake-hello-world
@@ -142,7 +146,7 @@ cmake-hello-world
         
 ```
 
-2. **Use the library as an external dependency**
+#### **Use the library as an external dependency**
 
 Second choice, you considere that the 'hello' library has nothing to do with the project. This library can be used by many projects, in many computers. So create a gradle project 'hello-library', place the souces inside, and upload it in an artifact reposotory manager as [Nexus](http://www.sonatype.com/nexus/product-overview) for example.
 
@@ -155,7 +159,7 @@ dependencies {
 }
 ```
 
-3. **Use this library as a sub-module project**
+#### **Use this library as a sub-module project**
 
 Third choice, The 'hello' library has nothing to in this project. but this library is close of the project. The project and the library are a part of the same product. In this case, It can be a good idea te create a gradle project for this product which contain sub-modules (the 'hello' library and the 'cmake-hello-world' project).
 
@@ -183,7 +187,9 @@ dependencies {
 }
 ```
 
-**In Conclusion** : The gradle cpp plugin create a real notion of **Projects** and **libraries**. User of this plugins have to have in minds these notions when they create their projects configurations with usual C tools (Make, CMake…).
+#### **In Conclusion** :
+
+The gradle cpp plugin create a real notion of **Projects** and **libraries**. User of this plugins have to have in minds these notions when they create their projects configurations with usual C tools (Make, CMake…).
 
 You can find the 3 possibles solutions in the 'exemplek folders in the source code.
 
