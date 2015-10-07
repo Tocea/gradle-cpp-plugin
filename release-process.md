@@ -51,7 +51,9 @@ buildscript {
   1. To do that. you need first to have an account and well configured on the [gradle plugin repository](https://plugins.gradle.org/)
   2. checkout the tag produce by the release process : 
     * `git checkout cpp_<NEW_VERSION>`
-  3. publish the plugin with the command : `./gradlew publishPlugins -Dgradle.publish.key=<YOUR_PUBLISH_KEY> -Dgradle.publish.secret=<YOUR_SECRET_KEY>`. The secret and the public key come from your gradle account --> [see documentation](https://plugins.gradle.org/docs/submit).
+  3. publish the plugin with the command : 
+    * `./gradlew publishPlugins -Dgradle.publish.key=<YOUR_PUBLISH_KEY> -Dgradle.publish.secret=<YOUR_SECRET_KEY>`. 
+    * The secret and the public key come from your gradle account --> [see documentation](https://plugins.gradle.org/docs/submit).
 
 ## Prepare the develop version
 
