@@ -101,6 +101,26 @@ dependencies {
 }
 ```
 
+## CMAKE conditions and the notion of 'Projects'
+
+Gradle is a **project** and **dependencies** manager. So, a gradle project must be seen as an atomic project which contains only :
+* sources in `src/main/headers` and `src/main/cpp`
+* test sources in `src/test/headers` and `src/test/cpp`
+* configuration file (`build.gradle` and `CMakeLists.txt` located **only on the project root location**.
+
+Cmake project are used to have a `CMakeLists.txe` file in many folders. And C project are used to have libraries notions inside a project as we can see in this project : https://github.com/jameskbride/cmake-hello-world. In this project, a library 'hello'. This library is by the main file `helloWorld.cpp`. 
+
+Cmake have to be able to :
+* compile sources (with for example `make compile`
+* compile testSources (with for example `make testCompile`
+* execute test (with for example `make test`
+
+Projects examples can be fond in the plugin source code in the `examples` folders.
+
+**note :** at this time, I'm not a cmake expert. I dont manage to create all this make rules with cmake: I only manage to compile sources and test sources with the command `make` and launching test with the command `make test` using *ctest*.
+If someone can tell me how to do this in the examples projects. All contributions will be appreciate:
+
+
 ## Extension properties
 
 The Java plugin adds a number of conventions properties to the project, shown below. You can use these properties in your build script as though they were properties of the project object. 
