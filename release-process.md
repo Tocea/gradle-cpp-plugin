@@ -6,11 +6,11 @@ This page use git-flow to process release. So you need to install it : https://w
 
 ## Process
 
-1. prepare the release with git flow
+1. prepare the release with git flow.
 
-  *. 'git flow release start <NEW_VERSION>`
+  * 'git flow release start <NEW_VERSION>`
 
-2. update version in the file build.gradle to `<NEW_VERSION>`
+2. update version in the file build.gradle to `<NEW_VERSION>`.
 
 3. change some informations in `readme.md` file.
 
