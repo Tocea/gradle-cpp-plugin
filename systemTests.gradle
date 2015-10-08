@@ -1,0 +1,58 @@
+
+
+//////////////// test hello-world project //////////////////////
+
+task helloWorldTest(type: Exec) {
+    workingDir 'exemples/hello-world'
+    commandLine './gradlew'
+    args '-q', 'clean', 'run'
+    standardOutput = new ByteArrayOutputStream()
+}
+
+helloWorldTest << {
+    assert standardOutput.toString().contains('Hello, world!\n')
+}
+
+
+//////////////// test hello-world-with-libray project //////////////////////
+
+
+task installHelloLibrary(type: Exec) {
+    workingDir 'exemples/hello-world-with-libraries/hello-library/'
+    commandLine './gradlew'
+    args '-q', 'clean', 'install'
+
+}
+
+
+task runHelloMain(type: Exec, dependsOn: installHelloLibrary) {
+    workingDir 'exemples/hello-world-with-libraries/hello-main/'
+    commandLine './gradlew'
+    args '-q', 'clean', 'run'
+    standardOutput = new ByteArrayOutputStream()
+}
+
+runHelloMain << {
+    assert standardOutput.toString().contains('Hello, world!\n')
+}
+
+
+task helloWordWithDependenciesTest(dependsOn: runHelloMain)
+
+
+//////////////// test hello-world-multi-modules project //////////////////////
+
+task helloWorldMulitModulesTest(type: Exec) {
+    workingDir 'exemples/hello-world-multi-modules'
+    commandLine './gradlew'
+    args '-q', 'clean', 'run'
+    standardOutput = new ByteArrayOutputStream()
+}
+
+
+helloWorldMulitModulesTest << {
+println standardOutput.toString()
+    assert standardOutput.toString().contains('Hello, world!\n')
+}
+
+

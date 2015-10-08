@@ -127,3 +127,16 @@ pluginBundle {
         }
     }
 }
+
+
+
+/////////////////// for system testings ////////////////////////
+
+apply from: 'systemTests.gradle'
+
+task systemTests(dependsOn: install)
+
+systemTests.dependsOn helloWorldTest
+systemTests.dependsOn helloWordWithDependenciesTest
+systemTests.dependsOn helloWorldMulitModulesTest
+
