@@ -16,11 +16,12 @@ FIND_PACKAGE(CPPUNIT REQUIRED)
 enable_testing()
 
 
-set(TMP_VAR ${EXECUTABLE_OUTPUT_PATH})
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/test-obj)
+#set(TMP_VAR ${EXECUTABLE_OUTPUT_PATH})
+#set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/test-obj)
 include_directories(${TEST_HEADERS})
 
 
 add_executable(launchTest ${SOURCES} ${TEST_SOURCES})
-target_link_libraries(launchTest  cppunit)
+target_link_libraries(launchTest  cppunit ${STATIC_LIBRARIES})
 add_test(NAME aTest COMMAND launchTest)
+
