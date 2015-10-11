@@ -1,7 +1,9 @@
 
 # Main useful constants
-SET(MAIN_SRC "${PROJECT_SOURCE_DIR}/src/main/cpp")
-SET(HEADERS "${PROJECT_SOURCE_DIR}/src/main/headers")
+SET(MAIN_SRC ${PROJECT_SOURCE_DIR}/src/main/cpp)
+SET(MAIN_HEADERS ${PROJECT_SOURCE_DIR}/src/main/headers)
+
+
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
 
 
@@ -12,9 +14,10 @@ file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 file(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
 FILE(GLOB SOURCES ${MAIN_SRC}/*.cpp)
 
+
 ## Default include directories
 
-include_directories(${HEADERS})
+include_directories(${MAIN_HEADERS})
 include_directories(${MAIN_SRC})
 
 

@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (CMakeHelloWorld)
 
-include(${PROJECT_SOURCE_DIR}/cmake-modules/gradle-cpp.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake_modules/gradle-cpp.cmake)
 
 SET(VERSION "1.0.0-SNAPSHOT")
 
