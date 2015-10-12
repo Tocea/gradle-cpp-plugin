@@ -143,5 +143,40 @@ SET(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -ggdb  -g3 ${CMAKE_
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG -ggdb  -g3 ${CMAKE_C_FLAGS}")
 
 
+######################## additives functions ########################$
 
+#thi function read propersties form a propersties file.
+# a preperties file look like that : 
+# key#1 = valeur1
+# key2 = valeur2
+# …
+# this function return the value associate to a key
+function(get_property_value FilePath Key ResultValue)
+
+
+    file(READ ${FilePath} Contents)
+    # Set the variable "Esc" to the ASCII value 27 - basically something
+    # which is unlikely to conflict with anything in the file contents.
+    string(ASCII 27 Esc)
+
+    # Turn the contents into a list of strings, each ending with an Esc.
+    # This allows us to preserve blank lines in the file since CMake
+    # automatically prunes empty list items during a foreach loop.
+    string(REGEX REPLACE "\n" "${Esc};" ContentsAsList ${Contents})
+
+
+
+    unset(ModifiedContents)
+    foreach(Line ${ContentsAsList})
+      message("Line = ${Line}")
+      #STRING(REGEX MATCH "${Key}[ ]*=[ ]*.*" Value ${Line})
+      #message("temp value=${Value}")
+      if("${Line}" MATCHES "${Key}[ ]*=[ ]*.*")
+        string(REGEX REPLACE "${Key}[ ]*=[ ]*" "" Value ${Line})
+      endif()
+      
+    endforeach()
+    string(REGEX REPLACE "${Esc}" "" Value ${Value})
+    SET(${ResultValue} ${Value} PARENT_SCOPE)
+endfunction()
 

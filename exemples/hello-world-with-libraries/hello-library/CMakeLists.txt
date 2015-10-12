@@ -4,11 +4,13 @@ project (hello-library)
 
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
-message("CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
+
 include(gradle-cpp)
 include(gradle-cpp-cppUnitTest)
 
-SET(VERSION "1.0.0-SNAPSHOT")
+# read version of the project in the gradle.propersties file
+get_property_value(${CMAKE_SOURCE_DIR}/gradle.properties "version" VERSION)
+MESSAGE("VERSION = ${VERSION}bb")
 SET(PROJECT_NAME "hello-${VERSION}")
 SET(PROJECT_STATICNAME "hello_static-${VERSION}")
 
@@ -29,20 +31,12 @@ add_library (
     SHARED
     ${SOURCES}
 )
-####################################"
-## Libraries
-SET(REQUIRED_LIBS, "")
-
-
-####################################"
-# FIN INITIALISATION VARIABLES
-#
 
 
 # LINK LIBRARIES
 
-target_link_libraries( ${PROJECT_STATICNAME} ${REQUIRED_LIBS} )
-target_link_libraries( ${PROJECT_NAME} ${REQUIRED_LIBS} )
+target_link_libraries( ${PROJECT_STATICNAME} ${STATIC_LIBRARIES} )
+target_link_libraries( ${PROJECT_NAME} ${STATIC_LIBRARIES} )
 
 
 # Add own output directory to library dir

@@ -8,7 +8,9 @@ include(gradle-cpp-cppUnitTest)
 
 
 
-SET(VERSION "1.0.0-SNAPSHOT")
+# read version of the project in the gradle.propersties file
+get_property_value(${CMAKE_SOURCE_DIR}/../gradle.properties "version" VERSION)
+
 SET(PROJECT_NAME "hello-${VERSION}")
 SET(PROJECT_STATICNAME "hello_static-${VERSION}")
 

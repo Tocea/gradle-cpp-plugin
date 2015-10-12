@@ -8,7 +8,7 @@ file(GLOB_RECURSE TEST_SOURCES ${TEST_SRC}/*.cpp)
 # Usefull to get CPPUNIT ...
 # I would love to find a way to have cppunit
 # only required for builds where unit test make sense ...
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
+#set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
 FIND_PACKAGE(CPPUNIT REQUIRED)
 
 ##################### tests ##################

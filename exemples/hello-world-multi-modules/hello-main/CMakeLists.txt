@@ -6,7 +6,9 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../cmake_modules/")
 include(gradle-cpp)
 #include(gradle-cpp-cppUnitTest)
 
-SET(VERSION "1.0.0-SNAPSHOT")
+# read version of the project in the gradle.propersties file
+get_property_value(${CMAKE_SOURCE_DIR}/../gradle.properties "version" VERSION)
+
 SET(PROJECT_NAME "hello-main-${VERSION}")
 
 

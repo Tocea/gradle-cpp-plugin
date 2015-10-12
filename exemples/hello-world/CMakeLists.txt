@@ -5,9 +5,12 @@ project (CMakeHelloWorld)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
 include(gradle-cpp)
 
-SET(VERSION "1.0.0-SNAPSHOT")
-#get_property(VER SOURCE gradle.properties PROPERTY version)
-#message("version= ${VER}")
+
+
+
+# read version of the project in the gradle.propersties file
+get_property_value(${CMAKE_SOURCE_DIR}/gradle.properties "version" VERSION)
+
 
 SET(CMakeHelloWorldName "hello-world-${VERSION}")
 
