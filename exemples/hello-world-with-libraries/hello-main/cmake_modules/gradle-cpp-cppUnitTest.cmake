@@ -1,7 +1,7 @@
 
 SET(TEST_SRC ${PROJECT_SOURCE_DIR}/src/test/cpp)
 SET(TEST_HEADERS ${PROJECT_SOURCE_DIR}/src/test/headers)
-file(GLOB TEST_SOURCES ${TEST_SRC}/*.cpp)
+file(GLOB_RECURSE TEST_SOURCES ${TEST_SRC}/*.cpp)
 
 # -------------------------
 

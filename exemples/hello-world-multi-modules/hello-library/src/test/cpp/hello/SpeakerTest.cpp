@@ -1,6 +1,6 @@
 // ? #include "stdafx.h"
 
-#include "SpeakerTest.hpp"
+#include "hello/SpeakerTest.hpp"
 
 using namespace Hello;
 // Registers the fixture into the 'registry'

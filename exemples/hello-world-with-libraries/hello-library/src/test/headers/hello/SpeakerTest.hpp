@@ -3,7 +3,7 @@
 #define SPEAKERTEST_H
 
 #include <cppunit/extensions/HelperMacros.h>
-#include "Speaker.hpp"
+#include "hello/Speaker.hpp"
 
 class SpeakerTest : public CppUnit::TestFixture
 {
