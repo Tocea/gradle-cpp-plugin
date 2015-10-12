@@ -2,6 +2,7 @@ addons:
     apt:
         packages:
             - libcppunit-dev
+            - g++
 
 language: groovy
 script: "./gradlew build install systemTests jacocoTestReport"
