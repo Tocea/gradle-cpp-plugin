@@ -25,7 +25,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.3.0-SNAPSHOT"
+    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.9-SNAPSHOT"
   }
 }
 
