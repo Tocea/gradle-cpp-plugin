@@ -18,15 +18,12 @@ SET(PROJECT_STATICNAME "hello_static-${VERSION}")
 
 
 ####################################"
-# AMALIB STATIC
 add_library (
     ${PROJECT_STATICNAME}
     STATIC
    ${SOURCES}        
 )
 ####################################"
-# AMALIB SHARED
-
 add_library (
     ${PROJECT_NAME}
     SHARED
