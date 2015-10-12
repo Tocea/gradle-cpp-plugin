@@ -49,7 +49,8 @@ endif()
 
 # DEFAULT FLAGS
 if(NOT DEFINED FLAGS)
-    SET(FLAGS  "-fdiagnostics-color=always")
+        # for gcc > 4.9
+    #SET(FLAGS  "-fdiagnostics-color=always"
 endif()
 
 # Initialisation specifique OS
