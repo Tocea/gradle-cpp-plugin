@@ -34,11 +34,23 @@ dependencies {
 
 apply plugin: "fr.echoes.gradle.cpp"
 
+println configurations
+configurations {
+   cOnArchives {
+       extendsFrom cArchives 
+   }
+}
+
 task launchCMake(type: Exec, group: "init") {
 
     workingDir = "build"
     executable = "cmake"
+    if (optionDone) {
+        println "option = $optionDone"
+        args "-DMyOption:BOOL=ON", ".."
+    } else {
     args  ".."
+   }
 }
 
 compileCpp.dependsOn launchCMake
