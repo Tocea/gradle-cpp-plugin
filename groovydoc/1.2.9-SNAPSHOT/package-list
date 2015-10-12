@@ -1,0 +1,5 @@
+fr.echoes.gradle.plugins.cpp
+fr.echoes.gradle.plugins.cpp.configurations
+fr.echoes.gradle.plugins.cpp.extensions
+fr.echoes.gradle.plugins.cpp.model
+fr.echoes.gradle.plugins.cpp.tasks
