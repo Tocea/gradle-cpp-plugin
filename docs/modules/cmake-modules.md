@@ -116,7 +116,7 @@ target_link_libraries(${PROJECT_NAME} ${STATIC_LIBRARIES})
 
 ## The `gradle-cpp-cppUnitTest` module
 
-The `gradle-ccp-cppUnitTest` module had this features :
+The `gradle-ccp-cppUnitTest` module add this features :
 * the sourcesets `src/test/headers` and `src/test/cpp`
 * checking if cppUnit is install on your computer or not (the module does not install it)
 * launch test (create a rule `test` for `make` for example)
