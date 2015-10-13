@@ -79,8 +79,13 @@ This line return for the previous 'gradle.properties' the result '1.0.0-SNAPSHOT
 cmake_minimum_required (VERSION 2.8)
 project (hello-main)
 
+# set the path to find modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
+# include the module gradle-cpp
 include(gradle-cpp)
+# do not include the module gradle-cpp-cppUnitTest
+# because there are no tests in the projects
+# or cppUnit is not installed in your computer
 #include(gradle-cpp-cppUnitTest)
 
 
@@ -89,16 +94,30 @@ get_property_value(${CMAKE_SOURCE_DIR}/gradle.properties "version" VERSION)
 
 SET(PROJECT_NAME "hello-main-${VERSION}")
 
-
+# create an executable call 'hello-main-1.0.0-SNAPSHOT
+# this executable use the sources from 'src/main/java'
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+# link to this executables all static libraries dependencies coming from gradle
 target_link_libraries(${PROJECT_NAME} ${STATIC_LIBRARIES})
 '''
 
 ## The 'gradle-cpp-cppUnitTest' module
 
-Incoming
+The 'gradle-ccp-cppUnitTest' module had this features :
+* the sourcesets 'src/test/headers' and 'src/test/cpp'
+* checking if cppUnit is install on your computer or not (the module does not install it)
+* launch test (create a rule 'test' for make for example)
 
 ## The 'Find-cppUnitTest' module
 
-Incoming
+The 'find-cppUnitTest' is a module to check in cppUnit is installed on your computer. You don't have to use this module directly.
+This module is called by the 'gradle-cpp-cppUnitTest' module.
+
+## See examples
+
+Examples can be found in [here](https://github.com/Tocea/gradle-cpp-plugin/tree/master/exemples).
+
+## Notes
+
+I'm not an expert of cmake. These modules can be improved. You help is welcomed :). You can see the next cool features or issues to fix [here](https://github.com/Tocea/gradle-cpp-plugin/issues).
