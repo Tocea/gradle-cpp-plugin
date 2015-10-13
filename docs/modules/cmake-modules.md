@@ -62,12 +62,13 @@ The module store dinamically all static libraries comming from gradle (ex : `com
 
 Directly, in your code, you can use API from your dependencies. To link these externals libraries to your executable or your library. add this to your `CMakelists.txt` file. 
 ```
-add_executable(<target_name> ${SOURCES})
+target_link_libraries(<target_name> ${STATIC_LIBRARIES})
+
 ```
 
 ### Read properties file
 
-Properties file are used to store a list of `keys`, `values`. One exemple of this type of file is the file `gradle.properties`. 
+Properties file are used to store a list of `keys` -->`values`. One exemple of this type of file is the file `gradle.properties`. 
 ```
 group=fr.echoes.example
 version=1.0.0-SNAPSHOT
