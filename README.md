@@ -19,7 +19,6 @@ To use the gradle-cpp-plugin, include the following in your build script:
 
 
 ```groovy
-   
 buildscript {
   repositories {
     maven {
@@ -27,13 +26,10 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.8"
+    classpath "gradle.plugin.fr.echoes.gradle.plugins:cpp-project-plugin:1.2.9"
   }
 }
-
 apply plugin: "fr.echoes.gradle.cpp"
-
-apply plugin: "com.tocea.gradle.cpp"
 ```
 ## Source sets
 
@@ -265,8 +261,13 @@ cpp {
 ## Clean
 The clean task is an instance of Delete. It simply removes the directory denoted by its ${project.buildDir} property. 
 
+## modules 
+To simplify the configurations of the C build tools, some modules are provideds. At this time only cmake modules are provided.
 
-## Exemple of configuraiton with Cmake
+Provided lists : 
+* [CMake modules](docs/modules/cmake-modules.md)
+
+## Exemple of configuration with Cmake
 
 **Exemple 6. Exemple of build.gradle to use cmake** 
 
@@ -274,7 +275,7 @@ The clean task is an instance of Delete. It simply removes the directory denoted
 
 task launchCMake(type: Exec, group: "init") {
 
-    workingDir = "build"
+    workingDir = buildDir
     executable = "cmake"
     args  ".."
 }

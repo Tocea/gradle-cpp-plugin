@@ -43,13 +43,13 @@ class CppPlugin implements Plugin<Project> {
         def cppConfiguration = new CppConfiguration()
         archiveConf.configureDistribution()
         archiveConf.initCppArchives()
-
+        archiveConf.configureArtifact()
 
         _project.afterEvaluate {
             // Access extension variables here, now that they are set
 
             archiveConf.ConfigureDistZip()
-            archiveConf.configureArtifact()
+
             configureTasks(_project)
             cppConfiguration.configureCppExecTask(_project)
 
