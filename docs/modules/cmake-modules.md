@@ -9,6 +9,8 @@ Three modules are provided :
 * 'gradle-cpp-cppUnitTest' : to compile and launch test
 * 'Find-cppUnitTest' : Use by 'gradle-cppUnitTest' to check if [cppUnit](http://cppunit.sourceforge.net/doc/cvs/cppunit_cookbook.html) is well installed on your computer.
 
+Thes modules can be find [here](https://github.com/Tocea/gradle-cpp-plugin/tree/master/modules/cmake_modules).
+
 ## The 'gradle-cpp-plugin'
 
 This module add this features :
