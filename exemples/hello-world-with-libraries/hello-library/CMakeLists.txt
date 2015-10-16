@@ -10,7 +10,7 @@ include(gradle-cpp-cppUnitTest)
 
 # read version of the project in the gradle.propersties file
 get_property_value(${CMAKE_SOURCE_DIR}/gradle.properties "version" VERSION)
-MESSAGE("VERSION = ${VERSION}bb")
+MESSAGE("VERSION = ${VERSION}")
 SET(PROJECT_NAME "hello-${VERSION}")
 SET(PROJECT_STATICNAME "hello_static-${VERSION}")
 
