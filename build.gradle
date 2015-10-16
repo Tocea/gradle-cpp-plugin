@@ -157,3 +157,10 @@ sonarRunner {
     }
 }
 
+
+subprojects {
+     sonar.project{
+         language = "groovy"
+     }
+}
+         
