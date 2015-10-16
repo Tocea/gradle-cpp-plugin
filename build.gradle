@@ -34,6 +34,7 @@ plugins {
     id "maven"
     id "jacoco"
     id "groovy"
+    id 'sonar-runner"
 }
 
 
@@ -140,3 +141,24 @@ systemTests.dependsOn helloWorldTest
 systemTests.dependsOn helloWordWithDependenciesTest
 systemTests.dependsOn helloWorldMulitModulesTest
 
+
+/////////////////// sonar ///////////
+
+
+sonarRunner {
+    // toolVersion = "2.4"
+
+    // Fine grained control over the runner process
+    forkOptions {
+        maxHeapSize = '1024m'
+    }
+
+    sonarProperties {
+
+        property "sonar.host.url", "http://192.168.1.1:9000"
+            property "sonar.jdbc.url", "jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance"
+            property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+            property "sonar.jdbc.username", "sonar"
+            property "sonar.jdbc.password", "sonar"
+    }
+}
