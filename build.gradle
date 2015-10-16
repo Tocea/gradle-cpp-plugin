@@ -34,7 +34,7 @@ plugins {
     id "maven"
     id "jacoco"
     id "groovy"
-    id 'sonar-runner"
+    id "sonar-runner"
 }
 
 
