@@ -152,15 +152,14 @@ sonarRunner {
         property "sonar.host.url", "http://zeus:9000";
         property "sonar.jdbc.url", "jdbc:mysql://zeus:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance";
         property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
-            property "sonar.jdbc.username", "sonar"
-            property "sonar.jdbc.password", "sonar"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.jdbc.password", "sonar"
+        property "sonar.jacoco.reportPath", "$buildDir/jacoco/test.exec"
     }
 }
 
 
-subprojects {
-     sonar.project{
-         language = "groovy"
-     }
+sonar.project{
+    language = "groovy"
 }
          
