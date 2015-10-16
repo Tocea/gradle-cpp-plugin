@@ -39,7 +39,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath "fr.echoes.gradle.plugins:cpp-project-plugin:${cppPluginVersion('../../../gradle.properties')}"
+    classpath "fr.echoes.gradle.plugins:gradle-cpp-plugin:${cppPluginVersion('../../../gradle.properties')}"
   }
 }
 

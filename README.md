@@ -24,7 +24,7 @@ buildscript {
     mavenLocal()
   }
   dependencies {
-    classpath "fr.echoes.gradle.plugins:cpp-project-plugin:1.3.0-SNAPSHOT"
+    classpath "fr.echoes.gradle.plugins:gradle-cpp-plugin:1.3.0-SNAPSHOT"
   }
 }
 apply plugin: "fr.echoes.gradle.cpp"
