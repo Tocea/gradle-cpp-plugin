@@ -155,11 +155,8 @@ sonarRunner {
         property "sonar.jdbc.username", "sonar"
         property "sonar.jdbc.password", "sonar"
         property "sonar.jacoco.reportPath", "$buildDir/jacoco/test.exec"
+        property "sonar.language", "grvy"
     }
 }
 
 
-sonar.project{
-    language = "groovy"
-}
-         
