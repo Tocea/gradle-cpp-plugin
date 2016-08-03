@@ -17,6 +17,7 @@
 
 buildscript {
     repositories {
+
         maven {
             url "https://plugins.gradle.org/m2/"
         }
@@ -24,8 +25,10 @@ buildscript {
     dependencies {
         classpath "com.gradle.publish:plugin-publish-plugin:0.9.1"
     }
+ dependencies {
+    classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.0.1"
+  }
 }
-
 
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
@@ -36,6 +39,17 @@ plugins {
     id "groovy"
 }
 
+apply from: "$gradleConfigUrl/git.gradle" 	// populates $branch
+
+apply from: "$gradleConfigUrl/init.gradle"	// initialize global variables
+apply from: "$gradleConfigUrl/eclipse.gradle"
+apply from: "$gradleConfigUrl/sonar.gradle"
+apply from: "$gradleConfigUrl/nexus.gradle"
+apply from: "$gradleConfigUrl/findbugs.gradle"
+apply from: "$gradleConfigUrl/jacoco.gradle"
+apply from: "$gradleConfigUrl/javadoc-aggregate.gradle"
+apply from: "$gradleConfigUrl/groovydoc-aggregate.gradle"
+apply from: "$gradleConfigUrl/documentation-zip.gradle"
 
 
 repositories {
