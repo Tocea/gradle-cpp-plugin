@@ -56,9 +56,9 @@ The cpp plugin adds a number of tasks to your project, as shown below.
 | Task name        | Depends on      | Type    |  Description                                                    | 
 | ---------------- | --------------  | ------- | --------------------------------------------------------------- |
 | initOutputDirs   | -               | Task    | Initializes structure folders in project.buildDir directory      |
-| downloadLibs     | initOutputDirs  | Task    | Copies project dependencies in project.buildDir/extLib directtory |
+| downloadLibs     | initOutputDirs  | Task    | Copies project dependencies in project.buildDir/extLib directory |
 | compileCpp       | downloadLibs    | CppExecTask --> Exec    | Compiles source code. Needs to be configured to launch the correct tool |
-| testCompileCpp       | compileCpp    | CppExecTask --> Exec    | Compile test source code. Needs to be configured te launch the correct tool |
+| testCompileCpp       | compileCpp    | CppExecTask --> Exec    | Compile test source code. Needs to be configured to launch the correct tool |
 | testCpp       | testCompileCpp    | CppExecTask --> Exec    | Launches test. Needs to be configured to launch the correct tool |
 | distZip       | compileCpp    | Zip    | Assembles the ZIP file if it is a c-application or a CLIB file if it is a c-library |
 | assemble       | all archives task as distZip    | Task    | Assembles the outputs of this project |
@@ -106,7 +106,7 @@ dependencies {
 *Gradle* is a **project** and **dependencies** manager. So, a gradle project must be seen as an **atomic project** which contains only:
 * sources in `src/main/headers` and `src/main/cpp`
 * test sources in `src/test/headers` and `src/test/cpp`
-* configuration file (`build.gradle` and, for exemple with *CMake*,`CMakeLists.txt` locateds **only on the project root location**.
+* configuration file (`build.gradle` and, for example with *CMake*,`CMakeLists.txt` located **only on the project root location**.
 
 The C building tool under *Gradle* have to be able to:
 * compile sources (with for example `make compile`)
@@ -115,8 +115,8 @@ The C building tool under *Gradle* have to be able to:
 
 Projects examples can be found in the plugin source code in the `examples` folders.
 
-**note:** at this time, I'm not a cmake expert. I do not succes to create all this make rules with *CMake*: I only manage to compile sources and test sources with the command `make` and launching test with the command `make test` using *ctest*.
-If someone can tell me how to do this in the examples projects. All contributions will be appreciate:
+**note:** at this time, I'm not a cmake expert. I do not succeed to create all this make rules with *CMake*: I only manage to compile sources and test sources with the command `make` and launching test with the command `make test` using *ctest*.
+If someone can tell me how to do this in the example projects, all contributions will be appreciated.
 
 
 *Cmake* project are used to have a `CMakeLists.txt` file in many folders. And C project are used to have libraries notions inside a project as we can see in this project: https://github.com/jameskbride/cmake-hello-world. 
@@ -127,7 +127,7 @@ In this project, a library 'hello' is used by the main file `helloWorld.cpp`. So
 
 #### **Use the library as a sources.**
 
-First choice, you considere that the 'hello' library, as the 'helloword.cpp' file is a part of the project et must be placed inside as sources:
+First choice, you consider that the 'hello' library, as the 'helloworld.cpp' file is a part of the project that must be placed inside at sources:
 
 **Example: A single gradle project**
 
@@ -142,13 +142,13 @@ cmake-hello-world
         |    |___Speaker.h
         |___cpp/
             |___Speaker.cpp
-            |___helloWord.cpp
+            |___helloWorld.cpp
         
 ```
 
 #### **Use the library as an external dependency**
 
-Second choice, you considere that the 'hello' library has nothing to do with the project. This library can be used by many projects, in many computers. So create a gradle project 'hello-library', place the souces inside, and upload it in an artifact reposotory manager as [Nexus](http://www.sonatype.com/nexus/product-overview) for example.
+Second choice, you consider that the 'hello' library has nothing to do with the project. This library can be used by many projects, in many computers. So create a gradle project 'hello-library', place the sources inside, and upload it in an artifact repository manager as [Nexus](http://www.sonatype.com/nexus/product-overview) for example.
 
 Then in the project cmake-hello-world, use it as a dependency.
 
@@ -161,11 +161,11 @@ dependencies {
 
 #### **Use this library as a sub-module project**
 
-Third choice, the 'hello' library has nothing to in this project. but this library is close of the project. The project and the library are a part of the same product. In this case, It can be a good idea te create a gradle project for this product which contain sub-modules (the 'hello' library and the 'cmake-hello-world' project).
+Third choice, the 'hello' library has nothing to in this project. but this library is close to the project. The project and the library are a part of the same product. In this case, It can be a good idea to create a gradle project for this product which contain sub-modules (the 'hello' library and the 'cmake-hello-world' project).
 
 **Example: gradle multi-modules project**
 ```groovy
-exemple-project
+example-project
 |___settings.gradle
 |___gradle.properties
 |___build.gradle
@@ -191,19 +191,19 @@ dependencies {
 
 The gradle cpp plugin create a real notion of **Projects** and **libraries**. User of this plugins have to have in minds these notions when they create their projects configurations with usual C tools (Make, CMake…).
 
-You can find the 3 possibles solutions in the 'exemplek folders in the source code.
+You can find the 3 possibles solutions in the `exemples` folders in the source code.
 
 ## Extension properties
 
 The Java plugin adds a number of conventions properties to the project, shown below. You can use these properties in your build script as though they were properties of the project object. 
 
-**Table 3. Cpp plugin - Project projerties**
+**Table 3. Cpp plugin - Project properties**
     
 | Name        | Type       | Default value    |  Description          | 
 | ----------- | ---------- | ---------------- | -------------------------------|
 |  cpp 	  | CppPluginExtension 	       | - 	 | Contains the configuration of cpp      |
     
-**Example 2. Cpp extension exemple** 
+**Example 2. Cpp extension example** 
 
 ```groovy
 cpp {
@@ -211,16 +211,16 @@ cpp {
 }
 ```
 
-**Table 4. Cpp plugin - CppPluginExtension projerties**
+**Table 4. Cpp plugin - CppPluginExtension properties**
     
 | Name        | Type    | Default value    |  Description          | 
 | ----------- | ---------- | ---------------- | -------------------------------|
 |  applicationType | ApplicationType | ApplicationType.clibrary | Type of project: ApplicationType.clibrary or ApplicationType.capplication |
 |  classifier | String | classifier | Allows to distinguish artifacts for a same version. |
-|  buildTasksEnabled | boolean | true | Activates or desactivates the compileCpp, testCompileCpp, testCpp tasks |
+|  buildTasksEnabled | boolean | true | Activates or deactivates the compileCpp, testCompileCpp, testCpp tasks |
 |  exec | CppExecConfiguration | - | Configures the builds tasks |
 
-**Example 4. Cpp extension exemple** 
+**Example 4. Cpp extension example** 
 
 ```groovy
 cpp {
@@ -233,7 +233,7 @@ cpp {
 }
 ```
 
-**Table 5. Cpp plugin - CppExecConfiguration projerties**
+**Table 5. Cpp plugin - CppExecConfiguration properties**
     
 | Name        | Type    | Default value    |  Description          | 
 | ----------- | ---------- | ---------------- | -------------------------------|
@@ -262,7 +262,7 @@ cpp {
 The clean task is an instance of Delete. It simply removes the directory denoted by its ${project.buildDir} property. 
 
 ## modules 
-To simplify the configurations of the C build tools, some modules are provideds. At this time only cmake modules are provided.
+To simplify the configurations of the C build tools, some modules are provided. At this time only cmake modules are provided.
 
 Provided lists: 
 * [CMake modules](docs/modules/cmake-modules.md)
